@@ -1,0 +1,2 @@
+# tech.idda.az
+Redesign
