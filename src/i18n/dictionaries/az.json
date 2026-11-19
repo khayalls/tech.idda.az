@@ -27,6 +27,35 @@
   "mission": {
     "title": "Vergi güzəştləri, ixrac dəstəyi və digər imkanlarla innovativ biznesinizi inkişaf etdirin"
   },
+  "taxes": {
+    "label": "20 il müddətinə 0% vergi",
+    "sub": "20 il müddətinə",
+    "items": [
+      {
+        "title": "Mənfəət vergisi",
+        "body": "Texnologiya və süni intellekt şirkətləri inkişaf, işə qəbul və innovasiya üçün daha çox kapital saxlayır."
+      },
+      {
+        "title": "Gəlir vergisi",
+        "body": "Rezidentin uyğun fəaliyyəti üzrə əmək gəlirlərindən gəlir vergisi tutulmur."
+      },
+      {
+        "title": "Əmlak vergisi",
+        "body": "Sektor subyektləri əmlak vergisindən azadolma ilə uzunmüddətli əməliyyat xərclərini azaldır."
+      },
+      {
+        "title": "Torpaq vergisi",
+        "body": "Sektor subyektləri uyğun fəaliyyətləri üçün torpaq vergisindən azad olunur."
+      },
+      {
+        "title": "Dividend vergisi",
+        "body": "Dividendlər vergidən azad paylanır və səhmdarlar üçün dəyəri artırır."
+      }
+    ]
+  },
+  "beyond": {
+    "text": "Vergi güzəştlərindən əlavə, uyğun rezidentlər sosial sığorta güzəştlərindən, xarici mütəxəssislərin daha asan işə cəlb edilməsindən, daha ucuz bulud və proqram xidmətlərindən, həmçinin dövlət satınalmalarında üstünlüklərdən, ixrac dəstəyindən və qabaqcıl rəqəmsal həlləri sınaqdan keçirmək üçün tənzimləyici sandboksdan yararlanır."
+  },
   "faq": {
     "title": "Suallar və cavablar",
     "contactPrefix": "Əlavə suallarınız yarandığı təqdirdə,",

@@ -27,6 +27,35 @@
   "mission": {
     "title": "Grow your innovative business with tax benefits, export support and other opportunities"
   },
+  "taxes": {
+    "label": "0% tax for 20 years",
+    "sub": "for 20 years",
+    "items": [
+      {
+        "title": "Corporate profit tax",
+        "body": "Technology and AI companies keep more capital for growth, hiring and innovation."
+      },
+      {
+        "title": "Employee income tax",
+        "body": "Pay no income tax on employment earnings from a resident’s qualifying activity."
+      },
+      {
+        "title": "Property tax",
+        "body": "Sector entities reduce long-term operating costs through a property tax exemption."
+      },
+      {
+        "title": "Land tax",
+        "body": "Sector entities benefit from a land tax exemption for their qualifying activity."
+      },
+      {
+        "title": "Dividend tax",
+        "body": "Entities benefit from tax-free dividend distributions, increasing value for shareholders."
+      }
+    ]
+  },
+  "beyond": {
+    "text": "Beyond tax relief, eligible residents benefit from social insurance incentives, easier international hiring and lower cloud and software costs, alongside public procurement advantages, export support and a regulatory sandbox to test advanced digital solutions."
+  },
   "faq": {
     "title": "Questions, answered.",
     "contactPrefix": "If you have any further questions, you can reach us at",

@@ -2,6 +2,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/hero/Hero";
 import { Mission } from "@/components/sections/mission/Mission";
+import { Taxes } from "@/components/sections/taxes/Taxes";
+import { Beyond } from "@/components/sections/beyond/Beyond";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function Home() {
@@ -14,7 +16,9 @@ export default async function Home() {
       <main id="main">
         <Hero t={t.hero} />
         <Mission t={t.mission} />
-        {/* Next sections are built one at a time: 0% → Beyond tax → Benefits → Who can apply → FAQ → Apply. */}
+        <Taxes t={t.taxes} />
+        <Beyond t={t.beyond} />
+        {/* Next: More than tax → Who can apply → FAQ → Apply. */}
       </main>
       <Footer t={t.footer} />
     </>
