@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "title": "Azərbaycanda Texnopark rezidentliyi — İRİA",
+    "description": "Vergi güzəştləri, ixrac dəstəyi və digər imkanlarla innovativ biznesinizi inkişaf etdirin. Texnopark rezidentləri üçün 20 il 0% vergi."
+  },
+  "a11y": {
+    "skipToContent": "Məzmuna keç",
+    "language": "Dil",
+    "home": "İnnovasiya və Rəqəmsal İnkişaf Agentliyi — ana səhifə",
+    "openMenu": "Menyunu aç",
+    "closeMenu": "Menyunu bağla",
+    "mainNav": "Əsas"
+  },
+  "nav": {
+    "whyAzerbaijan": "Niyə Azərbaycan?",
+    "benefits": "Üstünlüklər",
+    "whoCanApply": "Kimlər müraciət edə bilər?",
+    "faq": "Tez-tez verilən suallar",
+    "apply": "Müraciət et"
+  },
+  "hero": {
+    "title": "Texnopark rezidentliyinin üstünlüklərindən yararlanın!",
+    "apply": "Müraciət et",
+    "explore": "Üstünlüklərlə tanış ol"
+  },
+  "faq": {
+    "title": "Suallar və cavablar",
+    "contactPrefix": "Əlavə suallarınız yarandığı təqdirdə,",
+    "contactSuffix": "elektron poçt ünvanına yaza və ya +994 12 310 14 00 (daxili: 3158) nömrəsi ilə əlaqə saxlaya bilərsiniz.",
+    "items": [
+      {
+        "question": "Qeydiyyat prosesi nə qədər vaxt aparır?",
+        "answer": "Texnoparkdan kənar rezident kimi qeydiyyat prosesi, bir qayda olaraq, 7 iş günü ərzində tamamlanır. İstisna hallarda bu müddət uzadıla bilər."
+      },
+      {
+        "question": "Frilanser ilə Rəqəmsal Səyyah arasındakı fərq nədir?",
+        "answer": "Frilanser həm Azərbaycan vətəndaşı, həm də əcnəbi ola bilər və həm yerli, həm də beynəlxalq müştərilərlə işləyə bilər. Rəqəmsal Səyyah isə yalnız əcnəbi ola bilər və gəlirini yalnız xarici mənbələrdən əldə etməlidir."
+      },
+      {
+        "question": "İşçilərin əmək haqqı vergiyə cəlb olunurmu?",
+        "answer": "Xeyr. Texnologiyalar parkı rezidentinin fəaliyyətinin həyata keçirilməsi məqsədilə cəlb etdiyi bütün işçilərin muzdlu işdən əldə etdikləri aylıq gəlirlərə 0% gəlir vergisi dərəcəsi tətbiq edilir.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "Əcnəbi işçilər sosial sığortaya cəlb olunurmu?",
+        "answer": "Xeyr. Texnologiyalar parkının rezidenti, onun podratçısı və birbaşa subpodratçısı tərəfindən fəaliyyət məqsədilə işə cəlb edilən əcnəbilər və vətəndaşlığı olmayan şəxslər məcburi dövlət sosial sığortasına cəlb edilmirlər.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "İxracatçılar üçün dəstək varmı?",
+        "answer": "Bəli. İRİA formalaşmış İKT ixracatçıları üçün ayrıca “İxrac və Bazara Giriş Dəstəyi” proqramı təklif edir: bura birdəfəlik bazara giriş qrantları və ixrac gəlirinə əsaslanan təkrarlanan ixrac qrantları daxildir. Bu, İRİA-nın öz təşəbbüsüdür və qanunla müəyyən edilmiş, yaxud dövlət təminatlı vergi güzəşti deyil. Proqramın şərtləri istənilən vaxt dəyişə bilər. Cari məlumat üçün bizimlə əlaqə saxlayın."
+      }
+    ]
+  },
+  "footer": {
+    "email": "texnopark@idda.az",
+    "phone": "+994 12 310 14 00",
+    "phoneExt": "daxili: 3158",
+    "copyright": "© 2026 İnnovasiya və Rəqəmsal İnkişaf Agentliyi",
+    "ministry": "Azərbaycan Respublikasının Rəqəmsal İnkişaf və Nəqliyyat Nazirliyi"
+  }
+}

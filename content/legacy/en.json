@@ -1,0 +1,428 @@
+{
+  "nav": {
+    "logoAlt": "Innovation and Digital Development Agency",
+    "whyAzerbaijan": "Why Azerbaijan",
+    "benefits": "Benefits",
+    "whoCanApply": "Who can apply",
+    "faq": "FAQ",
+    "applyNow": "Apply Now"
+  },
+  "hero": {
+    "eyebrow": "Support mechanisms for technology businesses in Azerbaijan",
+    "title": "Take advantage of Technopark residency benefits!",
+    "description": "Grow your innovative business with tax benefits, export support and other opportunities",
+    "imageAlt": "Flame Towers skyline in Baku, Azerbaijan"
+  },
+  "stats": {
+    "heading": "Benefits",
+    "items": [
+      {
+        "value": "0%",
+        "label": "Tax benefits for up to 20 years"
+      },
+      {
+        "value": "7 working days",
+        "label": "to get resident status"
+      },
+      {
+        "value": "Virtual residency",
+        "label": "Operate from anywhere"
+      },
+      {
+        "value": "Export support",
+        "label": "Scale internationally"
+      }
+    ]
+  },
+  "banner": {
+    "heading": "Amendments to the “Model Regulation on Technology Parks”",
+    "description": "Consectetur adipiscing elit sed do eiusmod tempor incididunt.",
+    "learnMore": "Learn more"
+  },
+  "benefits": {
+    "eyebrow": "Benefits",
+    "heading": "Benefits for Technopark residents",
+    "description": "New support mechanisms for Technopark residents",
+    "cards": [
+      {
+        "title": "0% Corporate profit tax - 20 years",
+        "description": "Eligible technology and AI companies benefit from a 0% corporate profit tax rate for 20 years, freeing more capital for growth, hiring and innovation."
+      },
+      {
+        "title": "0% Property & Land tax - 20 years",
+        "description": "Eligible sector entities benefit from 0% property and land taxes for 20 years, reducing long-term operating costs."
+      },
+      {
+        "title": "0% Dividend tax - 20 years",
+        "description": "Eligible sector entities benefit from 0% tax on dividends for 20 years, increasing the after-tax value of distributions to shareholders."
+      },
+      {
+        "title": "Public procurement advantages",
+        "description": "Eligible startups and Technopark residents benefit from procurement preferences, while streamlined pilot and procurement mechanisms help the public sector act as an early customer for innovative technology."
+      },
+      {
+        "title": "0% Income tax - 20 years",
+        "description": "All employees working for the resident's qualifying activity pay 0% income tax on their employment income for 20 years."
+      },
+      {
+        "title": "Migration",
+        "description": "Bring international talent on board more easily with streamlined employment procedures for foreign professionals."
+      },
+      {
+        "title": "Social tax",
+        "description": "Foreign employees are fully exempt from mandatory state social insurance contributions. For local employees, contributions are calculated for 20 years either as usual or based on 4 times the minimum monthly wage."
+      },
+      {
+        "title": "Cloud & digital services",
+        "description": "VAT and withholding tax exemptions on foreign cloud and software services reduce operating costs and make scaling infrastructure more affordable."
+      },
+      {
+        "title": "Export support",
+        "description": "Access IDDA’s additional incentive package, designed to help exporting companies scale faster and compete internationally."
+      }
+    ]
+  },
+  "additionalAdvantage": {
+    "heading": "An additional advantage",
+    "card": {
+      "title": "Regulatory sandbox",
+      "description": "Applicants developing advanced digital solutions, including artificial intelligence technologies, may test their solutions in a controlled regulatory environment in Azerbaijan before full-scale implementation."
+    }
+  },
+  "whoCanApply": {
+    "eyebrow": "Eligibility",
+    "heading": "Who can become a Technopark resident",
+    "description": "Resident status is available to legal entities and individuals operating in one of the following 7 core activity areas.",
+    "activitiesLink": "See full list of activities",
+    "categories": [
+      {
+        "title": "Digital Nomad",
+        "description": "Work remotely from Azerbaijan and keep your income tax-free for up to 20 years. You don't need to set up a company to become a resident — once you're registered with the tax authority, registering with an activity plan is enough.",
+        "steps": [
+          "No need to set up a company — work simply as an individual.",
+          "All income must come from clients or companies located outside Azerbaijan.",
+          "A stable monthly income of 5,200 AZN (~$3,060) or more, earned from abroad, is required.",
+          "This status is for foreigners only — Azerbaijani citizens should apply as a Freelancer instead."
+        ]
+      },
+      {
+        "title": "Freelancer",
+        "description": "Operate legally and keep more of what you earn — all without setting up a company. Once you're registered with the tax authority and hold a Technopark resident registration certificate, your income is tax-exempt.",
+        "steps": [
+          "No need to set up a company — work simply as an individual.",
+          "No limit on the number of clients you can work with.",
+          "Both local and international clients are allowed.",
+          "Cannot engage hired employees within the scope of the activity."
+        ]
+      },
+      {
+        "title": "Tech Companies & Individual Entrepreneurs",
+        "description": "Build and scale your business in Azerbaijan's technology sector — whether you're an established company or just starting out as an individual entrepreneur.",
+        "steps": [
+          "Register your Taxpayer ID as a legal entity or individual entrepreneur.",
+          "Hire at least 2 IT specialists with relevant education or at least 1 year of work experience.",
+          "Choose your activity area by submitting an innovation project and/or business plan.",
+          "Receive your residency certificate within 7 working days.",
+          "Start operating with tax benefits."
+        ]
+      }
+    ]
+  },
+  "activitiesModal": {
+    "title": "Activities",
+    "close": "Close",
+    "categories": [
+      {
+        "title": "Software, Information Systems (Resources) & Systems Integration",
+        "items": [
+          "Design, development, improvement, prototyping, deployment and integration of information systems (resources) and software, including specialised software products, automated control systems, hardware and software solutions, hardware-software complexes, corporate information systems, digital services and electronic platforms",
+          "Design, development and improvement of computer systems and related components, as well as their integration into and application in business (service) processes",
+          "Design, development, improvement and application of digital technologies (in energy, carbon-emission and waste management, healthcare, biotechnology, finance, etc.) and technological solutions, regulatory technologies and insurance technologies, as well as digital technologies, hardware and software solutions for special fields (defence industry, aviation, space technologies, satellite communications, dual-use technologies, energy, carbon emissions, waste management, healthcare and biotechnology)",
+          "Publishing and commercialisation of software"
+        ]
+      },
+      {
+        "title": "Game & Creative Technologies",
+        "items": [
+          "Design and development of graphics engines, in-game interactive mechanics, microtransaction systems, animation products and computer games",
+          "Design, development and improvement of educational platforms, virtual- and augmented-reality solutions and virtual laboratories"
+        ]
+      },
+      {
+        "title": "IoT, Microelectronics, Robotics & Smart Systems",
+        "items": [
+          "Design, development and improvement of systems based on the Internet of Things, robotics, unmanned control, remote monitoring, telemetry and smart sensor networks",
+          "Design, development and improvement of software and hardware solutions for radar, radio navigation, radio communication, radio control, radio-frequency identification and microelectronics-based systems",
+          "Electronic design automation; design, development and improvement of semiconductors (microchips), micro-, opto- and nanoelectronics and microelectromechanical components",
+          "Development and application of mechatronics technologies, embedded systems, hardware-software tools, hardware-software complexes, components and computer equipment"
+        ]
+      },
+      {
+        "title": "Artificial Intelligence, Data Analytics & Algorithmic Models",
+        "items": [
+          "Design, development and improvement of solutions for natural language processing, generative models, and image, audio, video and code generation",
+          "Creation, training and application of algorithms for predictive analytics, decision-support systems, cognitive process automation, neural networks and artificial intelligence",
+          "Design, development and improvement of automated control systems for autonomous vehicles, computational algorithms for industrial robots and smart devices, and control and navigation systems"
+        ]
+      },
+      {
+        "title": "Cloud Computing, Data Infrastructure & Digital Platforms",
+        "items": [
+          "Design, development and improvement of systems for collecting, storing, processing, structuring, archiving, recovering and analysing big data",
+          "Design, development, improvement and integration of cloud technologies under the IaaS, PaaS and SaaS models",
+          "Data centre services for hosting, storing and ensuring the availability of data on server or cloud infrastructure, backup, archiving, data recovery, telematic services (remote automated transmission, processing and monitoring of data), remote computing and content delivery network services",
+          "Creation and development of software for online platforms",
+          "Development and application of software and hardware-software solutions based on or using blockchain and other distributed, decentralised information systems"
+        ]
+      },
+      {
+        "title": "Cybersecurity & Information Protection",
+        "items": [
+          "Design, development, application and improvement of cybersecurity systems, cryptographic information protection tools, secure communication systems, and algorithms for data encryption and data leak prevention",
+          "Cyber threat intelligence, security monitoring, cyberattack simulations, and detection of vulnerabilities and software flaws",
+          "Development, application and improvement of technical solutions for digital identification, electronic identification (e-ID), electronic signatures, key management and other trust services"
+        ]
+      },
+      {
+        "title": "Export of Digital Services by Legal Entities (with No Other Activity)",
+        "items": [
+          "Consulting services on creating technological solutions in digital technologies, including system architecture, digital transformation, cybersecurity, integrated information systems, systems and business analysis, preparation of technical requirements, and digitalisation and re-engineering of business processes (redesigning or changing operational and management processes to make an existing system or technology more efficient)",
+          "Auditing of information systems (resources) and software code, databases, network infrastructure and cybersecurity",
+          "Training services exclusively in information technology fields such as programming, system and network administration, data analysis and management, cybersecurity, cloud technologies and artificial intelligence, including organising and delivering courses and training modules"
+        ]
+      }
+    ]
+  },
+  "registration": {
+    "heading": "Not yet registered as a taxpayer in Azerbaijan?",
+    "description": "Leave your details below — our consultants will contact you and guide you step by step toward Technopark residency.",
+    "applicantType": {
+      "label": "Applicant type",
+      "placeholder": "Select",
+      "options": {
+        "legalEntity": "Legal entity (company)",
+        "individualEntrepreneur": "Individual entrepreneur",
+        "freelancer": "Freelancer",
+        "digitalNomad": "Digital nomad"
+      }
+    },
+    "fields": {
+      "fullName": "Full name",
+      "companyName": "Company name",
+      "email": "Email",
+      "phone": "Phone number",
+      "country": "Country"
+    },
+    "errors": {
+      "required": "This field is required.",
+      "email": "Enter a valid email address.",
+      "phone": "Enter a valid phone number.",
+      "generic": "Something went wrong. Please try again in a moment."
+    },
+    "submit": "Submit",
+    "submitting": "Verifying…",
+    "recaptchaNotice": "This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
+    "sidebar": {
+      "heading": "Are you already tax-registered in Azerbaijan?",
+      "description": "If you already have a Taxpayer ID (TIN), you're ready to apply directly and start your path to Technopark residency.",
+      "cta": "Apply Now"
+    },
+    "success": {
+      "heading": "Application sent successfully",
+      "description": "Thank you for reaching out. Our consultants will review your details and get in touch shortly to guide you through the next steps."
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "heading": "Questions, answered",
+    "descriptionPrefix": "If you have any further questions, you can reach us at ",
+    "descriptionSuffix": " or call +994 12 310 14 00 (extension: 3158).",
+    "items": [
+      {
+        "question": "Who is a Technopark resident?",
+        "answer": "A Technopark resident is a legal entity or individual that holds a registration certificate and operates in approved activity areas. This includes companies, individual entrepreneurs, freelancers and digital nomads. Being physically located within the Technopark is not required."
+      },
+      {
+        "question": "How long does registration take?",
+        "answer": "Registration as a resident outside the Technopark is, as a rule, completed within 7 working days. In exceptional cases this period may be extended."
+      },
+      {
+        "question": "Who is a Digital Nomad?",
+        "answer": "A foreign citizen or stateless person who works remotely in digital technologies, artificial intelligence, cybersecurity or innovation and earns income solely from foreign sources. Azerbaijani citizens cannot apply for this status."
+      },
+      {
+        "question": "What income is required for the Digital Nomad visa?",
+        "answer": "Average monthly income over the past 6 months must be at least 13 times the minimum wage (currently 5,200 AZN, roughly $3,060). This income must be confirmed with documents, such as contracts and bank statements."
+      },
+      {
+        "question": "Who is a Freelancer?",
+        "answer": "An individual who independently provides services in digital technologies, artificial intelligence, cybersecurity or innovation without hiring employees, and is registered as a Technopark resident. Registration takes three steps: registering with the tax authority, applying for Technopark residency, and receiving the residency certificate."
+      },
+      {
+        "question": "How is a Freelancer different from a Digital Nomad?",
+        "answer": "A Freelancer can be either an Azerbaijani citizen or a foreigner, and can work with both local and international clients. A Digital Nomad can only be a foreigner and must earn income solely from foreign sources."
+      },
+      {
+        "question": "Are individual entrepreneurs (including freelancers and digital nomads) exempt from income tax?",
+        "answer": "Yes. An individual entrepreneur who is a Technopark resident (including freelancers and digital nomads) pays no income tax on income earned from that activity.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "Are legal entities exempt from profit tax?",
+        "answer": "Yes. A legal entity that is a Technopark resident pays no profit tax on profit earned from that activity.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "Are dividends paid by residents subject to tax?",
+        "answer": "No. Dividends paid by Technopark residents are exempt from income and profit tax.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "Are employees' salaries subject to tax?",
+        "answer": "No. A 0% income tax rate applies to the monthly employment income of all employees engaged by a Technopark resident to carry out its activity.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "How are employees' social insurance contributions calculated?",
+        "answer": "People employed under an employment contract for the activity by a Technopark resident, its contractor, or a subcontractor with a direct contract with that contractor may choose to have social insurance contributions calculated either on their actual salary or on 4 times the minimum monthly wage.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "Are foreign employees subject to social insurance?",
+        "answer": "No. Foreigners and stateless persons employed for the activity by a Technopark resident, its contractor or its direct subcontractor are not subject to mandatory state social insurance.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "Are highly qualified migrants and digital nomads subject to social insurance?",
+        "answer": "No. Highly qualified migrants and digital nomads working in digital technologies, artificial intelligence, cybersecurity and innovation are not subject to mandatory state social insurance.\nDuration: 5 years from 1 July 2026."
+      },
+      {
+        "question": "Do we get a price advantage in public tenders?",
+        "answer": "Yes. In procurements with an estimated value of up to 250,000 AZN, a procurement preference of up to 20% is applied in favour of the resident to the bid price of an innovation product offered by a Technopark resident. This doesn't actually reduce the product's price — when bids are compared, the resident's price is simply treated as lower.\nDuration: unlimited."
+      },
+      {
+        "question": "Do we need to provide a bid security to take part in a tender?",
+        "answer": "No. In procurements with an estimated value of up to 1,000,000 AZN, no bid security is required for an innovation product offered by a Technopark resident.\nDuration: unlimited."
+      },
+      {
+        "question": "Do we need to meet special qualification requirements when offering an innovation product?",
+        "answer": "No. When the subject of the procurement is an innovation product, the special qualification requirements set by law do not apply to suppliers that are Technopark residents.\nDuration: unlimited."
+      },
+      {
+        "question": "Can we take part in a tender with a product whose technical specifications aren't defined in advance?",
+        "answer": "Yes. For an innovation product whose technical specifications can't be fully defined in advance, a Technopark resident may be included in a pilot implementation process within a two-stage tender.\nDuration: unlimited."
+      },
+      {
+        "question": "Is there a benefit for research and development (R&D) costs?",
+        "answer": "Yes. Companies that commission eligible R&D services from Technopark residents, startup certificate holders, or universities and research institutes can deduct 250% of these costs from their taxable income.\nDuration: unlimited."
+      },
+      {
+        "question": "Is there support for exporters?",
+        "answer": "Yes. IDDA offers established ICT exporters a separate “Export and Market Access Support” programme, which includes one-off market entry grants and recurring export grants based on export revenue. This is IDDA's own initiative, not a tax benefit established by law or guaranteed by the state. The programme's terms may change at any time. Contact us for up-to-date information."
+      }
+    ]
+  },
+  "requirements": {
+    "eyebrow": "Requirements",
+    "heading": "Requirements for becoming a Technopark resident",
+    "groups": [
+      {
+        "title": "Legal entities and individual entrepreneurs",
+        "items": [
+          "An innovation project and/or business plan",
+          "At least 2 IT specialists (relevant education or at least 1 year of work experience)",
+          "No outstanding debts on taxes and other mandatory payments",
+          "No decision classifying you as a risky taxpayer",
+          "A licence or permit, where required by law",
+          "Activity in one of the 7 core areas"
+        ]
+      },
+      {
+        "title": "Freelancers and digital nomads",
+        "items": [
+          "Registration with the tax authority first (Taxpayer ID)",
+          "Activity plan — description of services, technologies used and target market",
+          "No outstanding debts on taxes and other mandatory payments",
+          "No decision classifying you as a risky taxpayer",
+          "Activity in ICT areas (for digital nomads: remote work with income from abroad)"
+        ]
+      }
+    ],
+    "notes": [
+      "A state fee of 70 AZN must be paid once residency is approved.",
+      "There are no restrictions on micro entrepreneurs applying for residency. However, based on the final results of the reporting year, they must move up to at least small entrepreneur status; otherwise, the residency certificate is revoked. This requirement does not apply to freelancers and digital nomads."
+    ]
+  },
+  "notifyModal": {
+    "intro": "Technopark residency benefits and registration take effect on 1 January 2027.",
+    "countdownLabel": "Time left until registration opens:",
+    "units": {
+      "days": "days",
+      "hours": "hours",
+      "minutes": "minutes",
+      "seconds": "seconds"
+    },
+    "formIntro": "If you'd like to be notified when registration opens, leave your contact details below.",
+    "applicantType": {
+      "label": "Applicant type",
+      "placeholder": "Select",
+      "options": {
+        "legalEntity": "Legal entity (company)",
+        "individualEntrepreneur": "Individual entrepreneur",
+        "freelancer": "Freelancer",
+        "digitalNomad": "Digital nomad"
+      }
+    },
+    "selectCountry": "Select a country",
+    "fields": {
+      "country": "Country",
+      "fullName": "Full name",
+      "email": "Email address",
+      "phone": "Phone number"
+    },
+    "submit": "Notify me",
+    "submitting": "Sending…",
+    "close": "Close",
+    "privacy": "The information you provide will only be used to notify you when registration opens.",
+    "success": "Your request has been received. We'll notify you when registration opens."
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Home Page",
+        "links": [
+          "About Us",
+          "Service Providers"
+        ]
+      },
+      {
+        "title": "Services",
+        "links": [
+          "Life events",
+          "Entities",
+          "Categories"
+        ]
+      },
+      {
+        "title": "Resources",
+        "links": [
+          "Guidelines",
+          "Normative Legal Documents",
+          "CIOs",
+          "Document Search"
+        ]
+      },
+      {
+        "title": "Media",
+        "links": [
+          "News"
+        ]
+      },
+      {
+        "links": [
+          "Contacts",
+          "Frequently Asked Questions",
+          "Privacy Policy",
+          "Sitemap"
+        ]
+      }
+    ],
+    "logoAlt": "Ministry of Digital Development and Transportation of the Republic of Azerbaijan",
+    "agencyLogoAlt": "Innovation and Digital Development Agency",
+    "rightsReserved": "All Rights Reserved - 2026"
+  }
+}

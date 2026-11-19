@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "title": "Technopark residency in Azerbaijan — IDDA",
+    "description": "Grow your innovative business with tax benefits, export support and other opportunities. 0% tax for 20 years for Technopark residents."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "language": "Language",
+    "home": "Innovation and Digital Development Agency — home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mainNav": "Main"
+  },
+  "nav": {
+    "whyAzerbaijan": "Why Azerbaijan",
+    "benefits": "Benefits",
+    "whoCanApply": "Who can apply",
+    "faq": "FAQ",
+    "apply": "Apply now"
+  },
+  "hero": {
+    "title": "Take advantage of Technopark residency benefits!",
+    "apply": "Apply now",
+    "explore": "Explore benefits"
+  },
+  "faq": {
+    "title": "Questions, answered.",
+    "contactPrefix": "If you have any further questions, you can reach us at",
+    "contactSuffix": "or call +994 12 310 14 00 (extension: 3158).",
+    "items": [
+      {
+        "question": "How long does registration take?",
+        "answer": "Registration as a resident outside the Technopark is, as a rule, completed within 7 working days. In exceptional cases this period may be extended."
+      },
+      {
+        "question": "How is a Freelancer different from a Digital Nomad?",
+        "answer": "A Freelancer can be either an Azerbaijani citizen or a foreigner, and can work with both local and international clients. A Digital Nomad can only be a foreigner and must earn income solely from foreign sources."
+      },
+      {
+        "question": "Are employees' salaries subject to tax?",
+        "answer": "No. A 0% income tax rate applies to the monthly employment income of all employees engaged by a Technopark resident to carry out its activity.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "Are foreign employees subject to social insurance?",
+        "answer": "No. Foreigners and stateless persons employed for the activity by a Technopark resident, its contractor or its direct subcontractor are not subject to mandatory state social insurance.\nDuration: 20 years from 1 January 2027."
+      },
+      {
+        "question": "Is there support for exporters?",
+        "answer": "Yes. IDDA offers established ICT exporters a separate “Export and Market Access Support” programme, which includes one-off market entry grants and recurring export grants based on export revenue. This is IDDA's own initiative, not a tax benefit established by law or guaranteed by the state. The programme's terms may change at any time. Contact us for up-to-date information."
+      }
+    ]
+  },
+  "footer": {
+    "email": "texnopark@idda.az",
+    "phone": "+994 12 310 14 00",
+    "phoneExt": "ext. 3158",
+    "copyright": "© 2026 Innovation and Digital Development Agency",
+    "ministry": "Ministry of Digital Development and Transport of the Republic of Azerbaijan"
+  }
+}

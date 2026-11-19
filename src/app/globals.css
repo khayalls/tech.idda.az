@@ -1,0 +1,88 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/* Layout helpers built on the Layout tokens (margin / section rhythm change per breakpoint). */
+/* Motion: soft, short reveals (16px rise, ease-out). */
+@theme {
+  --animate-reveal: reveal 800ms var(--ease-out) both;
+  --animate-drift: drift 24s ease-in-out infinite alternate;
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(-6%, 4%, 0) scale(1.08);
+    }
+  }
+}
+
+@utility page-x {
+  padding-inline: var(--page-margin);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-margin);
+}
+
+@utility grid-page {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-body-m);
+    line-height: var(--text-body-m--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--text-accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-blue-100);
+    color: var(--color-neutral-950);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,428 @@
+{
+  "nav": {
+    "logoAlt": "İnnovasiya və Rəqəmsal İnkişaf Agentliyi",
+    "whyAzerbaijan": "Niyə Azərbaycan?",
+    "benefits": "Üstünlüklər",
+    "whoCanApply": "Kimlər müraciət edə bilər?",
+    "faq": "Tez-tez verilən suallar",
+    "applyNow": "İndi müraciət et"
+  },
+  "hero": {
+    "eyebrow": "Azərbaycanda texnologiya biznesi üçün dəstək mexanizmləri",
+    "title": "Texnopark rezidentliyinin üstünlüklərindən yararlanın!",
+    "description": "Vergi güzəştləri, ixrac dəstəyi və digər imkanlarla innovativ biznesinizi inkişaf etdirin",
+    "imageAlt": ""
+  },
+  "stats": {
+    "heading": "İmkanlar",
+    "items": [
+      {
+        "value": "0%",
+        "label": "20 ilədək vergi güzəşti"
+      },
+      {
+        "value": "7 iş günü",
+        "label": "ərzində rezident statusu"
+      },
+      {
+        "value": "Virtual rezidentlik",
+        "label": "istənilən yerdən fəaliyyət"
+      },
+      {
+        "value": "İxrac dəstəyi",
+        "label": "Beynəlxalq bazara çıxış"
+      }
+    ]
+  },
+  "banner": {
+    "heading": "“Texnologiyalar parkı haqqında Nümunəvi Əsasnamə”də dəyişiklik",
+    "description": "Consectetur adipiscing elit sed do eiusmod tempor incididunt.",
+    "learnMore": "Keçid et"
+  },
+  "benefits": {
+    "eyebrow": "Üstünlüklər",
+    "heading": "Texnopark rezidentləri üçün mövcud üstünlüklər",
+    "description": "Texnopark rezidentləri üçün yeni dəstək mexanizmləri",
+    "cards": [
+      {
+        "title": "0% Mənfəət vergisi — 20 il",
+        "description": "Uyğun texnologiya və süni intellekt şirkətləri 20 il müddətinə 0% mənfəət vergisi dərəcəsindən yararlanır — bu, inkişaf, işə qəbul və innovasiya üçün daha çox kapital sərbəst buraxır."
+      },
+      {
+        "title": "0% Əmlak və torpaq vergisi — 20 il",
+        "description": "Uyğun sektor subyektləri 20 il müddətinə 0% əmlak və torpaq vergisindən yararlanır, bu da uzunmüddətli əməliyyat xərclərini azaldır."
+      },
+      {
+        "title": "0% Dividend vergisi — 20 il",
+        "description": "Uyğun sektor subyektləri 20 il müddətinə dividendlərdən 0% vergidən yararlanır, bu da səhmdarlara ödənilən vəsaitlərin vergidən sonrakı dəyərini artırır."
+      },
+      {
+        "title": "Dövlət satınalmalarında üstünlüklər",
+        "description": "Uyğun startaplar və Texnopark rezidentləri dövlət satınalmalarında müəyyən üstünlüklərdən yararlanır, sadələşdirilmiş pilot və satınalma mexanizmləri isə dövlət sektorunun innovativ texnologiyalar üçün ilkin müştəri kimi çıxış etməsinə şərait yaradır."
+      },
+      {
+        "title": "0% Gəlir vergisi — 20 il",
+        "description": "Rezidentlərdə həmin fəaliyyət üçün çalışan bütün işçilərin əmək gəlirlərinə 20 il müddətində 0% gəlir vergisi tətbiq olunur."
+      },
+      {
+        "title": "Miqrasiya",
+        "description": "Xarici mütəxəssislər üçün əlavə iş icazəsinin tələb olunmaması beynəlxalq komandalar qurmaq üçün əlverişli şərait yaradır."
+      },
+      {
+        "title": "Sosial sığorta haqqı",
+        "description": "Əcnəbi işçilər məcburi dövlət sosial sığorta haqqından tam azad edilir. Yerli işçilər üçün haqq 20 il müddətinə adi qaydada və ya minimum aylıq əməkhaqqının 4 mislindən hesablanır."
+      },
+      {
+        "title": "Bulud və rəqəmsal xidmətlər",
+        "description": "Xarici bulud və proqram xidmətlərinə ƏDV və vergi güzəştləri əməliyyat xərclərini azaldır və infrastrukturun genişləndirilməsini daha əlçatan edir."
+      },
+      {
+        "title": "İxrac dəstəyi",
+        "description": "İRİA tərəfindən təqdim edilən əlavə dəstək paketi ixracatçı şirkətlər üçün daha sürətli böyümək və beynəlxalq bazarda rəqabət aparmaq imkanı yaradır."
+      }
+    ]
+  },
+  "additionalAdvantage": {
+    "heading": "Əlavə üstünlük",
+    "card": {
+      "title": "Sandbox mexanizmi",
+      "description": "Qabaqcıl rəqəmsal həllər, o cümlədən süni intellekt texnologiyaları hazırlayan namizədlər, tam tətbiqə keçmədən əvvəl həmin həlləri Azərbaycanda nəzarətli tənzimləyici mühitdə sınaqdan keçirə bilərlər."
+    }
+  },
+  "whoCanApply": {
+    "eyebrow": "Tələblər",
+    "heading": "Kim Texnopark rezidenti ola bilər?",
+    "description": "Rezident statusu aşağıdakı 7 əsas istiqamətlərdən biri üzrə fəaliyyət göstərən hüquqi və fiziki şəxslər üçün əlçatandır.",
+    "activitiesLink": "Fəaliyyət istiqamətlərinin tam siyahısı ilə tanış olun",
+    "categories": [
+      {
+        "title": "Rəqəmsal Səyyah",
+        "description": "Azərbaycandan məsafədən çalışın və gəlir vergisindən 20 ilədək azad olun. Rezident olmaq üçün şirkət yaratmağa ehtiyac yoxdur. Vergi orqanında uçota alındıqdan sonra fəaliyyət planı ilə qeydiyyatdan keçmək kifayətdir.",
+        "steps": [
+          "Şirkət yaratmağa ehtiyac yoxdur — fiziki şəxs kimi fəaliyyət göstərə bilərsiniz.",
+          "Yalnız Azərbaycan hüdudlarından kənarda olan müştərilərdən əldə olunan gəlirlər vergi güzəştlərindən yararlana bilər. Yerli gəlirlər bu güzəştlərə şamil edilmir.",
+          "Xaricdən aylıq 5200 AZN (təxminən 3 060 ABŞ dolları) və ya daha çox sabit gəlir əldə edilməlidir.",
+          "Bu status yalnız əcnəbilər və vətəndaşlığı olmayan şəxslər üçün nəzərdə tutulub. Azərbaycan vətəndaşları frilanser statusuna müraciət etməlidirlər."
+        ]
+      },
+      {
+        "title": "Frilanser",
+        "description": "Frilanser fəaliyyətinizi şirkət yaratmadan tam qanuni və vergi güzəştlərindən yararlanan fəaliyyətə çevirin. Vergi orqanında uçota alındıqdan və texnopark rezidenti kimi qeydiyyat şəhadətnaməsi əldə etdikdən sonra gəlirləriniz vergidən azad olunur.",
+        "steps": [
+          "Şirkət yaratmağa ehtiyac yoxdur — fiziki şəxs kimi fəaliyyət göstərə bilərsiniz.",
+          "Müştərilərin sayı ilə bağlı heç bir məhdudiyyət yoxdur.",
+          "Həm yerli, həm də xarici müştərilərlə işləyə bilərsiniz.",
+          "Fəaliyyət çərçivəsində muzdlu işçi cəlb edə bilməz"
+        ]
+      },
+      {
+        "title": "Texnologiya şirkətləri və fərdi sahibkarlar",
+        "description": "İstər fəaliyyət göstərən şirkət, istərsə də yeni qeydiyyatdan keçən fərdi sahibkar olun, Azərbaycanın texnologiya sektorunda biznesinizi qurun və inkişaf etdirin.",
+        "steps": [
+          "Hüquqi şəxs və ya fərdi sahibkar kimi VÖEN qeydiyyatından keçin.",
+          "Müvafiq təhsilə və ya ən azı 1 il iş təcrübəsinə malik ən azı 2 İT mütəxəssisini işə götürün.",
+          "İnnovasiya layihəsi və (və ya) biznes-plan təqdim edərək fəaliyyət istiqamətinizi seçin (göstərin).",
+          "Rezidentlik şəhadətnaməsini 7 iş günü ərzində əldə edin.",
+          "Vergi güzəştlərindən yararlanaraq fəaliyyətə başlayın."
+        ]
+      }
+    ]
+  },
+  "activitiesModal": {
+    "title": "Fəaliyyət istiqamətləri",
+    "close": "Bağla",
+    "categories": [
+      {
+        "title": "Proqram təminatı, informasiya sistemləri (ehtiyatları) və sistem inteqrasiyası",
+        "items": [
+          "İnformasiya sistemlərinin (ehtiyatlarının), proqram təminatının, o cümlədən xüsusi proqram məhsullarının, avtomatlaşdırılmış idarəetmə sistemlərinin, aparat və proqram həllərinin, aparat-proqram komplekslərinin, korporativ informasiya sistemlərinin, rəqəmsal xidmətlərin və elektron platformaların layihələndirilməsi, hazırlanması, təkmilləşdirilməsi, prototipləşdirilməsi, tətbiqi, inteqrasiyası",
+          "Kompüter sistemləri və əlaqəli komponentlərin layihələndirilməsi, hazırlanması, təkmilləşdirilməsi, habelə onların iş (xidmət) proseslərinə inteqrasiyası və tətbiqi",
+          "Rəqəmsal texnologiyaların (energetika, karbon emissiyalarının və tullantıların idarəedilməsi, səhiyyə, biotexnologiya, maliyyə və s. sahələrdə) və texnoloji həllərin, tənzimləyici texnologiyaların, sığorta texnologiyalarının, habelə xüsusi sahələr (müdafiə sənayesi, aviasiya, kosmik texnologiyalar, peyk rabitəsi, ikili təyinatlı texnologiyalar, energetika, karbon emissiyaları, tullantıların idarə olunması, səhiyyə və biotexnologiyalar) üçün rəqəmsal texnologiyaların, aparat və proqram həllərinin layihələndirilməsi, hazırlanması, təkmilləşdirilməsi və tətbiqi",
+          "Proqram təminatının nəşri və kommersiyalaşdırılması"
+        ]
+      },
+      {
+        "title": "Oyun texnologiyaları və yaradıcı texnologiyalar",
+        "items": [
+          "Qrafik mühərriklərin, oyundaxili interaktiv mexanizmlərin, mikrotranzaksiya sistemlərinin, animasiya məhsullarının və kompüter oyunlarının layihələndirilməsi və hazırlanması",
+          "Öyrədici platformaların, virtual reallıq və artırılmış reallıq texnologiyalarına əsaslanan həllərin və virtual laboratoriyaların layihələndirilməsi, hazırlanması və təkmilləşdirilməsi"
+        ]
+      },
+      {
+        "title": "Əşyaların interneti, mikroelektronika, robototexnika və ağıllı sistemlər",
+        "items": [
+          "Əşyaların interneti, robototexnika, pilotsuz idarəetmə, uzaqdan monitorinq, telemetriya və ağıllı sensor şəbəkələrinə əsaslanan sistemlərin layihələndirilməsi, hazırlanması və təkmilləşdirilməsi",
+          "Radar, radionaviqasiya, radioəlaqə, radioidarəetmə, radiotezlik identifikasiyası və mikroelektronika əsaslı sistemlər üçün proqram və aparat həllərinin layihələndirilməsi, hazırlanması və təkmilləşdirilməsi",
+          "Elektron layihələndirmə avtomatlaşdırılması, yarımkeçiricilərin (mikrosxemlərin), mikro-, opto- və nanoelektronika, mikroelektromexanika komponentlərinin dizaynı, hazırlanması və təkmilləşdirilməsi",
+          "Mexatronika texnologiyalarının, quraşdırılmış sistemlərin, aparat-proqram vasitələrinin, aparat-proqram komplekslərinin, komponentlərin və kompüter texnikasının hazırlanması və tətbiqi"
+        ]
+      },
+      {
+        "title": "Süni intellekt texnologiyası, məlumatların təhlili və alqoritmik modellər",
+        "items": [
+          "Təbii dil emalı, generativ modellər, təsvir, səs, video və kod generasiyası üzrə həllərin layihələndirilməsi, hazırlanması və təkmilləşdirilməsi",
+          "Prediktiv analitika, qərar dəstəyi sistemləri, koqnitiv proseslərin avtomatlaşdırılması, neyron şəbəkələri və süni intellekt texnologiyası üzrə alqoritmlərin yaradılması, öyrədilməsi və tətbiqi",
+          "Avtonom nəqliyyat vasitələrinin avtomatlaşdırılmış idarəetmə sistemlərinin, sənaye robotları və ağıllı cihazlar üçün hesablama alqoritmlərinin, idarəetmə və naviqasiya sistemlərinin layihələndirilməsi, hazırlanması və təkmilləşdirilməsi"
+        ]
+      },
+      {
+        "title": "Bulud hesablama xidmətləri, məlumat infrastrukturu və rəqəmsal platformalar",
+        "items": [
+          "Böyükhəcmli məlumatların toplanılması, saxlanılması, emalı, strukturlaşdırılması, arxivləşdirilməsi, bərpası və analitikası üçün sistemlərin layihələndirilməsi, hazırlanması və təkmilləşdirilməsi",
+          "IaaS, PaaS və SaaS modelləri üzrə bulud texnologiyalarının layihələndirilməsi, hazırlanması, təkmilləşdirilməsi və inteqrasiyası",
+          "Məlumatların server və ya bulud infrastrukturunda yerləşdirilməsi, saxlanılması və əlçatanlığının təmin edilməsi üzrə məlumat mərkəzi, ehtiyat surətlərin çıxarılması, arxivləşdirmə, məlumatların bərpası, telematik (verilənlərin məsafədən avtomatlaşdırılmış ötürülməsi, emalı və monitorinqi) xidmətlər, məsafədən hesablama, rəqəmsal məzmunun çatdırılması şəbəkələri üzrə xidmətlər",
+          "Onlayn platformaların proqram təminatının yaradılması və inkişaf etdirilməsi",
+          "Blokçeyn və digər paylanmış mərkəzləşdirilməmiş informasiya sistemlərinə əsaslanan və ya onlardan istifadə edən proqram və aparat-proqram həllərinin hazırlanması və tətbiqi"
+        ]
+      },
+      {
+        "title": "Kibertəhlükəsizlik və informasiya mühafizəsi",
+        "items": [
+          "Kibertəhlükəsizliyi təmin edən sistemlərin, kriptoqrafik informasiya mühafizəsi vasitələrinin, təhlükəsiz rabitə sistemlərinin, məlumatların şifrələnməsi və məlumat sızıntılarının qarşısının alınması alqoritmlərinin layihələndirilməsi, hazırlanması, tətbiqi və təkmilləşdirilməsi",
+          "Kibertəhdidlərin kəşfiyyatı, təhlükəsizlik monitorinqi, kiberhücum simulyasiyaları, zəifliklərin və proqram boşluqlarının aşkarlanması",
+          "Rəqəmsal identifikasiya, elektron identifikasiya (e-ID), elektron imza, açar idarəetməsi və digər etimad xidmətləri ilə bağlı texniki həllərin hazırlanması, tətbiqi və təkmilləşdirilməsi"
+        ]
+      },
+      {
+        "title": "Hüquqi şəxslərin digər fəaliyyətlə məşğul olmadan yalnız rəqəmsal xidmətlərin ixracı üzrə həyata keçirdiyi fəaliyyət",
+        "items": [
+          "Rəqəmsal texnologiyalar, o cümlədən sistem arxitekturası, rəqəmsal transformasiya, kibertəhlükəsizlik, inteqrasiya olunmuş informasiya sistemləri, sistem və biznes təhlili, texniki tələblərin hazırlanması, biznes proseslərinin rəqəmsallaşdırılması və reinjinirinqi (mövcud sistem və ya texnologiyanın səmərəliliyinin artırılması məqsədilə fəaliyyət və idarəetmə proseslərinin yenidən layihələndirilməsi və ya dəyişdirilməsi) üzrə texnoloji həllərin yaradılması ilə bağlı məsləhət xidmətlərinin göstərilməsi",
+          "İnformasiya sistemlərinin (ehtiyatlarının) və proqram təminatı kodunun, məlumat bazalarının, şəbəkə infrastrukturunun və kibertəhlükəsizliyin auditi",
+          "Proqramlaşdırma, sistem və şəbəkə inzibatçılığı, verilənlərin (məlumatların) təhlili və idarə edilməsi, kibertəhlükəsizlik, bulud texnologiyaları və süni intellekt kimi yalnız informasiya texnologiyaları sahələri üzrə təlim xidmətlərinin göstərilməsi, o cümlədən kursların, tədris modullarının təşkili və həyata keçirilməsi"
+        ]
+      }
+    ]
+  },
+  "registration": {
+    "heading": "Hələ Azərbaycanda vergi qeydiyyatından keçməmisiniz?",
+    "description": "Aşağıdakı formanı doldurun — məsləhətçilərimiz sizinlə əlaqə saxlayacaq və Texnopark rezidentliyinin əldə edilməsi prosesində sizə addım-addım dəstək göstərəcəklər.",
+    "applicantType": {
+      "label": "Müraciətçinin növü",
+      "placeholder": "Seçin",
+      "options": {
+        "legalEntity": "Hüquqi şəxs (şirkət)",
+        "individualEntrepreneur": "Fərdi sahibkar",
+        "freelancer": "Frilanser",
+        "digitalNomad": "Rəqəmsal səyyah"
+      }
+    },
+    "fields": {
+      "fullName": "Ad və soyad",
+      "companyName": "Şirkətin adı",
+      "email": "E-poçt ünvanı",
+      "phone": "Telefon nömrəsi",
+      "country": "Ölkə"
+    },
+    "errors": {
+      "required": "Bu sahənin doldurulması vacibdir.",
+      "email": "Düzgün e-poçt ünvanı daxil edin.",
+      "phone": "Düzgün telefon nömrəsi daxil edin.",
+      "generic": "Xəta baş verdi. Zəhmət olmasa, bir az sonra yenidən cəhd edin."
+    },
+    "submit": "Göndər",
+    "submitting": "Yoxlanılır…",
+    "recaptchaNotice": "Bu sayt reCAPTCHA ilə qorunur və Google-un Məxfilik Siyasəti və Xidmət Şərtləri tətbiq olunur.",
+    "sidebar": {
+      "heading": "Azərbaycanda VÖEN qeydiyyatınız varmı?",
+      "description": "Artıq VÖEN-iniz varsa, birbaşa müraciət edin və Texnopark rezidentliyinə aparan prosesə başlayın.",
+      "cta": "İndi müraciət et"
+    },
+    "success": {
+      "heading": "Müraciətiniz uğurla göndərildi",
+      "description": "Müraciətinizin nəticəsi ilə bağlı məlumat 3 iş günü ərzində sizə təqdim olunacaq."
+    }
+  },
+  "faq": {
+    "eyebrow": "Tez-tez verilən suallar",
+    "heading": "Suallar və cavablar",
+    "descriptionPrefix": "Əlavə suallarınız yarandığı təqdirdə, ",
+    "descriptionSuffix": " elektron poçt ünvanına yaza və ya +994 12 310 14 00 (daxili: 3158) nömrəsi ilə əlaqə saxlaya bilərsiniz.",
+    "items": [
+      {
+        "question": "Texnopark rezidenti kimdir?",
+        "answer": "Texnopark rezidenti qeydiyyat şəhadətnaməsi almış və təsdiq edilmiş istiqamətlər üzrə fəaliyyət göstərən hüquqi və ya fiziki şəxsdir. Buraya şirkətlər, fərdi sahibkarlar, frilanserlər və rəqəmsal səyyahlar daxildir. Texnoparkın ərazisində fiziki fəaliyyət göstərmək tələb olunmur."
+      },
+      {
+        "question": "Qeydiyyat prosesi nə qədər vaxt aparır?",
+        "answer": "Texnoparkdan kənar rezident kimi qeydiyyat prosesi, bir qayda olaraq, 7 iş günü ərzində tamamlanır. İstisna hallarda bu müddət uzadıla bilər."
+      },
+      {
+        "question": "Rəqəmsal Səyyah kimdir?",
+        "answer": "Rəqəmsal texnologiyalar, süni intellekt, kibertəhlükəsizlik və ya innovasiya sahəsində məsafədən çalışan, gəlirini yalnız xarici mənbələrdən əldə edən əcnəbi vətəndaş və ya vətəndaşlığı olmayan şəxsdir. Azərbaycan vətəndaşları bu statusa müraciət edə bilməzlər."
+      },
+      {
+        "question": "Rəqəmsal səyyah vizası üçün hansı gəlir tələbi var?",
+        "answer": "Son 6 ay üzrə orta aylıq gəlir minimum əmək haqqının 13 mislindən az olmamalıdır (hazırda 5 200 AZN, təxminən 3 060 ABŞ dolları). Bu gəlir sənədlərlə, məsələn, müqavilə və bank çıxarışları ilə təsdiqlənməlidir."
+      },
+      {
+        "question": "Frilanser kimdir?",
+        "answer": "Rəqəmsal texnologiyalar, süni intellekt, kibertəhlükəsizlik və ya innovasiya sahəsində işçi cəlb etmədən müstəqil şəkildə xidmət göstərən və Texnopark rezidenti kimi qeydiyyatdan keçmiş fiziki şəxsdir. Qeydiyyat üç mərhələdən ibarətdir: vergi qeydiyyatından keçmək; Texnopark rezidentliyi üçün müraciət etmək; rezidentlik şəhadətnaməsini almaq."
+      },
+      {
+        "question": "Frilanser ilə Rəqəmsal Səyyah arasındakı fərq nədir?",
+        "answer": "Frilanser həm Azərbaycan vətəndaşı, həm də əcnəbi ola bilər və həm yerli, həm də beynəlxalq müştərilərlə işləyə bilər. Rəqəmsal Səyyah isə yalnız əcnəbi ola bilər və gəlirini yalnız xarici mənbələrdən əldə etməlidir."
+      },
+      {
+        "question": "Fərdi sahibkarlar (o cümlədən frilanser və rəqəmsal səyyah) gəlir vergisindən azaddırmı?",
+        "answer": "Bəli. Texnologiyalar parkının rezidenti olan fərdi sahibkarın (o cümlədən frilanser və rəqəmsal səyyahın) həmin fəaliyyətdən əldə etdiyi gəlirə görə gəlir vergisi ödəmir.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "Hüquqi şəxslər mənfəət vergisindən azaddırmı?",
+        "answer": "Bəli. Texnologiyalar parkının rezidenti olan hüquqi şəxs həmin fəaliyyətdən əldə etdiyi mənfəətə görə mənfəət vergisi ödəmir.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "Ödənilən dividendlər vergiyə cəlb olunurmu?",
+        "answer": "Xeyr. Texnologiyalar parkı rezidentləri tərəfindən ödənilən dividendlər gəlir və mənfəət vergisindən azaddır.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "İşçilərin əmək haqqı vergiyə cəlb olunurmu?",
+        "answer": "Xeyr. Texnologiyalar parkı rezidentinin fəaliyyətinin həyata keçirilməsi məqsədilə cəlb etdiyi bütün işçilərin muzdlu işdən əldə etdikləri aylıq gəlirlərə 0% gəlir vergisi dərəcəsi tətbiq edilir.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "İşçilərin sosial sığorta haqqı necə hesablanır?",
+        "answer": "Texnologiyalar parkının rezidenti, onun podratçısı və həmin podratçı ilə birbaşa müqavilə bağlamış subpodratçı tərəfindən fəaliyyət məqsədilə əmək müqaviləsi əsasında işə cəlb olunan şəxslər sosial sığorta haqqının faktiki əmək haqqından, yaxud minimum aylıq əmək haqqının dörd misli məbləğindən hesablanmasını seçə bilərlər.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "Əcnəbi işçilər sosial sığortaya cəlb olunurmu?",
+        "answer": "Xeyr. Texnologiyalar parkının rezidenti, onun podratçısı və birbaşa subpodratçısı tərəfindən fəaliyyət məqsədilə işə cəlb edilən əcnəbilər və vətəndaşlığı olmayan şəxslər məcburi dövlət sosial sığortasına cəlb edilmirlər.\nMüddət: 1 yanvar 2027-ci ildən 20 il müddətinə."
+      },
+      {
+        "question": "Yüksəkixtisaslı miqrantlar və rəqəmsal səyyahlar sosial sığortaya cəlb olunurmu?",
+        "answer": "Xeyr. Rəqəmsal texnologiyalar, süni intellekt, kibertəhlükəsizlik və innovasiya sahələrində fəaliyyət göstərən yüksəkixtisaslı miqrantlar və rəqəmsal səyyahlar məcburi dövlət sosial sığortasına cəlb edilmirlər.\nMüddət: 1 iyul 2026-cı ildən 5 il müddətinə."
+      },
+      {
+        "question": "Dövlət tenderlərində qiymət üstünlüyümüz varmı?",
+        "answer": "Bəli. Ehtimal olunan qiyməti 250 000 AZN-dək olan satınalmalarda Texnologiyalar parkının rezidentinin təqdim etdiyi innovasiya məhsulunun təklif qiymətinə onun xeyrinə 20%-dək satınalma güzəşti tətbiq olunur. Bu məhsulun qiymətinin faktiki azaldılması demək deyil, təkliflərin müqayisəsi zamanı rezidentin qiyməti şərti olaraq daha aşağı hesab edilir.\nMüddət: müddətsiz."
+      },
+      {
+        "question": "Tenderdə iştirak üçün təklifin təminatını verməliyikmi?",
+        "answer": "Xeyr. Ehtimal olunan qiyməti 1 000 000 AZN-dək olan satınalmalarda Texnologiyalar parkının rezidenti tərəfindən təqdim edilən innovasiya məhsulu üzrə təklifin təminatı tələb edilmir.\nMüddət: müddətsiz."
+      },
+      {
+        "question": "İnnovasiya məhsulu təqdim edərkən xüsusi uyğunluq tələbinə cavab verməliyikmi?",
+        "answer": "Xeyr. Satınalma predmeti innovasiya məhsulu olduqda Texnologiyalar parkının rezidenti olan təchizatçılara qanunvericiliklə nəzərdə tutulan xüsusi uyğunluq tələbi şamil edilmir.\nMüddət: müddətsiz."
+      },
+      {
+        "question": "Texniki göstəriciləri əvvəlcədən müəyyən olunmamış məhsulla tenderdə iştirak edə bilərikmi?",
+        "answer": "Bəli. Texniki göstəricilərini əvvəlcədən tam müəyyənləşdirmək mümkün olmayan innovasiya məhsulu üzrə Texnologiyalar parkının rezidenti ikimərhələli tender çərçivəsində pilot tətbiq prosesinə cəlb edilə bilər.\nMüddət: müddətsiz."
+      },
+      {
+        "question": "Elmi-tədqiqat və inkişaf (R&D) xərcləri üzrə güzəşt varmı?",
+        "answer": "Bəli. Texnologiyalar parkının rezidentlərindən, startap sertifikatı sahiblərindən və ya universitet və tədqiqat institutlarından uyğun R&D xidmətləri sifariş edən şirkətlər bu xərclərin 250%-ni vergiyə cəlb olunan gəlirdən çıxara bilərlər.\nMüddət: müddətsiz."
+      },
+      {
+        "question": "İxracatçılar üçün dəstək varmı?",
+        "answer": "Bəli. İRİA formalaşmış İKT ixracatçıları üçün ayrıca “İxrac və Bazara Giriş Dəstəyi” proqramı təklif edir: bura birdəfəlik bazara giriş qrantları və ixrac gəlirinə əsaslanan təkrarlanan ixrac qrantları daxildir. Bu, İRİA-nın öz təşəbbüsüdür və qanunla müəyyən edilmiş, yaxud dövlət təminatlı vergi güzəşti deyil. Proqramın şərtləri istənilən vaxt dəyişə bilər. Cari məlumat üçün bizimlə əlaqə saxlayın."
+      }
+    ]
+  },
+  "requirements": {
+    "eyebrow": "Tələblər",
+    "heading": "Texnopark rezidenti olmaq üçün tələblər",
+    "groups": [
+      {
+        "title": "Hüquqi şəxslər və fərdi sahibkarlar",
+        "items": [
+          "İnnovasiya layihəsi və/ya biznes-planın olması",
+          "Ən azı 2 İT mütəxəssisinin olması (müvafiq təhsil və ya ən azı 1 il iş təcrübəsi)",
+          "Vergi və digər icbari ödənişlər üzrə borcun olmaması",
+          "Riskli vergi ödəyicisi barədə qərarın olmaması",
+          "Qanunla tələb olunduqda lisenziya və ya icazənin olması",
+          "Fəaliyyətin 7 istiqamətdən biri üzrə olması"
+        ]
+      },
+      {
+        "title": "Frilanserlər və rəqəmsal səyyahlar",
+        "items": [
+          "Əvvəlcə vergi orqanında uçota alınma (VÖEN)",
+          "Fəaliyyət planı — xidmətlərin təsviri, istifadə edilən texnologiyalar və hədəf bazar",
+          "Vergi və digər icbari ödənişlər üzrə borcun olmaması",
+          "Riskli vergi ödəyicisi kimi qərarın olmaması",
+          "Fəaliyyət — İKT istiqamətləri üzrə (rəqəmsal səyyahlar üçün distant və xarici gəlirli)"
+        ]
+      }
+    ],
+    "notes": [
+      "Rezidentlik təsdiqləndikdən sonra 70 AZN məbləğində dövlət rüsumu ödənilməlidir.",
+      "Mikro sahibkarların rezidentlik üçün müraciət etməsinə hər hansı məhdudiyyət tətbiq edilmir. Lakin hesabat ilinin yekun nəticəsinə əsasən ən azı kiçik sahibkar statusuna keçid edilməlidir, əks halda rezidentlik şəhadətnaməsi ləğv edilir. Bu tələb frilanserlərə və rəqəmsal səyyahlara şamil olunmur."
+    ]
+  },
+  "notifyModal": {
+    "intro": "Texnopark rezidentliyi üzrə güzəştlər və qeydiyyat 1 yanvar 2027-ci il tarixindən qüvvəyə minir.",
+    "countdownLabel": "Qeydiyyatın başlanmasına qalan müddət:",
+    "units": {
+      "days": "gün",
+      "hours": "saat",
+      "minutes": "dəqiqə",
+      "seconds": "saniyə"
+    },
+    "formIntro": "Qeydiyyat başlayanda xəbərdar olmaq istəyirsinizsə, əlaqə məlumatlarınızı daxil edə bilərsiniz.",
+    "applicantType": {
+      "label": "Müraciətçinin növü",
+      "placeholder": "Seçin",
+      "options": {
+        "legalEntity": "Hüquqi şəxs (şirkət)",
+        "individualEntrepreneur": "Fərdi sahibkar",
+        "freelancer": "Frilanser",
+        "digitalNomad": "Rəqəmsal səyyah"
+      }
+    },
+    "selectCountry": "Ölkə seçin",
+    "fields": {
+      "country": "Ölkə",
+      "fullName": "Ad, soyad",
+      "email": "E-poçt ünvanı",
+      "phone": "Telefon nömrəsi"
+    },
+    "submit": "Məlumat almaq istəyirəm",
+    "submitting": "Göndərilir…",
+    "close": "Bağla",
+    "privacy": "Təqdim etdiyiniz məlumatlar yalnız qeydiyyatın başlanması barədə bildiriş göndərmək məqsədilə istifadə olunacaq.",
+    "success": "Müraciətiniz qəbul edildi. Qeydiyyat başlayarkən sizə bildiriş göndəriləcək."
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Ana səhifə",
+        "links": [
+          "Haqqımızda",
+          "Xidmət təminatçıları"
+        ]
+      },
+      {
+        "title": "Xidmətlər",
+        "links": [
+          "Həyat hadisələri",
+          "Qurumlar",
+          "Sahələr"
+        ]
+      },
+      {
+        "title": "Resurslar",
+        "links": [
+          "Təlimatlar",
+          "Normativ hüquqi sənədlər",
+          "Rəqəmsal İnkişaf Menecerləri (RİM)",
+          "Sənəd axtarışı"
+        ]
+      },
+      {
+        "title": "Media",
+        "links": [
+          "Xəbərlər"
+        ]
+      },
+      {
+        "links": [
+          "Əlaqə",
+          "Tez-tez verilən suallar",
+          "Məxfilik Siyasəti",
+          "Sayt xəritəsi"
+        ]
+      }
+    ],
+    "logoAlt": "",
+    "agencyLogoAlt": "",
+    "rightsReserved": "Bütün hüquqlar qorunur - 2026"
+  }
+}

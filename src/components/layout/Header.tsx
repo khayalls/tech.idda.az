@@ -1,0 +1,165 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Logo } from "@/components/brand/Logo";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { localePath, localeLabels, locales, type Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries";
+
+type Props = {
+  locale: Locale;
+  nav: Dictionary["nav"];
+  a11y: Dictionary["a11y"];
+};
+
+const links = [
+  { id: "why-azerbaijan", key: "whyAzerbaijan" },
+  { id: "benefits", key: "benefits" },
+  { id: "who-can-apply", key: "whoCanApply" },
+  { id: "faq", key: "faq" },
+] as const;
+
+/**
+ * Fixed header. Text turns white over sections marked `data-header="dark"`,
+ * gets a frosted background once the page scrolls, and hides while scrolling down.
+ */
+export function Header({ locale, nav, a11y }: Props) {
+  const [onDark, setOnDark] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      const probe = 40;
+      const dark = Array.from(document.querySelectorAll<HTMLElement>('[data-header="dark"]')).some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top <= probe && r.bottom >= probe;
+      });
+      setOnDark(dark);
+      setScrolled(y > 8);
+      setHidden(y > 240 && y > lastY + 2);
+      if (Math.abs(y - lastY) > 2) lastY = y;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("keydown", onKey);
+    // Cleanup also runs when the route is hidden/preserved after navigation.
+    return () => {
+      root.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
+  const tone = onDark ? "text-on-dark" : "text-primary";
+  const surface = scrolled && !onDark ? "bg-page/80 backdrop-blur-xl shadow-[0_1px_0_var(--border-subtle)]" : scrolled ? "bg-night/24 backdrop-blur-xl" : "bg-transparent";
+
+  return (
+    <>
+      <a
+        href="#main"
+        className="sr-only z-[60] rounded-full bg-surface px-6 py-4 text-label-m text-primary focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+      >
+        {a11y.skipToContent}
+      </a>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color,color,box-shadow] duration-400 ease-out ${tone} ${surface} ${
+          hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"
+        }`}
+      >
+        <div className="container-page flex h-20 items-center justify-between gap-8 xl:h-24">
+          <Link href={localePath(locale)} aria-label={a11y.home} className="shrink-0">
+            <Logo className="h-10 w-auto xl:h-14" />
+          </Link>
+
+          <nav aria-label={a11y.mainNav} className="hidden xl:block">
+            <ul className="flex items-center gap-10">
+              {links.map((l) => (
+                <li key={l.id}>
+                  <a href={`#${l.id}`} className="text-label-m opacity-100 transition-opacity duration-200 hover:opacity-64">
+                    {nav[l.key]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher current={locale} label={a11y.language} className="hidden md:block" />
+            <button
+              type="button"
+              className="-mr-2 flex size-12 items-center justify-center rounded-full xl:hidden"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={menuOpen ? a11y.closeMenu : a11y.openMenu}
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              <span className="relative block h-3 w-6" aria-hidden="true">
+                <span className={`absolute inset-x-0 top-0 h-0.5 rounded-full bg-current transition-transform duration-400 ease-out ${menuOpen ? "translate-y-[5px] rotate-45" : ""}`} />
+                <span className={`absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-current transition-transform duration-400 ease-out ${menuOpen ? "-translate-y-[5px] -rotate-45" : ""}`} />
+              </span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div
+        id="mobile-menu"
+        hidden={!menuOpen}
+        className="fixed inset-0 z-40 overflow-y-auto bg-night text-on-dark xl:hidden"
+        style={{ backgroundImage: "var(--gradient-night)" }}
+      >
+        <div className="container-page flex min-h-full flex-col pt-28 pb-12">
+          <nav aria-label={a11y.mainNav}>
+            <ul className="flex flex-col gap-2">
+              {links.map((l, i) => (
+                <li key={l.id} className="animate-reveal" style={{ animationDelay: `${80 + i * 60}ms` }}>
+                  <a href={`#${l.id}`} onClick={() => setMenuOpen(false)} className="block py-2 text-heading-m">
+                    {nav[l.key]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="mt-auto flex gap-2 pt-12">
+            {locales.map((l) => (
+              <Link
+                key={l}
+                href={localePath(l)}
+                hrefLang={l}
+                aria-current={l === locale ? "true" : undefined}
+                onClick={() => setMenuOpen(false)}
+                className="rounded-full px-4 py-2 text-label-m ring-1 ring-line-on-dark aria-[current]:bg-white aria-[current]:text-primary"
+              >
+                {localeLabels[l]}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
