@@ -28,6 +28,35 @@
   }
 }
 
+/* Line-by-line text (see src/lib/split-lines.ts). Lines rise out of a mask, staggered 90ms. */
+@layer components {
+  .line-mask {
+    display: block;
+    overflow: clip;
+    /* Room for descenders without changing the line box. */
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+  }
+  .line-move,
+  .line-inner {
+    display: block;
+  }
+  [data-reveal] .line-inner {
+    transition:
+      transform 1000ms var(--ease-emphasized),
+      opacity 700ms var(--ease-out);
+    transition-delay: calc(var(--line, 0) * 90ms + var(--reveal-delay, 0ms));
+  }
+  [data-reveal="out"] .line-inner {
+    transform: translate3d(0, 105%, 0);
+    opacity: 0;
+  }
+  [data-reveal="in"] .line-inner {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 @utility page-x {
   padding-inline: var(--page-margin);
 }

@@ -36,12 +36,11 @@ export function Header({ locale, nav, a11y }: Props) {
     const update = () => {
       ticking = false;
       const y = window.scrollY;
-      const probe = 40;
-      const dark = Array.from(document.querySelectorAll<HTMLElement>('[data-header="dark"]')).some((el) => {
-        const r = el.getBoundingClientRect();
-        return r.top <= probe && r.bottom >= probe;
-      });
-      setOnDark(dark);
+      // Theme follows whichever section is visually on top under the header (sections can overlap).
+      const under = document
+        .elementsFromPoint(window.innerWidth / 2, 40)
+        .find((el) => !el.closest("header") && el.closest("[data-header]"));
+      setOnDark(under?.closest<HTMLElement>("[data-header]")?.dataset.header === "dark");
       setScrolled(y > 8);
       setHidden(y > 240 && y > lastY + 2);
       if (Math.abs(y - lastY) > 2) lastY = y;

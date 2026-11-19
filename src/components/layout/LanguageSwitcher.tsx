@@ -52,7 +52,7 @@ export function LanguageSwitcher({ current, label, className = "" }: Props) {
       <ul
         id={listId}
         hidden={!open}
-        className="absolute top-full right-0 mt-2 min-w-24 overflow-hidden rounded-md bg-surface p-1 text-primary shadow-[0_8px_32px_rgb(18_18_18/0.12)]"
+        className="absolute top-full right-0 mt-2 min-w-20 overflow-hidden rounded-md bg-surface p-1 text-primary shadow-[0_8px_32px_rgb(18_18_18/0.12)]"
       >
         {locales.map((l) => (
           <li key={l}>
@@ -62,10 +62,9 @@ export function LanguageSwitcher({ current, label, className = "" }: Props) {
               lang={l}
               aria-current={l === current ? "true" : undefined}
               onClick={() => setOpen(false)}
-              className="flex items-center justify-between gap-4 rounded-sm px-3 py-2 text-label-m hover:bg-page aria-[current]:text-accent"
+              className="flex items-center rounded-sm px-3 py-2 text-label-m hover:bg-page aria-[current]:text-accent"
             >
               {localeLabels[l]}
-              <span className="text-caption text-tertiary">{l === "en" ? "English" : "Azərbaycan"}</span>
             </Link>
           </li>
         ))}

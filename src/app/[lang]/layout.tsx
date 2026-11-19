@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { locales, localePath, defaultLocale } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -34,7 +35,10 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
   const locale = await getLocale();
   return (
     <html lang={locale} className={GeistSans.variable}>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

@@ -90,6 +90,7 @@ L("  --font-weight-normal: 400;");
 L("  --font-weight-medium: 500;");
 L();
 L(`  --ease-out: ${t.motion.easeOut};`);
+L(`  --ease-emphasized: ${t.motion.easeEmphasized};`);
 L();
 L("  /* Type scale: Major Third (16 × 1.25ⁿ) rounded to a 4px grid, fluid between mobile and desktop. */");
 const byName = Object.fromEntries(t.type.map((s) => [s.name, s]));
