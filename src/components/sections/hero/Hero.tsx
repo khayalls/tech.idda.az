@@ -87,17 +87,19 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
         });
       }
 
-      const drift = window.innerWidth >= 1280 ? 0.12 : 0.03;
-      const art = artRef.current;
-      if (art) art.style.transform = `translate3d(0, ${-p * drift * art.offsetHeight}px, 0)`;
+      // Only the towers drift up (design units); the hill stays anchored to the bottom edge.
+      const drift = window.innerWidth >= 1280 ? 72 : 24;
+      dotsRef.current?.setLayerOffset(1, 0, -p * drift);
       dotsRef.current?.setMorph(ss(0.2, 0.8, p));
 
       // Next section slides over: the stage recedes.
       const stage = stageRef.current;
       if (stage) {
-        stage.style.transform = c ? `translate3d(0, ${-c * 4}vh, 0) scale(${1 - 0.07 * c})` : "";
+        // Scales towards the top: any gap opens at the bottom, under the incoming sheet.
+        stage.style.transform = c ? `scale(${1 - 0.07 * c})` : "";
         stage.style.filter = c && !reduce ? `blur(${(c * 10).toFixed(2)}px)` : "";
-        stage.style.borderRadius = c ? `${Math.round(c * 32)}px` : "";
+        const r = Math.round(c * 32);
+        stage.style.borderRadius = c ? `${r}px ${r}px 0 0` : "";
       }
       if (dimRef.current) dimRef.current.style.opacity = String(c * 0.55);
     };
@@ -143,7 +145,7 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
         <div
           ref={stageRef}
           className="relative isolate flex h-full flex-col overflow-hidden will-change-transform"
-          style={{ transformOrigin: "50% 100%" }}
+          style={{ transformOrigin: "50% 0%" }}
         >
           {/* Tall background (1506/900 of the viewport) — parallax layer. */}
           <div
@@ -170,6 +172,7 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
               </h1>
               <div
                 ref={ctaRef}
+                data-hero-cta
                 className="mt-10 flex animate-reveal flex-wrap gap-3 will-change-transform [animation-delay:450ms]"
               >
                 <ButtonLink href="#apply" variant="light">
@@ -187,7 +190,7 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
 
           <div
             ref={artRef}
-            className="relative mt-auto w-full shrink-0 will-change-transform xl:absolute xl:right-0 xl:bottom-0 xl:w-[79.2%] xl:max-w-[1140px]"
+            className="relative mt-auto w-full shrink-0 xl:absolute xl:right-0 xl:bottom-0 xl:w-[79.2%] xl:max-w-[1140px]"
           >
             <HeroArt className="w-full" controlRef={dotsRef} />
           </div>

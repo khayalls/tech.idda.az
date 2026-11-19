@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ButtonLink } from "@/components/ui/Button";
 import { localePath, localeLabels, locales, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -12,6 +13,15 @@ type Props = {
   nav: Dictionary["nav"];
   a11y: Dictionary["a11y"];
 };
+
+// [blur px, mask solid until %, mask transparent from %] — a stepped ramp reads as one smooth blur.
+const BLUR_LAYERS = [
+  [1, 70, 100],
+  [2, 55, 85],
+  [4, 40, 70],
+  [8, 25, 55],
+  [16, 10, 40],
+] as const;
 
 const links = [
   { id: "why-azerbaijan", key: "whyAzerbaijan" },
@@ -22,16 +32,16 @@ const links = [
 
 /**
  * Fixed header. Text turns white over sections marked `data-header="dark"`,
- * gets a frosted background once the page scrolls, and hides while scrolling down.
+ * sits on a colourless progressive blur once the page scrolls, and reveals an "Apply now"
+ * button once the hero's own CTA has left the screen.
  */
 export function Header({ locale, nav, a11y }: Props) {
   const [onDark, setOnDark] = useState(true);
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [showCta, setShowCta] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    let lastY = window.scrollY;
     let ticking = false;
     const update = () => {
       ticking = false;
@@ -42,8 +52,14 @@ export function Header({ locale, nav, a11y }: Props) {
         .find((el) => !el.closest("header") && el.closest("[data-header]"));
       setOnDark(under?.closest<HTMLElement>("[data-header]")?.dataset.header === "dark");
       setScrolled(y > 8);
-      setHidden(y > 240 && y > lastY + 2);
-      if (Math.abs(y - lastY) > 2) lastY = y;
+      // Header CTA takes over when the hero CTA is faded out or scrolled away.
+      const heroCta = document.querySelector<HTMLElement>("[data-hero-cta]");
+      if (!heroCta) setShowCta(y > 8);
+      else {
+        const r = heroCta.getBoundingClientRect();
+        const faded = heroCta.style.visibility === "hidden" || Number(heroCta.style.opacity || 1) < 0.35;
+        setShowCta(faded || r.bottom < 96);
+      }
     };
     const onScroll = () => {
       if (!ticking) {
@@ -74,7 +90,6 @@ export function Header({ locale, nav, a11y }: Props) {
   }, [menuOpen]);
 
   const tone = onDark ? "text-on-dark" : "text-primary";
-  const surface = scrolled && !onDark ? "bg-page/80 backdrop-blur-xl shadow-[0_1px_0_var(--border-subtle)]" : scrolled ? "bg-night/24 backdrop-blur-xl" : "bg-transparent";
 
   return (
     <>
@@ -85,10 +100,28 @@ export function Header({ locale, nav, a11y }: Props) {
         {a11y.skipToContent}
       </a>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color,color,box-shadow] duration-400 ease-out ${tone} ${surface} ${
-          hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-400 ease-out ${tone}`}
       >
+        {/* Colourless progressive blur: stronger at the top, fading out below the bar. */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-[calc(100%+32px)] transition-opacity duration-400 ease-out ${
+            scrolled && !menuOpen ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {BLUR_LAYERS.map(([blur, solid, fade]) => (
+            <div
+              key={blur}
+              className="absolute inset-0"
+              style={{
+                backdropFilter: `blur(${blur}px)`,
+                WebkitBackdropFilter: `blur(${blur}px)`,
+                maskImage: `linear-gradient(to bottom, #000 ${solid}%, transparent ${fade}%)`,
+                WebkitMaskImage: `linear-gradient(to bottom, #000 ${solid}%, transparent ${fade}%)`,
+              }}
+            />
+          ))}
+        </div>
         <div className="container-page flex h-20 items-center justify-between gap-8 xl:h-24">
           <Link href={localePath(locale)} aria-label={a11y.home} className="shrink-0">
             <Logo className="h-10 w-auto xl:h-14" />
@@ -108,6 +141,22 @@ export function Header({ locale, nav, a11y }: Props) {
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher current={locale} label={a11y.language} className="hidden md:block" />
+            <div
+              className={`transition-[opacity,transform] duration-400 ease-out ${
+                showCta && !menuOpen ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-2 opacity-0"
+              }`}
+              aria-hidden={!showCta || menuOpen}
+            >
+              <ButtonLink
+                href="#apply"
+                size="sm"
+                variant={onDark ? "light" : "primary"}
+                tabIndex={showCta && !menuOpen ? undefined : -1}
+                className="md:ml-2"
+              >
+                {nav.apply}
+              </ButtonLink>
+            </div>
             <button
               type="button"
               className="-mr-2 flex size-12 items-center justify-center rounded-full xl:hidden"

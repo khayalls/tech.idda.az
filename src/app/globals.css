@@ -82,6 +82,9 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    /* No rubber-band gap: overscroll above shows the hero blue, below shows the page colour. */
+    overscroll-behavior-y: none;
+    background: linear-gradient(to bottom, var(--color-blue-600) 50%, var(--bg-page) 50%);
   }
 
   body {

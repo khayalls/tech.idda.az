@@ -3,8 +3,13 @@ import type { ComponentProps } from "react";
 
 type Variant = "light" | "glass" | "primary" | "outline";
 
+const sizes = {
+  md: "px-6 py-4", // 56px tall
+  sm: "px-4 py-2", // 40px tall
+} as const;
+
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-label-m whitespace-nowrap " +
+  "inline-flex items-center justify-center gap-2 rounded-full text-label-m whitespace-nowrap " +
   "transition-[background-color,color,transform,box-shadow] duration-200 ease-out " +
   "active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-4";
 
@@ -17,9 +22,10 @@ const variants: Record<Variant, string> = {
 
 type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "className"> & {
   variant?: Variant;
+  size?: keyof typeof sizes;
   className?: string;
 };
 
-export function ButtonLink({ variant = "light", className = "", ...props }: ButtonLinkProps) {
-  return <Link className={`${base} ${variants[variant]} ${className}`} {...props} />;
+export function ButtonLink({ variant = "light", size = "md", className = "", ...props }: ButtonLinkProps) {
+  return <Link className={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...props} />;
 }

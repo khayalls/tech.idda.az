@@ -27,6 +27,8 @@ export type RevealOptions = {
 export type DotCanvasControl = {
   /** 0 = source shape, 1 = `morphTo` shape. */
   setMorph: (progress: number) => void;
+  /** Shift one layer (index into `sources`) in design units, e.g. for parallax inside the art. */
+  setLayerOffset: (index: number, dx: number, dy: number) => void;
 };
 
 export type DotCanvasProps = {
@@ -60,6 +62,8 @@ type Layer = {
   a: Float32Array;
   revealDelay: Float32Array;
   morph?: MorphPair;
+  ox: number;
+  oy: number;
 };
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -125,6 +129,7 @@ export function DotCanvas({
     let revealEnd = 0;
     let morphP = 0;
     let morphDirty = true;
+    const pendingOffsets: Record<number, [number, number]> = {};
 
     // Layout state (CSS pixels).
     let cssW = 0;
@@ -183,7 +188,8 @@ export function DotCanvas({
 
       for (const l of layers) {
         ctx.fillStyle = l.color;
-        const { x, y, d, a, count, revealDelay } = l;
+        const { d, a, count, revealDelay, ox, oy } = l;
+        const x = l.x, y = l.y;
         for (let i = 0; i < count; i++) {
           let k = 1;
           if (!revealDone) {
@@ -195,8 +201,8 @@ export function DotCanvas({
           let alpha = a[i] * k;
           if (alpha < 0.01) continue;
           if (ps > 0.001) {
-            const dx = x[i] - pointer.x;
-            const dy = y[i] - pointer.y;
+            const dx = x[i] + ox - pointer.x;
+            const dy = y[i] + oy - pointer.y;
             const dist2 = dx * dx + dy * dy;
             if (dist2 < R2) {
               const f = (1 - Math.sqrt(dist2) / R) ** 2 * ps;
@@ -208,7 +214,7 @@ export function DotCanvas({
           if (pr < 0.15) continue;
           ctx.globalAlpha = alpha;
           ctx.beginPath();
-          ctx.arc(offX + x[i] * scale, offY + y[i] * scale, pr, 0, Math.PI * 2);
+          ctx.arc(offX + (x[i] + ox) * scale, offY + (y[i] + oy) * scale, pr, 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -238,6 +244,15 @@ export function DotCanvas({
           const v = Math.min(1, Math.max(0, p));
           if (Math.abs(v - morphP) < 1e-4) return;
           morphP = v;
+          morphDirty = true;
+          kick();
+        },
+        setLayerOffset: (index, dx, dy) => {
+          pendingOffsets[index] = [dx, dy];
+          const l = layers[index];
+          if (!l || (l.ox === dx && l.oy === dy)) return;
+          l.ox = dx;
+          l.oy = dy;
           morphDirty = true;
           kick();
         },
@@ -287,7 +302,7 @@ export function DotCanvas({
           const base = byIndex.get(s.src) as DotLayer;
           const color = s.color ?? "#fff";
           if (!s.morphTo) {
-            const l: Layer = { color, count: base.count, space: base.space, x: base.x, y: base.y, d: base.d, a: base.a, revealDelay: new Float32Array(0) };
+            const l: Layer = { color, count: base.count, space: base.space, x: base.x, y: base.y, d: base.d, a: base.a, revealDelay: new Float32Array(0), ox: 0, oy: 0 };
             l.revealDelay = revealDelays(l);
             return l;
           }
@@ -297,11 +312,20 @@ export function DotCanvas({
             color, count: n, space: base.space, morph,
             x: new Float32Array(n), y: new Float32Array(n), d: new Float32Array(n), a: new Float32Array(n),
             revealDelay: new Float32Array(0),
+            ox: 0,
+            oy: 0,
           };
           applyMorph(l, morphP);
           l.revealDelay = revealDelays(l);
           return l;
         });
+        for (const [i, [dx, dy]] of Object.entries(pendingOffsets)) {
+          const l = layers[Number(i)];
+          if (l) {
+            l.ox = dx;
+            l.oy = dy;
+          }
+        }
         let last = 0;
         for (const l of layers) for (const v of l.revealDelay) if (v > last) last = v;
         revealEnd = last + (rv?.duration ?? 700);
