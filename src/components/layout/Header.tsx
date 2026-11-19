@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ButtonLink } from "@/components/ui/Button";
+import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
 import { localePath, localeLabels, locales, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -13,15 +14,6 @@ type Props = {
   nav: Dictionary["nav"];
   a11y: Dictionary["a11y"];
 };
-
-// [blur px, mask solid until %, mask transparent from %] — a stepped ramp reads as one smooth blur.
-const BLUR_LAYERS = [
-  [1, 70, 100],
-  [2, 55, 85],
-  [4, 40, 70],
-  [8, 25, 55],
-  [16, 10, 40],
-] as const;
 
 const links = [
   { id: "why-azerbaijan", key: "whyAzerbaijan" },
@@ -52,14 +44,8 @@ export function Header({ locale, nav, a11y }: Props) {
         .find((el) => !el.closest("header") && el.closest("[data-header]"));
       setOnDark(under?.closest<HTMLElement>("[data-header]")?.dataset.header === "dark");
       setScrolled(y > 8);
-      // Header CTA takes over when the hero CTA is faded out or scrolled away.
-      const heroCta = document.querySelector<HTMLElement>("[data-hero-cta]");
-      if (!heroCta) setShowCta(y > 8);
-      else {
-        const r = heroCta.getBoundingClientRect();
-        const faded = heroCta.style.visibility === "hidden" || Number(heroCta.style.opacity || 1) < 0.35;
-        setShowCta(faded || r.bottom < 96);
-      }
+      // Pages without a hero: show the CTA as soon as the page scrolls.
+      if (!document.querySelector("[data-hero-cta]")) setShowCta(y > 8);
     };
     const onScroll = () => {
       if (!ticking) {
@@ -67,10 +53,14 @@ export function Header({ locale, nav, a11y }: Props) {
         requestAnimationFrame(update);
       }
     };
+    // The hero announces when its own CTA has handed over (dispatched from its scroll frame).
+    const onHeroCta = (e: Event) => setShowCta((e as CustomEvent<{ gone: boolean }>).detail.gone);
+    window.addEventListener("hero-cta", onHeroCta);
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
+      window.removeEventListener("hero-cta", onHeroCta);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -102,26 +92,12 @@ export function Header({ locale, nav, a11y }: Props) {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-colors duration-400 ease-out ${tone}`}
       >
-        {/* Colourless progressive blur: stronger at the top, fading out below the bar. */}
-        <div
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-[calc(100%+32px)] transition-opacity duration-400 ease-out ${
+        {/* Colourless progressive blur behind the bar, fading out below it. */}
+        <ProgressiveBlur
+          className={`absolute inset-x-0 top-0 -z-10 h-[calc(100%+48px)] transition-opacity duration-400 ease-out ${
             scrolled && !menuOpen ? "opacity-100" : "opacity-0"
           }`}
-        >
-          {BLUR_LAYERS.map(([blur, solid, fade]) => (
-            <div
-              key={blur}
-              className="absolute inset-0"
-              style={{
-                backdropFilter: `blur(${blur}px)`,
-                WebkitBackdropFilter: `blur(${blur}px)`,
-                maskImage: `linear-gradient(to bottom, #000 ${solid}%, transparent ${fade}%)`,
-                WebkitMaskImage: `linear-gradient(to bottom, #000 ${solid}%, transparent ${fade}%)`,
-              }}
-            />
-          ))}
-        </div>
+        />
         <div className="container-page flex h-20 items-center justify-between gap-8 xl:h-24">
           <Link href={localePath(locale)} aria-label={a11y.home} className="shrink-0">
             <Logo className="h-10 w-auto xl:h-14" />

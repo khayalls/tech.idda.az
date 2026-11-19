@@ -30,7 +30,7 @@ const COVER = 1;
  */
 export function Hero({ t }: { t: Dictionary["hero"] }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const dimRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -44,9 +44,12 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
     const title = titleRef.current;
     const support = supportRef.current;
     if (!section || !title || !support) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     let raf = 0;
     let titleLines: SplitLines | null = null;
+    let ctaGone = false;
     let supportLines: SplitLines | null = null;
 
     const update = () => {
@@ -60,7 +63,8 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
       const c = clamp01((scrolled - travel) / cover);
 
       const bg = bgRef.current;
-      if (bg) bg.style.transform = `translate3d(0, ${-p * (bg.offsetHeight - vh)}px, 0)`;
+      if (bg)
+        bg.style.transform = `translate3d(0, ${-p * (bg.offsetHeight - vh)}px, 0)`;
 
       // Headline 1 lifts out of its masks, line by line.
       if (titleLines) {
@@ -76,6 +80,12 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
           cta.style.transform = `translate3d(0, ${-k * 24}px, 0)`;
           cta.style.opacity = String(1 - k);
           cta.style.visibility = k > 0.99 ? "hidden" : "visible";
+          // Tell the header (same frame, no polling) when the hero CTA hands over.
+          const gone = k > 0.5;
+          if (gone !== ctaGone) {
+            ctaGone = gone;
+            window.dispatchEvent(new CustomEvent("hero-cta", { detail: { gone } }));
+          }
         }
       }
       // Headline 2 rises in, line by line.
@@ -92,14 +102,12 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
       dotsRef.current?.setLayerOffset(1, 0, -p * drift);
       dotsRef.current?.setMorph(ss(0.2, 0.8, p));
 
-      // Next section slides over: the stage recedes.
-      const stage = stageRef.current;
-      if (stage) {
-        // Scales towards the top: any gap opens at the bottom, under the incoming sheet.
-        stage.style.transform = c ? `scale(${1 - 0.07 * c})` : "";
-        stage.style.filter = c && !reduce ? `blur(${(c * 10).toFixed(2)}px)` : "";
-        const r = Math.round(c * 32);
-        stage.style.borderRadius = c ? `${r}px ${r}px 0 0` : "";
+      // Next section slides over: the blue stays full-bleed, only what sits on it recedes.
+      const content = contentRef.current;
+      if (content) {
+        content.style.transform = c ? `scale(${1 - 0.1 * c})` : "";
+        content.style.filter =
+          c && !reduce ? `blur(${(c * 8).toFixed(2)}px)` : "";
       }
       if (dimRef.current) dimRef.current.style.opacity = String(c * 0.55);
     };
@@ -110,7 +118,9 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
     const stopTitle = watchLines(title, (s) => {
       titleLines = s;
       title.dataset.reveal = reduce ? "in" : "out";
-      requestAnimationFrame(() => requestAnimationFrame(() => (title.dataset.reveal = "in")));
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => (title.dataset.reveal = "in")),
+      );
       update();
     });
     const stopSupport = watchLines(support, (s) => {
@@ -140,13 +150,14 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
   }, []);
 
   return (
-    <section ref={sectionRef} id="top" data-header="dark" className="relative h-[350svh] bg-blue-975 text-on-dark">
+    <section
+      ref={sectionRef}
+      id="top"
+      data-header="dark"
+      className="relative h-[350svh] bg-blue-975 text-on-dark"
+    >
       <div className="sticky top-0 h-svh min-h-[560px] overflow-hidden">
-        <div
-          ref={stageRef}
-          className="relative isolate flex h-full flex-col overflow-hidden will-change-transform"
-          style={{ transformOrigin: "50% 0%" }}
-        >
+        <div className="relative isolate h-full overflow-hidden">
           {/* Tall background (1506/900 of the viewport) — parallax layer. */}
           <div
             ref={bgRef}
@@ -160,42 +171,62 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
           >
             <div
               className="absolute top-[-14%] right-[-15%] h-[64%] w-[80%] animate-drift rounded-full opacity-80 blur-[120px]"
-              style={{ background: "radial-gradient(closest-side, var(--color-cyan-400), transparent)" }}
+              style={{
+                background:
+                  "radial-gradient(closest-side, var(--color-cyan-400), transparent)",
+              }}
             />
-            <div className="absolute inset-0 opacity-20 mix-blend-overlay" style={{ backgroundImage: GRAIN }} />
+            <div
+              className="absolute inset-0 opacity-20 mix-blend-overlay"
+              style={{ backgroundImage: GRAIN }}
+            />
           </div>
 
-          <div className="container-page relative z-10 grid flex-1 content-start pt-28 md:pt-40 xl:content-center xl:pt-24 xl:pb-32">
-            <div className="col-start-1 row-start-1">
-              <h1 ref={titleRef} className="max-w-[15ch] text-display-l">
-                {t.title}
-              </h1>
-              <div
-                ref={ctaRef}
-                data-hero-cta
-                className="mt-10 flex animate-reveal flex-wrap gap-3 will-change-transform [animation-delay:450ms]"
-              >
-                <ButtonLink href="#apply" variant="light">
-                  {t.apply}
-                </ButtonLink>
-                <ButtonLink href="#benefits" variant="glass">
-                  {t.explore}
-                </ButtonLink>
+          {/* Everything on the blue: scales and blurs as the next section covers the hero. */}
+          <div
+            ref={contentRef}
+            className="absolute inset-0 flex flex-col"
+            style={{ transformOrigin: "50% 45%" }}
+          >
+            <div className="container-page relative z-10 grid flex-1 content-start pt-28 md:pt-40 xl:content-center xl:pt-24 xl:pb-32">
+              <div className="col-start-1 row-start-1">
+                <h1 ref={titleRef} className="max-w-[15ch] text-display-l">
+                  {t.title}
+                </h1>
+                <div
+                  ref={ctaRef}
+                  data-hero-cta
+                  className="mt-10 flex animate-reveal flex-wrap gap-3 will-change-transform [animation-delay:450ms]"
+                >
+                  <ButtonLink href="#apply" variant="light">
+                    {t.apply}
+                  </ButtonLink>
+                  <ButtonLink href="#benefits" variant="glass">
+                    {t.explore}
+                  </ButtonLink>
+                </div>
               </div>
+              <p
+                ref={supportRef}
+                className="invisible col-start-1 row-start-1 max-w-[15ch] text-display-l"
+              >
+                {t.support}
+              </p>
             </div>
-            <p ref={supportRef} className="invisible col-start-1 row-start-1 max-w-[15ch] text-display-l">
-              {t.support}
-            </p>
+
+            <div
+              ref={artRef}
+              className="relative mt-auto w-full shrink-0 xl:absolute xl:right-0 xl:bottom-0 xl:w-[79.2%] xl:max-w-[1140px]"
+            >
+              <HeroArt className="w-full" controlRef={dotsRef} />
+            </div>
           </div>
 
           <div
-            ref={artRef}
-            className="relative mt-auto w-full shrink-0 xl:absolute xl:right-0 xl:bottom-0 xl:w-[79.2%] xl:max-w-[1140px]"
-          >
-            <HeroArt className="w-full" controlRef={dotsRef} />
-          </div>
-
-          <div ref={dimRef} aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 bg-blue-975 opacity-0" />
+            ref={dimRef}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-20 bg-blue-975 opacity-0"
+          />
         </div>
       </div>
     </section>
