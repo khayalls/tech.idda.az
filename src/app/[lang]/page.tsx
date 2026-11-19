@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/hero/Hero";
 import { Mission } from "@/components/sections/mission/Mission";
 import { Taxes } from "@/components/sections/taxes/Taxes";
 import { Beyond } from "@/components/sections/beyond/Beyond";
+import { MoreTax } from "@/components/sections/more/MoreTax";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function Home() {
@@ -18,7 +19,8 @@ export default async function Home() {
         <Mission t={t.mission} />
         <Taxes t={t.taxes} />
         <Beyond t={t.beyond} />
-        {/* Next: More than tax → Who can apply → FAQ → Apply. */}
+        <MoreTax t={t.moreTax} />
+        {/* Next: Who can apply → FAQ → Apply. */}
       </main>
       <Footer t={t.footer} />
     </>

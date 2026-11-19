@@ -56,6 +56,41 @@
   "beyond": {
     "text": "Beyond tax relief, eligible residents benefit from social insurance incentives, easier international hiring and lower cloud and software costs, alongside public procurement advantages, export support and a regulatory sandbox to test advanced digital solutions."
   },
+  "moreTax": {
+    "title": "More than tax",
+    "items": [
+      {
+        "icon": "globe",
+        "title": "Hire globally",
+        "body": "No extra work permit for foreign specialists. Bring the team you need, from anywhere."
+      },
+      {
+        "icon": "shield",
+        "title": "Lighter social insurance",
+        "body": "Foreign employees are exempt from mandatory social insurance. For local staff, contributions can be based on 4× the minimum wage for 20 years."
+      },
+      {
+        "icon": "building",
+        "title": "Government as a first customer",
+        "body": "Up to 20% price preference and no bid security in public tenders — the public sector can be your first customer."
+      },
+      {
+        "icon": "cloud",
+        "title": "Cheaper cloud and software",
+        "body": "No VAT or withholding tax on foreign cloud and software services, so your infrastructure costs less as you scale."
+      },
+      {
+        "icon": "export",
+        "title": "Export support",
+        "body": "IDDA’s export package helps you enter new markets faster, with market-entry and export grants."
+      },
+      {
+        "icon": "sandbox",
+        "title": "Regulatory sandbox",
+        "body": "Test advanced digital and AI solutions in a controlled regulatory environment before a full launch."
+      }
+    ]
+  },
   "faq": {
     "title": "Questions, answered.",
     "contactPrefix": "If you have any further questions, you can reach us at",

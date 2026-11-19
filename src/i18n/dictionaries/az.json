@@ -56,6 +56,41 @@
   "beyond": {
     "text": "Vergi güzəştlərindən əlavə, uyğun rezidentlər sosial sığorta güzəştlərindən, xarici mütəxəssislərin daha asan işə cəlb edilməsindən, daha ucuz bulud və proqram xidmətlərindən, həmçinin dövlət satınalmalarında üstünlüklərdən, ixrac dəstəyindən və qabaqcıl rəqəmsal həlləri sınaqdan keçirmək üçün tənzimləyici sandboksdan yararlanır."
   },
+  "moreTax": {
+    "title": "Vergidən daha artıq",
+    "items": [
+      {
+        "icon": "globe",
+        "title": "Dünyadan işə qəbul",
+        "body": "Xarici mütəxəssislər üçün əlavə iş icazəsi tələb olunmur. Lazım olan komandanı istənilən yerdən qurun."
+      },
+      {
+        "icon": "shield",
+        "title": "Yüngül sosial sığorta",
+        "body": "Əcnəbi işçilər məcburi sosial sığortadan azaddır. Yerli işçilər üçün haqlar 20 il müddətinə minimum əmək haqqının 4 misli əsasında hesablana bilər."
+      },
+      {
+        "icon": "building",
+        "title": "Dövlət ilk müştəri kimi",
+        "body": "Dövlət satınalmalarında 20%-ə qədər qiymət üstünlüyü və tender təminatı tələb olunmur — dövlət sizin ilk müştəriniz ola bilər."
+      },
+      {
+        "icon": "cloud",
+        "title": "Daha ucuz bulud və proqram təminatı",
+        "body": "Xarici bulud və proqram xidmətlərinə ƏDV və ödəmə mənbəyində vergi tətbiq olunmur — böyüdükcə infrastruktur daha ucuz başa gəlir."
+      },
+      {
+        "icon": "export",
+        "title": "İxrac dəstəyi",
+        "body": "İRİA-nın ixrac paketi bazara giriş və ixrac qrantları ilə yeni bazarlara daha sürətli çıxmağa kömək edir."
+      },
+      {
+        "icon": "sandbox",
+        "title": "Tənzimləyici sandboks",
+        "body": "Qabaqcıl rəqəmsal və süni intellekt həllərini tam istifadəyə verməzdən əvvəl nəzarət olunan tənzimləyici mühitdə sınaqdan keçirin."
+      }
+    ]
+  },
   "faq": {
     "title": "Suallar və cavablar",
     "contactPrefix": "Əlavə suallarınız yarandığı təqdirdə,",
