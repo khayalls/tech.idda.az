@@ -36,6 +36,7 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const supportRef = useRef<HTMLParagraphElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const artRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<DotCanvasControl | null>(null);
 
@@ -66,33 +67,45 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
       if (bg)
         bg.style.transform = `translate3d(0, ${-p * (bg.offsetHeight - vh)}px, 0)`;
 
-      // Headline 1 lifts out of its masks, line by line.
+      // Text track: both headlines scroll up (faster than the background → parallax).
+      // Headline 2 starts one screen lower and settles where headline 1 was.
+      const tp = clamp01(scrolled / (travel * 0.8));
+      const offset = vh * (window.innerWidth >= 768 ? 0.9 : 0.8);
+      if (trackRef.current)
+        trackRef.current.style.transform = `translate3d(0, ${-offset * tp}px, 0)`;
+      if (supportRef.current)
+        supportRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+
+      // Headline 1 dissolves line by line while it scrolls away and headline 2 arrives.
       if (titleLines) {
         const n = titleLines.moves.length;
+        // A line also fades by position, so it is gone before it slides under the header.
+        const near = (el: HTMLElement) => ss(vh * 0.3, 88, el.getBoundingClientRect().top);
         titleLines.moves.forEach((m, i) => {
-          const k = ss(0.12 + i * 0.035, 0.28 + i * 0.035, p);
-          m.style.transform = k ? `translate3d(0, ${-k * 110}%, 0)` : "";
+          const k = Math.max(ss(0.1 + i * 0.05, 0.36 + i * 0.05, tp), near(titleLines!.masks[i]));
           m.style.opacity = k ? String(1 - k) : "";
+          m.style.filter = k ? `blur(${(k * 6).toFixed(2)}px)` : "";
         });
         const cta = ctaRef.current;
         if (cta) {
-          const k = ss(0.12 + n * 0.035, 0.3 + n * 0.035, p);
-          cta.style.transform = `translate3d(0, ${-k * 24}px, 0)`;
+          const k = Math.max(ss(0.1 + n * 0.05, 0.36 + n * 0.05, tp), near(cta));
           cta.style.opacity = String(1 - k);
           cta.style.visibility = k > 0.99 ? "hidden" : "visible";
           // Tell the header (same frame, no polling) when the hero CTA hands over.
           const gone = k > 0.5;
           if (gone !== ctaGone) {
             ctaGone = gone;
-            window.dispatchEvent(new CustomEvent("hero-cta", { detail: { gone } }));
+            window.dispatchEvent(
+              new CustomEvent("hero-cta", { detail: { gone } }),
+            );
           }
         }
       }
-      // Headline 2 rises in, line by line.
+      // Headline 2 lines rise out of their masks as they come into view.
       if (supportLines) {
         supportLines.moves.forEach((m, i) => {
-          const k = ss(0.42 + i * 0.04, 0.6 + i * 0.04, p);
-          m.style.transform = `translate3d(0, ${(1 - k) * 110}%, 0)`;
+          const k = ss(0.3 + i * 0.07, 0.75 + i * 0.07, tp);
+          m.style.transform = `translate3d(0, ${(1 - k) * 100}%, 0)`;
           m.style.opacity = String(k);
         });
       }
@@ -191,29 +204,33 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
             style={{ transformOrigin: "50% 45%" }}
           >
             <div className="container-page relative z-10 grid flex-1 content-start pt-28 md:pt-40 xl:content-center xl:pt-24 xl:pb-32">
-              <div className="col-start-1 row-start-1">
-                <h1 ref={titleRef} className="max-w-[15ch] text-display-l">
-                  {t.title}
-                </h1>
-                <div
-                  ref={ctaRef}
-                  data-hero-cta
-                  className="mt-10 flex animate-reveal flex-wrap gap-3 will-change-transform [animation-delay:450ms]"
-                >
-                  <ButtonLink href="#apply" variant="light">
-                    {t.apply}
-                  </ButtonLink>
-                  <ButtonLink href="#benefits" variant="glass">
-                    {t.explore}
-                  </ButtonLink>
-                </div>
-              </div>
-              <p
-                ref={supportRef}
-                className="invisible col-start-1 row-start-1 max-w-[15ch] text-display-l"
+              <div
+                ref={trackRef}
+                className="col-start-1 row-start-1 grid will-change-transform"
               >
-                {t.support}
-              </p>
+                <div className="col-start-1 row-start-1">
+                  <h1 ref={titleRef} className="max-w-[15ch] text-display-l">
+                    {t.title}
+                  </h1>
+                  {/* Outer: scroll-driven fade. Inner: intro animation (its fill would override inline opacity). */}
+                  <div ref={ctaRef} data-hero-cta className="mt-10">
+                    <div className="flex animate-reveal flex-wrap gap-3 [animation-delay:450ms]">
+                      <ButtonLink href="#apply" variant="light">
+                        {t.apply}
+                      </ButtonLink>
+                      <ButtonLink href="#benefits" variant="glass">
+                        {t.explore}
+                      </ButtonLink>
+                    </div>
+                  </div>
+                </div>
+                <p
+                  ref={supportRef}
+                  className="invisible col-start-1 row-start-1 max-w-[15ch] text-display-l"
+                >
+                  {t.support}
+                </p>
+              </div>
             </div>
 
             <div
