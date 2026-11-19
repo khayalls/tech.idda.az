@@ -97,9 +97,11 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
         });
       }
 
-      // Only the towers drift up (design units); the hill stays anchored to the bottom edge.
-      const drift = window.innerWidth >= 1280 ? 72 : 24;
-      dotsRef.current?.setLayerOffset(1, 0, -p * drift);
+      // The whole illustration (ground + towers) drifts up together, in design units.
+      // The ground data continues below the view, so no gap opens at the bottom.
+      const drift = -p * (window.innerWidth >= 1280 ? 72 : 32);
+      dotsRef.current?.setLayerOffset(0, 0, drift);
+      dotsRef.current?.setLayerOffset(1, 0, drift);
       dotsRef.current?.setMorph(ss(0.2, 0.8, p));
 
       // Next section slides over: the blue stays full-bleed, only what sits on it recedes.

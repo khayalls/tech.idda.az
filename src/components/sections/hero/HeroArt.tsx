@@ -4,8 +4,10 @@ import { useEffect, useState, type RefObject } from "react";
 import { DotCanvas, type DotCanvasControl } from "@/components/dots/DotCanvas";
 
 // Regions of the 1440×900 hero design space.
-const DESKTOP_VIEW: [number, number, number, number] = [300, 300, 1140, 610]; // towers + full hill
-const MOBILE_VIEW: [number, number, number, number] = [660, 300, 780, 610]; // towers + right of hill
+// Headroom above the towers so the art can drift up without clipping; the ground continues below
+// y = 906 (see hill.json) so nothing opens up underneath.
+const DESKTOP_VIEW: [number, number, number, number] = [300, 220, 1140, 690]; // towers + full hill
+const MOBILE_VIEW: [number, number, number, number] = [660, 260, 780, 650]; // towers + right of hill
 
 const SOURCES = [
   { src: "/dots/hill.json", color: "#ffffff" },
