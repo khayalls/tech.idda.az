@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { DotCanvas } from "@/components/dots/DotCanvas";
+import { useEffect, useState, type RefObject } from "react";
+import { DotCanvas, type DotCanvasControl } from "@/components/dots/DotCanvas";
 
 // Regions of the 1440×900 hero design space.
 const DESKTOP_VIEW: [number, number, number, number] = [300, 300, 1140, 610]; // towers + full hill
@@ -9,11 +9,17 @@ const MOBILE_VIEW: [number, number, number, number] = [660, 300, 780, 610]; // t
 
 const SOURCES = [
   { src: "/dots/hill.json", color: "#ffffff" },
-  { src: "/dots/flame-towers.json", color: "#ffffff" },
+  // Flame Towers morph into the Maiden Tower as the hero scrolls.
+  { src: "/dots/flame-towers.json", morphTo: "/dots/maiden-tower.json", color: "#ffffff" },
 ];
 
-/** Flame Towers + hill as halftone dots. Reveals bottom-up, reacts softly to the pointer. */
-export function HeroArt({ className = "" }: { className?: string }) {
+type Props = {
+  className?: string;
+  controlRef?: RefObject<DotCanvasControl | null>;
+};
+
+/** Flame Towers ↔ Maiden Tower as halftone dots on a dotted hill. */
+export function HeroArt({ className = "", controlRef }: Props) {
   const [wide, setWide] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -36,6 +42,7 @@ export function HeroArt({ className = "" }: { className?: string }) {
           align={[1, 1]}
           interactive
           pointerRadius={80}
+          controlRef={controlRef}
           reveal={{ from: "bottom", sweep: 1600, duration: 900, jitter: 500, delay: 200 }}
           className="block size-full"
         />
