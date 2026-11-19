@@ -11,8 +11,8 @@ import "lenis/dist/lenis.css";
 export function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.09,
-      wheelMultiplier: 0.9,
+      lerp: 0.07,
+      wheelMultiplier: 1,
       anchors: { offset: 0 },
       autoRaf: true,
       autoToggle: true, // pauses while <html> has overflow:hidden (mobile menu)

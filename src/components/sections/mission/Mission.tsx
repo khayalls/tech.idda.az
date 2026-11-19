@@ -23,7 +23,7 @@ const angleTo = (a: number, b: number) => ((((b - a) % 360) + 540) % 360) - 180;
  * 02 — Mission. A light sheet that slides over the pinned hero. Pinned inside:
  *  1. the headline drifts up and dissolves line by line,
  *  2. the dot globe rises, turns and zooms towards Azerbaijan,
- *  3. every other country fades away until only Azerbaijan remains — larger, in brand blue.
+ *  3. the rest of the map softens while Azerbaijan turns brand blue and grows slightly.
  */
 export function Mission({ t }: { t: Dictionary["mission"] }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -76,17 +76,16 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
         const zoom = ss(0.18, 0.86, q);
         const startLon = START.lon + spin;
         const R0 = Math.min(w * (mobile ? 0.46 : 0.36), h * 0.38);
-        const R1 = (w * (mobile ? 0.72 : 0.44)) / AZ_WIDTH;
+        // Close-up: Azerbaijan about a quarter of the width (half on phones), map still around it.
+        const R1 = (w * (mobile ? 0.5 : 0.24)) / AZ_WIDTH;
         g.setView({
           lon: startLon + angleTo(startLon, AZ.lon) * turn,
           lat: lerp(START.lat, AZ.lat, turn),
           radius: R0 * Math.pow(R1 / R0, zoom),
           cx: w / 2,
           cy: lerp(h * (mobile ? 0.74 : 0.76), h * 0.52, ss(0.12, 0.5, q)),
-          highlight: ss(0.34, 0.56, q),
-          world: 1 - ss(0.36, 0.62, q),
-          detail: ss(0.44, 0.7, q),
-          grow: 1 + 0.12 * ss(0.82, 1, q),
+          highlight: ss(0.5, 0.8, q),
+          ink: lerp(1, 0.45, ss(0.4, 0.85, q)),
         });
       }
 
