@@ -138,6 +138,47 @@
       }
     ]
   },
+  "apply": {
+    "title": "20 illik vergisiz dövrünüz buradan başlayır.",
+    "countdownLabel": "Güzəştlərin 1 yanvar 2027-ci ildə başlamasına qalan vaxt",
+    "units": {
+      "days": "gün",
+      "hours": "saat",
+      "minutes": "dəqiqə",
+      "seconds": "saniyə"
+    },
+    "applicantType": {
+      "label": "Müraciətçinin növü",
+      "options": {
+        "legalEntity": "Hüquqi şəxs (şirkət)",
+        "individualEntrepreneur": "Fərdi sahibkar",
+        "freelancer": "Frilanser",
+        "digitalNomad": "Rəqəmsal səyyah"
+      }
+    },
+    "fields": {
+      "fullName": "Ad və soyad",
+      "companyName": "Şirkətin adı",
+      "email": "E-poçt ünvanı",
+      "phone": "Telefon nömrəsi",
+      "country": "Ölkə"
+    },
+    "optional": "istəyə bağlı",
+    "countrySearch": "Ölkə axtar",
+    "noResults": "Nəticə tapılmadı",
+    "errors": {
+      "required": "Bu sahənin doldurulması vacibdir.",
+      "email": "Düzgün e-poçt ünvanı daxil edin.",
+      "phone": "Düzgün telefon nömrəsi daxil edin.",
+      "generic": "Xəta baş verdi. Zəhmət olmasa, bir az sonra yenidən cəhd edin."
+    },
+    "submit": "Müraciət et",
+    "submitting": "Göndərilir…",
+    "success": {
+      "heading": "Müraciətiniz qəbul olundu",
+      "description": "3 iş günü ərzində sizinlə əlaqə saxlayacağıq."
+    }
+  },
   "footer": {
     "email": "texnopark@idda.az",
     "phone": "+994 12 310 14 00",

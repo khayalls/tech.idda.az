@@ -138,6 +138,47 @@
       }
     ]
   },
+  "apply": {
+    "title": "Your 20 tax-free years start here.",
+    "countdownLabel": "Time until the benefits start on 1 January 2027",
+    "units": {
+      "days": "days",
+      "hours": "hours",
+      "minutes": "minutes",
+      "seconds": "seconds"
+    },
+    "applicantType": {
+      "label": "Applicant type",
+      "options": {
+        "legalEntity": "Legal entity (company)",
+        "individualEntrepreneur": "Individual entrepreneur",
+        "freelancer": "Freelancer",
+        "digitalNomad": "Digital nomad"
+      }
+    },
+    "fields": {
+      "fullName": "Full name",
+      "companyName": "Company name",
+      "email": "Email",
+      "phone": "Phone number",
+      "country": "Country"
+    },
+    "optional": "optional",
+    "countrySearch": "Search countries",
+    "noResults": "No matches",
+    "errors": {
+      "required": "This field is required.",
+      "email": "Enter a valid email address.",
+      "phone": "Enter a valid phone number.",
+      "generic": "Something went wrong. Please try again in a moment."
+    },
+    "submit": "Apply now",
+    "submitting": "Sending…",
+    "success": {
+      "heading": "Application received",
+      "description": "We'll be in touch within 3 working days."
+    }
+  },
   "footer": {
     "email": "texnopark@idda.az",
     "phone": "+994 12 310 14 00",

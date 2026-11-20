@@ -7,6 +7,7 @@ import { Beyond } from "@/components/sections/beyond/Beyond";
 import { MoreTax } from "@/components/sections/more/MoreTax";
 import { Audience } from "@/components/sections/audience/Audience";
 import { Faq } from "@/components/sections/faq/Faq";
+import { Apply } from "@/components/sections/apply/Apply";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function Home() {
@@ -23,9 +24,10 @@ export default async function Home() {
         <Beyond t={t.beyond} />
         <MoreTax t={t.moreTax} />
         <Audience t={t.audience} />
-        {/* Light sheet that slides over "Who can apply": FAQ (next: Apply). */}
+        {/* Light sheet that slides over "Who can apply": FAQ and the application form. */}
         <div data-header="light" className="relative z-10 -mt-[100svh] min-h-svh rounded-t-lg bg-page">
           <Faq t={t.faq} />
+          <Apply t={t.apply} locale={locale} />
         </div>
       </main>
       <Footer t={t.footer} />

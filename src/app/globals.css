@@ -41,6 +41,35 @@
   );
 }
 
+/* Form feedback colour (not in the generated token set yet). */
+:root {
+  --text-error: #c4372c;
+}
+
+/* Form micro-interactions (see src/components/apply). */
+@keyframes field-shake-a {
+  0%, 100% { translate: 0; }
+  20% { translate: -6px; }
+  40% { translate: 5px; }
+  60% { translate: -3px; }
+  80% { translate: 2px; }
+}
+@keyframes field-shake-b {
+  0%, 100% { translate: 0; }
+  20% { translate: -6px; }
+  40% { translate: 5px; }
+  60% { translate: -3px; }
+  80% { translate: 2px; }
+}
+@keyframes check-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes dot-wave {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.45; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
 /* Line-by-line text (see src/lib/split-lines.ts). Lines rise out of a mask, staggered 90ms. */
 @layer components {
   .line-mask {
