@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ButtonLink } from "@/components/ui/Button";
@@ -29,6 +29,16 @@ const links = [
  */
 export function Header({ locale, nav, a11y }: Props) {
   const [onDark, setOnDark] = useState(true);
+  // Width of the CTA, so the space it needs can open next to the language switcher.
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const [ctaW, setCtaW] = useState(0);
+  useEffect(() => {
+    const el = ctaRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setCtaW(el.offsetWidth));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const [scrolled, setScrolled] = useState(false);
   const [showCta, setShowCta] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -116,30 +126,29 @@ export function Header({ locale, nav, a11y }: Props) {
           </nav>
 
           <div className="flex items-center">
-            <LanguageSwitcher current={locale} label={a11y.language} className="hidden md:block" />
-            {/* The CTA takes no room while hidden (language sits at the right edge); when it appears
-                its column opens and pushes the language switcher left. */}
+            {/* The CTA sits whole at the right edge and only fades in; the room it needs opens as
+                padding next to the language switcher, which slides left. Nothing is clipped. */}
             <div
-              className={`grid transition-[grid-template-columns,opacity] duration-500 ease-emphasized ${
-                showCta && !menuOpen ? "grid-cols-[1fr] opacity-100" : "pointer-events-none grid-cols-[0fr] opacity-0"
-              }`}
-              aria-hidden={!showCta || menuOpen}
+              className="relative flex items-center transition-[padding] duration-500 ease-emphasized"
+              // Show: room opens first, the button follows. Hide: the button fades, then room closes.
+              style={{ paddingRight: showCta && !menuOpen ? ctaW : 0, transitionDelay: showCta && !menuOpen ? "0ms" : "180ms" }}
             >
-              <div className="min-w-0 overflow-hidden">
-                <div
-                  className={`pl-4 transition-transform duration-500 ease-emphasized md:pl-8 ${
-                    showCta && !menuOpen ? "translate-x-0" : "translate-x-4"
-                  }`}
+              <LanguageSwitcher current={locale} label={a11y.language} className="hidden md:block" />
+              <div
+                ref={ctaRef}
+                className={`absolute top-1/2 right-0 -translate-y-1/2 pl-4 transition-[opacity,transform] duration-500 ease-emphasized md:pl-8 ${
+                  showCta && !menuOpen ? "scale-100 opacity-100 delay-[280ms]" : "pointer-events-none scale-95 opacity-0"
+                }`}
+                aria-hidden={!showCta || menuOpen}
+              >
+                <ButtonLink
+                  href="#apply"
+                  size="bar"
+                  variant={onDark ? "light" : "ink"}
+                  tabIndex={showCta && !menuOpen ? undefined : -1}
                 >
-                  <ButtonLink
-                    href="#apply"
-                    size="bar"
-                    variant={onDark ? "light" : "ink"}
-                    tabIndex={showCta && !menuOpen ? undefined : -1}
-                  >
-                    {nav.apply}
-                  </ButtonLink>
-                </div>
+                  {nav.apply}
+                </ButtonLink>
               </div>
             </div>
             <button

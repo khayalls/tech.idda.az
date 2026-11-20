@@ -25,7 +25,7 @@ export default async function Home() {
         <MoreTax t={t.moreTax} />
         <Audience t={t.audience} />
         {/* Light sheet that slides over "Who can apply": FAQ and the application form. */}
-        <div data-header="light" className="relative z-10 -mt-[100svh] min-h-svh rounded-lg bg-surface shadow-[0_40px_60px_-30px_rgb(18_18_18/0.22)]">
+        <div data-header="light" className="relative z-10 -mt-[100svh] min-h-svh rounded-lg bg-surface">
           <Faq t={t.faq} />
           <Apply t={t.apply} locale={locale} />
         </div>
