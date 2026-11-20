@@ -9,7 +9,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * All answers start collapsed; one open at a time. Answers open by animating the row's grid
  * track (0fr → 1fr) so the height follows the content; the plus folds into a minus.
  */
-export function Faq({ t, email }: { t: Dictionary["faq"]; email: string }) {
+export function Faq({ t }: { t: Dictionary["faq"] }) {
   const [open, setOpen] = useState<number | null>(null);
   const base = useId();
 
@@ -75,13 +75,6 @@ export function Faq({ t, email }: { t: Dictionary["faq"]; email: string }) {
             })}
           </ul>
 
-          <p className="mt-10 max-w-[560px] text-body-m text-tertiary">
-            {t.contactPrefix}{" "}
-            <a href={`mailto:${email}`} className="text-accent underline-offset-4 hover:underline">
-              {email}
-            </a>{" "}
-            {t.contactSuffix}
-          </p>
         </div>
       </div>
     </section>

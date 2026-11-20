@@ -25,7 +25,7 @@ export default async function Home() {
         <Audience t={t.audience} />
         {/* Light sheet that slides over "Who can apply": FAQ (next: Apply). */}
         <div data-header="light" className="relative z-10 -mt-[100svh] min-h-svh rounded-t-lg bg-page">
-          <Faq t={t.faq} email={t.footer.email} />
+          <Faq t={t.faq} />
         </div>
       </main>
       <Footer t={t.footer} />
