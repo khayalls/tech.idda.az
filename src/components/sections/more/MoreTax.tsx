@@ -91,11 +91,11 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
       style={{ height: `${100 + n * STEP_SVH}svh` }}
     >
       <div ref={stageRef} className="sticky top-0 flex h-svh items-center bg-page">
-        <div className="container-page grid-page items-center gap-y-8 pt-16 md:gap-y-12 md:pt-0">
+        <div className="container-page flex flex-col gap-8 pt-16 md:flex-row md:items-center md:justify-center md:gap-12 md:pt-0 xl:gap-16">
           <h2 className="sr-only">{t.title}</h2>
 
           {/* Left: titles, right-aligned towards the visual. */}
-          <ol className="col-span-full flex flex-col gap-2 md:col-span-3 md:items-end md:gap-3 xl:col-span-4">
+          <ol className="flex flex-col gap-2 md:items-end md:gap-3">
             {t.items.map((item, i) => {
               const on = i === active;
               return (
@@ -116,16 +116,16 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
           </ol>
 
           {/* Centre: the visual. Right: the description stays in place and swaps word by word. */}
-          <div className="col-span-full flex items-center gap-6 md:contents">
-            <div className="shrink-0 md:col-span-2 md:col-start-4 md:flex md:justify-center xl:col-start-5">
+          <div className="flex items-center gap-6 md:contents">
+            <div className="shrink-0">
               <IconMorph
                 names={t.items.map((item) => item.icon as IconName)}
                 controlRef={iconRef}
-                className="block aspect-square w-24 touch-pan-y md:w-full md:max-w-[200px]"
+                className="block aspect-square w-24 touch-pan-y md:w-[clamp(160px,14vw,220px)]"
               />
             </div>
             <div
-              className="grid flex-1 md:col-span-3 md:col-start-6 xl:col-span-4 xl:col-start-7"
+              className="grid flex-1 items-center md:w-[min(30vw,420px)] md:flex-none md:self-stretch"
               aria-live="polite"
               data-fast={fast || undefined}
             >
@@ -134,7 +134,7 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
                   key={item.title}
                   data-active={i === active}
                   aria-hidden={i !== active}
-                  className="word-swap col-start-1 row-start-1 text-body-m text-primary md:text-body-l"
+                  className="word-swap col-start-1 row-start-1 self-center text-body-m text-primary md:text-body-l"
                 >
                   {item.body.split(" ").map((w, k, arr) => (
                     <span key={k}>
