@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <>
       <Header locale={locale} nav={t.nav} a11y={t.a11y} />
-      <main id="main">
+      <main id="main" data-warp>
         <Hero t={t.hero} />
         <Mission t={t.mission} />
         <Taxes t={t.taxes} />
@@ -30,7 +30,9 @@ export default async function Home() {
           <Apply t={t.apply} locale={locale} />
         </div>
       </main>
-      <Footer t={t.footer} />
+      <div data-warp>
+        <Footer t={t.footer} />
+      </div>
     </>
   );
 }
