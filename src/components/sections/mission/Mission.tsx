@@ -23,7 +23,9 @@ const angleTo = (a: number, b: number) => ((((b - a) % 360) + 540) % 360) - 180;
  * 02 — Mission. A light sheet that slides over the pinned hero. Pinned inside:
  *  1. the headline drifts up and dissolves line by line,
  *  2. the dot globe rises, turns and zooms towards Azerbaijan,
- *  3. the rest of the map softens while Azerbaijan turns brand blue and grows slightly.
+ *  3. the rest of the map softens while Azerbaijan turns brand blue and grows slightly,
+ *  4. a halftone wipe dissolves the map upwards into the page, so the next section follows on
+ *     an empty sheet instead of the globe being cut off.
  */
 export function Mission({ t }: { t: Dictionary["mission"] }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -46,7 +48,10 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
       raf = 0;
       const rect = section.getBoundingClientRect();
       const vh = window.innerHeight;
-      const q = clamp01(-rect.top / Math.max(1, rect.height - vh));
+      const qAll = clamp01(-rect.top / Math.max(1, rect.height - vh));
+      // Story runs over the first ~78% of the pin; the rest is the exit.
+      const q = clamp01(qAll / 0.78);
+      const exit = ss(0.8, 1, qAll);
 
       // Idle spin while the globe is small; it hands over to scroll-driven rotation.
       const dt = Math.min(64, now - lastT);
@@ -83,9 +88,11 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
           lat: lerp(START.lat, AZ.lat, turn),
           radius: R0 * Math.pow(R1 / R0, zoom),
           cx: w / 2,
-          cy: lerp(h * (mobile ? 0.74 : 0.76), h * 0.52, ss(0.12, 0.5, q)),
+          // Drifts up a little during the exit so the dissolve reads as continued scrolling.
+          cy: lerp(h * (mobile ? 0.74 : 0.76), h * 0.52, ss(0.12, 0.5, q)) - exit * h * 0.12,
           highlight: ss(0.5, 0.8, q),
           ink: lerp(1, 0.45, ss(0.4, 0.85, q)),
+          exit,
         });
       }
 
@@ -129,7 +136,7 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
       ref={sectionRef}
       id="why-azerbaijan"
       data-header="light"
-      className="relative z-10 -mt-[100svh] h-[300svh] text-primary"
+      className="relative z-10 -mt-[100svh] h-[360svh] text-primary"
     >
       <div
         ref={stageRef}
