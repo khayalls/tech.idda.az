@@ -91,6 +91,26 @@
       }
     ]
   },
+  "audience": {
+    "title": "One residency, three ways in.",
+    "items": [
+      {
+        "art": "tech",
+        "title": "Tech companies",
+        "body": "For legal entities and sole proprietors with at least 2 IT specialists and an innovation project or business plan."
+      },
+      {
+        "art": "freelance",
+        "title": "Freelancers",
+        "body": "Work solo with local and foreign clients. No company and no employees, just a VÖEN and an activity plan."
+      },
+      {
+        "art": "nomad",
+        "title": "Digital nomads",
+        "body": "Live in Azerbaijan and earn from abroad. For foreigners with at least 5,200 AZN in monthly foreign income."
+      }
+    ]
+  },
   "faq": {
     "title": "Questions, answered.",
     "contactPrefix": "If you have any further questions, you can reach us at",

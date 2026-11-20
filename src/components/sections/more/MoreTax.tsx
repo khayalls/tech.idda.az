@@ -9,10 +9,12 @@ const STEP_SVH = 45; // scroll length per benefit
 /**
  * 05 — More than tax. Pinned: scrolling walks through six benefits. The active row turns ink and
  * shows its dot icon (dots grow out from the centre); the description on the right swaps word by
- * word (blur → focus). Rows are buttons that scroll to their step.
+ * word (blur → focus). Rows are buttons that scroll to their step. At the end the sheet slides up
+ * off the next section, which waits pinned underneath.
  */
 export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const n = t.items.length;
 
@@ -26,6 +28,15 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
       const travel = Math.max(1, rect.height - window.innerHeight);
       const q = Math.min(0.9999, Math.max(0, -rect.top / travel));
       setActive(Math.floor(q * n));
+      // Leaving: the sheet slides up off "Who can apply" (pinned behind it); its bottom corners
+      // round off and it casts a soft shadow onto the layer it uncovers.
+      const stage = stageRef.current;
+      if (stage) {
+        const k = Math.min(1, Math.max(0, (window.innerHeight - rect.bottom) / (window.innerHeight * 0.25)));
+        const r = Math.round(32 * k);
+        stage.style.borderRadius = r ? `0 0 ${r}px ${r}px` : "";
+        stage.style.boxShadow = k ? `0 40px 60px -20px rgb(3 10 38 / ${(0.4 * k).toFixed(3)})` : "";
+      }
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -55,10 +66,10 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
     <section
       ref={sectionRef}
       data-header="light"
-      className="relative bg-page text-primary"
+      className="relative z-10 text-primary"
       style={{ height: `${100 + n * STEP_SVH}svh` }}
     >
-      <div className="sticky top-0 flex h-svh items-center">
+      <div ref={stageRef} className="sticky top-0 flex h-svh items-center bg-page">
         <div className="container-page grid-page items-start gap-y-10 pt-16 md:gap-y-12 md:pt-0">
           <h2 className="sr-only">{t.title}</h2>
 

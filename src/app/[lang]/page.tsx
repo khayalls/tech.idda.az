@@ -5,6 +5,7 @@ import { Mission } from "@/components/sections/mission/Mission";
 import { Taxes } from "@/components/sections/taxes/Taxes";
 import { Beyond } from "@/components/sections/beyond/Beyond";
 import { MoreTax } from "@/components/sections/more/MoreTax";
+import { Audience } from "@/components/sections/audience/Audience";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function Home() {
@@ -20,9 +21,13 @@ export default async function Home() {
         <Taxes t={t.taxes} />
         <Beyond t={t.beyond} />
         <MoreTax t={t.moreTax} />
-        {/* Next: Who can apply → FAQ → Apply. */}
+        <Audience t={t.audience} />
+        {/* Next: FAQ → Apply, on the light sheet below. */}
       </main>
-      <Footer t={t.footer} />
+      {/* Light sheet that slides over "Who can apply". */}
+      <div data-header="light" className="relative z-10 -mt-[100svh] flex min-h-svh flex-col justify-end rounded-t-lg bg-page">
+        <Footer t={t.footer} />
+      </div>
     </>
   );
 }
