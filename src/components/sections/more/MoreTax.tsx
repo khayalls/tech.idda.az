@@ -94,7 +94,8 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
         <div className="container-page grid-page items-center gap-y-8 pt-16 md:gap-y-12 md:pt-0">
           <h2 className="sr-only">{t.title}</h2>
 
-          <ol className="col-span-full flex flex-col gap-2 md:col-span-4 md:gap-4 xl:col-span-6">
+          {/* Left: titles, right-aligned towards the visual. */}
+          <ol className="col-span-full flex flex-col gap-2 md:col-span-3 md:items-end md:gap-3 xl:col-span-4">
             {t.items.map((item, i) => {
               const on = i === active;
               return (
@@ -103,8 +104,8 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
                     type="button"
                     onClick={() => go(i)}
                     aria-current={on ? "step" : undefined}
-                    className={`group cursor-pointer text-left text-heading-s transition-[color,transform] duration-500 ease-emphasized md:text-heading-l xl:whitespace-nowrap ${
-                      on ? "translate-x-2 text-primary" : "translate-x-0 text-muted hover:text-tertiary"
+                    className={`cursor-pointer text-left text-heading-s transition-[color,transform] duration-500 ease-emphasized md:text-right xl:whitespace-nowrap ${
+                      on ? "translate-x-2 text-primary md:-translate-x-2" : "translate-x-0 text-muted hover:text-tertiary"
                     }`}
                   >
                     {item.title}
@@ -114,19 +115,26 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
             })}
           </ol>
 
-          <div className="col-span-full flex items-start gap-6 md:col-span-4 md:col-start-5 md:flex-col md:gap-8 xl:col-span-5 xl:col-start-8">
-            <IconMorph
-              names={t.items.map((item) => item.icon as IconName)}
-              controlRef={iconRef}
-              className="block aspect-square w-28 shrink-0 touch-pan-y md:w-full md:max-w-[min(320px,36svh)]"
-            />
-            <div className="grid flex-1" aria-live="polite" data-fast={fast || undefined}>
+          {/* Centre: the visual. Right: the description stays in place and swaps word by word. */}
+          <div className="col-span-full flex items-center gap-6 md:contents">
+            <div className="shrink-0 md:col-span-2 md:col-start-4 md:flex md:justify-center xl:col-start-5">
+              <IconMorph
+                names={t.items.map((item) => item.icon as IconName)}
+                controlRef={iconRef}
+                className="block aspect-square w-24 touch-pan-y md:w-full md:max-w-[200px]"
+              />
+            </div>
+            <div
+              className="grid flex-1 md:col-span-3 md:col-start-6 xl:col-span-4 xl:col-start-7"
+              aria-live="polite"
+              data-fast={fast || undefined}
+            >
               {t.items.map((item, i) => (
                 <p
                   key={item.title}
                   data-active={i === active}
                   aria-hidden={i !== active}
-                  className="word-swap col-start-1 row-start-1 text-body-l text-primary md:text-heading-m"
+                  className="word-swap col-start-1 row-start-1 text-body-m text-primary md:text-body-l"
                 >
                   {item.body.split(" ").map((w, k, arr) => (
                     <span key={k}>
