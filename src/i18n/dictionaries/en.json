@@ -92,7 +92,7 @@
     ]
   },
   "audience": {
-    "title": "One residency, three ways in.",
+    "title": "One residency, three ways in",
     "items": [
       {
         "art": "tech",
@@ -112,7 +112,7 @@
     ]
   },
   "faq": {
-    "title": "Questions, answered.",
+    "title": "Questions, answered",
     "contactPrefix": "If you have any further questions, you can reach us at",
     "contactSuffix": "or call +994 12 310 14 00 (extension: 3158).",
     "items": [
@@ -139,7 +139,7 @@
     ]
   },
   "apply": {
-    "title": "Your 20 tax-free years start here.",
+    "title": "Your 20 tax-free years start here",
     "countdownLabel": "Time until the benefits start on 1 January 2027",
     "units": {
       "days": "days",

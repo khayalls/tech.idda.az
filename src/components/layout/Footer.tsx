@@ -1,5 +1,5 @@
 import { Logo } from "@/components/brand/Logo";
-import { FooterDots } from "@/components/dots/FooterDots";
+import { DotWordmark } from "@/components/dots/DotWordmark";
 import { FooterReveal } from "@/components/motion/FooterReveal";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -37,7 +37,7 @@ export function Footer({ t }: { t: Dictionary["footer"] }) {
           </div>
         </div>
         <div className="container-page pb-8">
-          <FooterDots className="block h-[clamp(160px,24vw,340px)] w-full cursor-crosshair touch-pan-y" />
+          <DotWordmark text="tech.idda.az" className="block h-[clamp(160px,24vw,340px)] w-full cursor-crosshair touch-pan-y" />
         </div>
       </FooterReveal>
     </footer>

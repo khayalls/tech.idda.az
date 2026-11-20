@@ -92,7 +92,7 @@
     ]
   },
   "audience": {
-    "title": "Bir rezidentlik, üç yol.",
+    "title": "Bir rezidentlik, üç yol",
     "items": [
       {
         "art": "tech",
@@ -139,7 +139,7 @@
     ]
   },
   "apply": {
-    "title": "20 illik vergisiz dövrünüz buradan başlayır.",
+    "title": "20 illik vergisiz dövrünüz buradan başlayır",
     "countdownLabel": "Güzəştlərin 1 yanvar 2027-ci ildə başlamasına qalan vaxt",
     "units": {
       "days": "gün",

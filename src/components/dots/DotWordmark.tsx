@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Footer art: "tech.idda.az" as a large dot-matrix wordmark on an unlit LED grid.
+ * A word set as a large dot-matrix figure on an unlit LED grid (footer "tech.idda.az", the
+ * "0%" in Benefits).
  *
  *  · Lens: dots near the pointer are pushed outward on springs and swell, and the unlit grid
  *    lights up around it — like dragging a magnifier over an LED board.
@@ -12,10 +13,8 @@ import { useEffect, useRef } from "react";
  * The letters are rasterised from the site font and halftoned (dot size follows coverage).
  */
 
-const PITCH = 9; // css px
 const LENS = 130; // px radius of the pointer influence
 const PUSH = 22; // px max displacement
-const TEXT = "tech.idda.az";
 
 // Brand dot gradient (cyan-400 → blue-700 → blue-950) left → right.
 const C0 = [102, 173, 201];
@@ -26,7 +25,18 @@ const grad = (t: number) => {
   return a.map((v, i) => Math.round(v + (b[i] - v) * k));
 };
 
-export function FooterDots({ className }: { className?: string }) {
+type Props = {
+  text: string;
+  /** Dot pitch in CSS px. */
+  pitch?: number;
+  /** Horizontal placement of the word inside the canvas (0 left … 1 right). */
+  align?: number;
+  className?: string;
+};
+
+export function DotWordmark({ text, pitch = 9, align = 0.5, className }: Props) {
+  const PITCH = pitch;
+  const TEXT = text;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -79,7 +89,7 @@ export function FooterDots({ className }: { className?: string }) {
       const mm = o.measureText(TEXT);
       const th = mm.actualBoundingBoxAscent + mm.actualBoundingBoxDescent;
       o.fillStyle = "#000";
-      o.fillText(TEXT, (off.width - mm.width) / 2, (off.height - th) / 2 + mm.actualBoundingBoxAscent);
+      o.fillText(TEXT, (off.width - mm.width) * align, (off.height - th) / 2 + mm.actualBoundingBoxAscent);
       const px = o.getImageData(0, 0, off.width, off.height).data;
 
       hx = new Float32Array(n);
@@ -251,7 +261,7 @@ export function FooterDots({ className }: { className?: string }) {
       canvas.removeEventListener("pointerleave", onLeave);
       canvas.removeEventListener("pointerdown", onDown);
     };
-  }, []);
+  }, [PITCH, TEXT, align]);
 
   return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }
