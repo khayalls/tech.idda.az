@@ -6,11 +6,11 @@ import type { Dictionary } from "@/i18n/dictionaries";
 
 /**
  * 08 — FAQ (Figma 185:28232). Accordion on the light sheet that slides over "Who can apply".
- * One answer open at a time (the first by default). Answers open by animating the row's grid
+ * All answers start collapsed; one open at a time. Answers open by animating the row's grid
  * track (0fr → 1fr) so the height follows the content; the plus folds into a minus.
  */
 export function Faq({ t, email }: { t: Dictionary["faq"]; email: string }) {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
   const base = useId();
 
   return (
