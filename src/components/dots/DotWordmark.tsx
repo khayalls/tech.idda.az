@@ -31,10 +31,12 @@ type Props = {
   pitch?: number;
   /** Horizontal placement of the word inside the canvas (0 left … 1 right). */
   align?: number;
+  /** CSS custom property holding a side inset for the word (the grid still fills the canvas). */
+  insetVar?: string;
   className?: string;
 };
 
-export function DotWordmark({ text, pitch = 9, align = 0.5, className }: Props) {
+export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className }: Props) {
   const PITCH = pitch;
   const TEXT = text;
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -84,12 +86,14 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, className }: Props) 
       let size = H * S;
       o.font = `500 ${size}px ${family}`;
       const m = o.measureText(TEXT);
-      size *= Math.min((W * S * 0.96) / m.width, (H * S * 0.9) / (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent));
+      const inset = insetVar ? parseFloat(getComputedStyle(canvas).getPropertyValue(insetVar)) || 0 : 0;
+      const fitW = Math.max(1, W - inset * 2);
+      size *= Math.min((fitW * S * 0.98) / m.width, (H * S * 0.9) / (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent));
       o.font = `500 ${size}px ${family}`;
       const mm = o.measureText(TEXT);
       const th = mm.actualBoundingBoxAscent + mm.actualBoundingBoxDescent;
       o.fillStyle = "#000";
-      o.fillText(TEXT, (off.width - mm.width) * align, (off.height - th) / 2 + mm.actualBoundingBoxAscent);
+      o.fillText(TEXT, inset * S + (fitW * S - mm.width) * align, (off.height - th) / 2 + mm.actualBoundingBoxAscent);
       const px = o.getImageData(0, 0, off.width, off.height).data;
 
       hx = new Float32Array(n);
@@ -261,7 +265,7 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, className }: Props) 
       canvas.removeEventListener("pointerleave", onLeave);
       canvas.removeEventListener("pointerdown", onDown);
     };
-  }, [PITCH, TEXT, align]);
+  }, [PITCH, TEXT, align, insetVar]);
 
   return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }

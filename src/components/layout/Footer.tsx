@@ -36,9 +36,12 @@ export function Footer({ t }: { t: Dictionary["footer"] }) {
             <p>{t.ministry}</p>
           </div>
         </div>
-        <div className="container-page pb-8">
-          <DotWordmark text="tech.idda.az" className="block h-[clamp(160px,24vw,340px)] w-full cursor-crosshair touch-pan-y" />
-        </div>
+        {/* Full bleed: the LED grid runs edge to edge and to the bottom; the word keeps the page margins. */}
+        <DotWordmark
+          text="tech.idda.az"
+          insetVar="--page-margin"
+          className="block h-[clamp(200px,28vw,400px)] w-full cursor-crosshair touch-pan-y"
+        />
       </FooterReveal>
     </footer>
   );
