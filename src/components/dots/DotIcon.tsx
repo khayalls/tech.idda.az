@@ -3,7 +3,7 @@
  * crisp one-dot strokes, the same language as the LED countdown. Static SVG, brand dot gradient.
  */
 
-const ICONS = {
+export const ICONS = {
   // Hire globally — globe
   globe: [
     "...#####...",

@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DotIcon, type IconName } from "@/components/dots/DotIcon";
+import type { IconName } from "@/components/dots/DotIcon";
+import { IconMorph, type IconMorphControl } from "@/components/dots/IconMorph";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const STEP_SVH = 65; // scroll length per benefit (long enough to read each description)
 
 /**
- * 05 — More than tax. Pinned: scrolling walks through six benefits. The active row turns ink and
- * shows its dot icon (dots grow out from the centre); the description on the right swaps word by
- * word (blur → focus). Rows are buttons that scroll to their step. At the end the sheet slides up
+ * 05 — More than tax. Pinned: scrolling walks through six benefits. On the right, a large LED
+ * icon transforms from one benefit's icon to the next with the scroll (mid-way exactly when the
+ * step changes), and the description below it swaps word by word (blur → focus). On the left the
+ * active row only changes colour and shifts 8px. Rows are buttons that scroll to their step. At the end the sheet slides up
  * off the next section, which waits pinned underneath.
  */
 export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
@@ -22,6 +24,7 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
   const lastChange = useRef(0);
   const activeRef = useRef(0);
   const n = t.items.length;
+  const iconRef = useRef<IconMorphControl | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -33,6 +36,12 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
       const travel = Math.max(1, rect.height - window.innerHeight);
       const q = Math.min(0.9999, Math.max(0, -rect.top / travel));
       const next = Math.floor(q * n);
+      // Icon: whole at the middle of each step, half-way through its transform at the boundary.
+      const p = q * n - 0.5;
+      const k = Math.floor(p);
+      const u = p - k;
+      const s3 = Math.min(1, Math.max(0, (u - 0.3) / 0.4));
+      iconRef.current?.setPosition(Math.min(n - 1, Math.max(0, k + s3)));
       if (next !== activeRef.current) {
         const now = performance.now();
         setFast(now - lastChange.current < 700);
@@ -85,7 +94,7 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
         <div className="container-page grid-page items-start gap-y-10 pt-16 md:gap-y-12 md:pt-0">
           <h2 className="sr-only">{t.title}</h2>
 
-          <ol className="col-span-full flex flex-col gap-3 md:col-span-5 md:gap-5 xl:col-span-8">
+          <ol className="col-span-full flex flex-col gap-2 md:col-span-5 md:gap-4 xl:col-span-7">
             {t.items.map((item, i) => {
               const on = i === active;
               return (
@@ -94,32 +103,24 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
                     type="button"
                     onClick={() => go(i)}
                     aria-current={on ? "step" : undefined}
-                    data-active={on || undefined}
-                    className="group flex cursor-pointer items-center text-left text-heading-s md:text-heading-xl xl:whitespace-nowrap"
+                    className={`group cursor-pointer text-left text-heading-s transition-[color,transform] duration-500 ease-emphasized md:text-heading-l xl:whitespace-nowrap ${
+                      on ? "translate-x-2 text-primary" : "translate-x-0 text-muted hover:text-tertiary"
+                    }`}
                   >
-                    <span
-                      aria-hidden="true"
-                      className={`dot-reveal block shrink-0 overflow-hidden transition-[width,margin] duration-500 ease-emphasized ${
-                        on ? "mr-3 w-8 md:mr-6 md:w-12" : "mr-0 w-0"
-                      }`}
-                    >
-                      <DotIcon name={item.icon as IconName} id={`more-${i}`} className="block size-8 md:size-12" />
-                    </span>
-                    <span
-                      className={`transition-colors duration-500 ease-out ${
-                        on ? "text-primary" : "text-muted group-hover:text-tertiary"
-                      }`}
-                    >
-                      {item.title}
-                    </span>
+                    {item.title}
                   </button>
                 </li>
               );
             })}
           </ol>
 
-          <div className="col-span-full md:col-span-3 md:col-start-6 xl:col-span-4 xl:col-start-9">
-            <div className="grid" aria-live="polite" data-fast={fast || undefined}>
+          <div className="col-span-full flex items-start gap-6 md:col-span-3 md:col-start-6 md:flex-col md:gap-10 xl:col-span-4 xl:col-start-9">
+            <IconMorph
+              names={t.items.map((item) => item.icon as IconName)}
+              controlRef={iconRef}
+              className="block size-24 shrink-0 md:size-[clamp(160px,16vw,240px)]"
+            />
+            <div className="grid flex-1" aria-live="polite" data-fast={fast || undefined}>
               {t.items.map((item, i) => (
                 <p
                   key={item.title}
