@@ -118,7 +118,7 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
             <IconMorph
               names={t.items.map((item) => item.icon as IconName)}
               controlRef={iconRef}
-              className="block aspect-square w-28 shrink-0 touch-pan-y md:w-full md:max-w-[min(440px,48svh)]"
+              className="block aspect-square w-28 shrink-0 touch-pan-y md:w-full md:max-w-[min(320px,36svh)]"
             />
             <div className="grid flex-1" aria-live="polite" data-fast={fast || undefined}>
               {t.items.map((item, i) => (
