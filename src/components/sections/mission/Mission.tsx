@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { DotGlobe, type DotGlobeControl } from "@/components/dots/DotGlobe";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { watchLines, type SplitLines } from "@/lib/split-lines";
+import { paintGradient, watchLines, type SplitLines } from "@/lib/split-lines";
 
 const AZ = { lon: 47.7, lat: 40.25 };
 const START = { lon: 18, lat: 14 }; // Europe / Africa facing, as in the Figma globe
@@ -80,7 +80,14 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
         const turn = ss(0.1, 0.55, q);
         const zoom = ss(0.18, 0.86, q);
         const startLon = START.lon + spin;
-        const R0 = Math.min(w * (mobile ? 0.46 : 0.36), h * 0.38);
+        const cy0 = h * (mobile ? 0.74 : 0.76);
+        // Start size leaves a clear gap under the headline (layout box, ignoring its drift).
+        const titleBottom = title.offsetTop + title.offsetHeight;
+        const gap = mobile ? 32 : 56;
+        const R0 = Math.max(
+          120,
+          Math.min(w * (mobile ? 0.46 : 0.36), h * 0.38, cy0 - titleBottom - gap),
+        );
         // Close-up: Azerbaijan about a quarter of the width (half on phones), map still around it.
         const R1 = (w * (mobile ? 0.5 : 0.24)) / AZ_WIDTH;
         g.setView({
@@ -89,7 +96,7 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
           radius: R0 * Math.pow(R1 / R0, zoom),
           cx: w / 2,
           // Drifts up a little during the exit so the dissolve reads as continued scrolling.
-          cy: lerp(h * (mobile ? 0.74 : 0.76), h * 0.52, ss(0.12, 0.5, q)) - exit * h * 0.12,
+          cy: lerp(cy0, h * 0.52, ss(0.12, 0.5, q)) - exit * h * 0.12,
           highlight: ss(0.5, 0.8, q),
           ink: lerp(1, 0.45, ss(0.4, 0.85, q)),
           exit,
@@ -104,6 +111,7 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
 
     const stop = watchLines(title, (s) => {
       lines = s;
+      paintGradient(title, s.inners);
       if (title.dataset.reveal !== "in") title.dataset.reveal = reduce ? "in" : "out";
       kick();
     });
@@ -144,7 +152,7 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
       >
         <DotGlobe controlRef={globeRef} className="absolute inset-0 size-full" />
         <div className="container-page relative flex flex-col items-center pt-28 md:pt-36 xl:pt-40">
-          <h2 ref={titleRef} className="max-w-[22ch] text-center text-heading-xl will-change-transform">
+          <h2 ref={titleRef} className="text-gradient max-w-[22ch] text-center text-heading-xl will-change-transform">
             {t.title}
           </h2>
         </div>

@@ -46,8 +46,8 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
     const top = section.getBoundingClientRect().top + window.scrollY;
     const travel = section.offsetHeight - window.innerHeight;
     const y = top + ((i + 0.5) / n) * travel;
-    const lenis = (window as unknown as { lenis?: { scrollTo: (y: number) => void } }).lenis;
-    if (lenis) lenis.scrollTo(y);
+    const lenis = (window as unknown as { lenis?: { scrollTo: (y: number, o?: object) => void } }).lenis;
+    if (lenis) lenis.scrollTo(y, { duration: 1 });
     else window.scrollTo({ top: y, behavior: "smooth" });
   };
 
@@ -72,7 +72,7 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
                     onClick={() => go(i)}
                     aria-current={on ? "step" : undefined}
                     data-active={on || undefined}
-                    className="group flex items-center text-left text-heading-s md:text-heading-xl xl:whitespace-nowrap"
+                    className="group flex cursor-pointer items-center text-left text-heading-s md:text-heading-xl xl:whitespace-nowrap"
                   >
                     <span
                       aria-hidden="true"
@@ -113,16 +113,6 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
                     </span>
                   ))}
                 </p>
-              ))}
-            </div>
-            <div className="mt-6 flex items-center gap-2 md:mt-8" aria-hidden="true">
-              {t.items.map((item, i) => (
-                <span
-                  key={item.title}
-                  className={`h-2 rounded-full transition-[width,background-color] duration-500 ease-emphasized ${
-                    i === active ? "w-6 bg-accent" : "w-2 bg-line"
-                  }`}
-                />
               ))}
             </div>
           </div>

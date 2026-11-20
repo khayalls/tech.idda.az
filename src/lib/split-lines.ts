@@ -52,6 +52,36 @@ export function splitLines(el: HTMLElement): SplitLines {
   return out;
 }
 
+/** Offset of an element from the document origin, ignoring CSS transforms. */
+function layoutOffset(el: HTMLElement) {
+  let x = 0;
+  let y = 0;
+  for (let n: HTMLElement | null = el; n; n = n.offsetParent as HTMLElement | null) {
+    x += n.offsetLeft;
+    y += n.offsetTop;
+  }
+  return { x, y };
+}
+
+/**
+ * Gives each piece (line or word) of a `.text-gradient` element its slice of one shared gradient
+ * sized to the whole element, so the split text reads as a single gradient.
+ */
+export function paintGradient(root: HTMLElement, pieces: HTMLElement[]) {
+  if (!root.classList.contains("text-gradient")) return;
+  const o = layoutOffset(root);
+  const w = `${root.offsetWidth}px`;
+  const h = `${root.offsetHeight}px`;
+  for (const p of pieces) {
+    const po = layoutOffset(p);
+    p.classList.add("grad-piece");
+    p.style.setProperty("--gw", w);
+    p.style.setProperty("--gh", h);
+    p.style.setProperty("--gx", `${o.x - po.x}px`);
+    p.style.setProperty("--gy", `${o.y - po.y}px`);
+  }
+}
+
 /** Re-split on width changes (fonts loading, resize). Returns a disposer. */
 export function watchLines(el: HTMLElement, onSplit: (s: SplitLines) => void) {
   let width = -1;

@@ -28,6 +28,19 @@
   }
 }
 
+:root {
+  /* Display text (Figma 185:24045): radial from the top-left corner, cyan → night blue. */
+  --gradient-text: radial-gradient(
+    ellipse 97% 98% at -4% -11%,
+    var(--color-cyan-400) 0%,
+    #4582bd 21.4%,
+    var(--color-blue-700) 42.8%,
+    #173b7a 71.4%,
+    #102d5f 85.7%,
+    #092044 100%
+  );
+}
+
 /* Line-by-line text (see src/lib/split-lines.ts). Lines rise out of a mask, staggered 90ms. */
 @layer components {
   .line-mask {
@@ -54,6 +67,27 @@
   [data-reveal="in"] .line-inner {
     transform: none;
     opacity: 1;
+  }
+
+  /*
+   * Gradient display text. Without JS the element itself is clipped to its text. Once split into
+   * lines/words, each piece paints its own slice of the same gradient (size/offset set by
+   * paintGradient in split-lines.ts), so pieces can fade, blur and move independently.
+   */
+  .text-gradient,
+  .text-gradient .grad-piece {
+    background-image: var(--gradient-text);
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient .grad-piece {
+    background-size: var(--gw) var(--gh);
+    background-position: var(--gx) var(--gy);
+  }
+  .text-gradient[data-split-text] {
+    background-image: none;
   }
 
   /* Dot icons: dots grow out from the centre when their row becomes active. */

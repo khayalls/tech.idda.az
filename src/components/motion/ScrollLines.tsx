@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ElementType } from "react";
-import { watchLines, type SplitLines } from "@/lib/split-lines";
+import { paintGradient, watchLines, type SplitLines } from "@/lib/split-lines";
 
 type Props = {
   as?: ElementType;
@@ -88,6 +88,7 @@ export function ScrollLines({ as: Tag = "p", children, className, enterAt = 0.68
           return span;
         });
       });
+      paintGradient(el, words.flat());
       update();
     });
     const io = new IntersectionObserver(([e]) => {

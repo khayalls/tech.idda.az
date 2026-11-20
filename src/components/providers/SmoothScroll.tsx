@@ -18,7 +18,12 @@ export function SmoothScroll() {
       autoToggle: true, // pauses while <html> has overflow:hidden (mobile menu)
       stopInertiaOnNavigate: true,
     });
-    return () => lenis.destroy();
+    // Exposed for in-page controls that scroll to a position (e.g. More than tax rows).
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
+    return () => {
+      delete (window as unknown as { lenis?: Lenis }).lenis;
+      lenis.destroy();
+    };
   }, []);
   return null;
 }
