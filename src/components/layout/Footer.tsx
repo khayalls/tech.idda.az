@@ -10,7 +10,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 export function Footer({ t }: { t: Dictionary["footer"] }) {
   const tel = t.phone.replace(/\s/g, "");
   return (
-    <footer className="relative z-0 -mt-8 bg-[#ebebeb] text-primary">
+    <footer className="relative z-0 -mt-8 bg-page text-primary">
       <FooterReveal>
         <div className="container-page flex flex-col gap-12 pt-28 pb-10 md:pt-34">
           <div className="flex flex-col items-center gap-16 md:gap-24">

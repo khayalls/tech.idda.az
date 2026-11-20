@@ -17,17 +17,19 @@ import {
  *  · the label sits inside as a placeholder and lifts to a small caption on focus / when filled;
  *  · focus: accent border + soft accent ring; error: error border, the label turns error colour,
  *    the message unfolds underneath; a shake (restartable) when a submit finds the field wrong;
- *  · a small check draws itself once a touched field is valid.
+ *  Kept minimal: grey fields on the white sheet, a light ink border on focus, errors only after
+ *  a submit attempt.
  */
 
+// Figma 09: #f5f5f5 field, #f1f1f1 hairline, 16px corners, 60px tall.
 const box =
-  "relative h-15 w-full rounded-2xl border bg-surface transition-[border-color,box-shadow,background-color] duration-200 ease-out";
+  "relative h-15 w-full rounded-2xl border bg-page transition-[border-color] duration-200 ease-out";
 const boxState = (error: boolean, focused: boolean) =>
   error
-    ? "border-[var(--text-error)] shadow-[0_0_0_4px_rgb(196_55_44/0.10)]"
+    ? "border-[var(--text-error)]"
     : focused
-      ? "border-accent shadow-[0_0_0_4px_rgb(36_87_176/0.12)]"
-      : "border-[rgb(18_18_18/0.08)] hover:border-[rgb(18_18_18/0.18)]";
+      ? "border-[rgb(18_18_18/0.4)]"
+      : "border-[#f1f1f1] hover:border-[rgb(18_18_18/0.14)]";
 
 /** Restartable shake: the parent bumps `shake` to replay it. */
 const shakeStyle = (shake: number) =>
@@ -38,14 +40,12 @@ function FloatingLabel({
   id,
   up,
   error,
-  focused,
   children,
 }: {
   htmlFor?: string;
   id?: string;
   up: boolean;
   error: boolean;
-  focused: boolean;
   children: ReactNode;
 }) {
   return (
@@ -54,34 +54,10 @@ function FloatingLabel({
       id={id}
       className={`pointer-events-none absolute top-0 left-4 origin-left text-label-m transition-[transform,color] duration-300 ease-emphasized ${
         up ? "translate-y-[9px] scale-[0.75]" : "translate-y-[18px] scale-100"
-      } ${error ? "text-[var(--text-error)]" : focused && up ? "text-accent" : "text-tertiary"}`}
+      } ${error ? "text-[var(--text-error)]" : "text-tertiary"}`}
     >
       {children}
     </label>
-  );
-}
-
-function ValidMark({ show }: { show: boolean }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 transition-opacity duration-200 ${show ? "opacity-100" : "opacity-0"}`}
-    >
-      {show && (
-        <svg viewBox="0 0 16 16" className="size-4 text-accent" fill="none">
-          <path
-            d="M3.5 8.5l3 3 6-7"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            pathLength={1}
-            strokeDasharray={1}
-            style={{ animation: "check-draw 420ms var(--ease-out) both" }}
-          />
-        </svg>
-      )}
-    </span>
   );
 }
 
@@ -116,7 +92,6 @@ type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "
   onChange: (v: string) => void;
   onBlurValidate?: () => void;
   error?: string;
-  valid?: boolean;
   shake?: number;
 };
 
@@ -127,7 +102,6 @@ export function TextField({
   onChange,
   onBlurValidate,
   error,
-  valid,
   shake = 0,
   ...rest
 }: TextFieldProps) {
@@ -151,12 +125,11 @@ export function TextField({
           }}
           aria-invalid={!!error}
           aria-describedby={error ? errId : undefined}
-          className="size-full rounded-2xl bg-transparent px-4 pt-[22px] pb-[6px] pr-11 text-label-m font-normal text-primary caret-accent outline-none"
+          className="size-full rounded-2xl bg-transparent px-4 pt-[22px] pb-[6px] pr-11 text-label-m font-normal text-primary caret-current outline-none"
         />
-        <FloatingLabel htmlFor={id} up={up} error={!!error} focused={focused}>
+        <FloatingLabel htmlFor={id} up={up} error={!!error}>
           {label}
         </FloatingLabel>
-        <ValidMark show={!!valid && !error && !focused} />
       </div>
       <FieldError id={errId} message={error} />
     </div>
@@ -327,7 +300,7 @@ export function SelectField({
             {selected?.label ?? " "}
           </span>
         </button>
-        <FloatingLabel id={labelId} up={up} error={!!error} focused={open || focused}>
+        <FloatingLabel id={labelId} up={up} error={!!error}>
           {label}
         </FloatingLabel>
         <svg
@@ -368,7 +341,7 @@ export function SelectField({
               aria-controls={listId}
               aria-activedescendant={activeId}
               tabIndex={open ? 0 : -1}
-              className="h-11 w-full rounded-xl bg-page px-3 text-body-s text-primary caret-accent outline-none placeholder:text-tertiary"
+              className="h-11 w-full rounded-xl bg-page px-3 text-body-s text-primary caret-current outline-none placeholder:text-tertiary"
             />
           </div>
         )}
@@ -395,7 +368,7 @@ export function SelectField({
                 onClick={() => choose(o)}
                 className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-body-s transition-colors duration-150 ${
                   isAct ? "bg-page" : ""
-                } ${isSel ? "text-accent" : "text-primary"}`}
+                } text-primary`}
               >
                 <span className="truncate">{o.label}</span>
                 {isSel && (

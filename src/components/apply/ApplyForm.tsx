@@ -21,9 +21,9 @@ type Status = "idle" | "submitting" | "morphing" | "done";
 const ORDER: ApplyField[] = ["applicantType", "fullName", "companyName", "email", "phone", "country"];
 
 /**
- * Application form (Figma 09). Validation runs on blur (once a field is touched it re-checks
- * while typing, so errors clear the moment they're fixed) and on submit, where every wrong field
- * shakes and the first one takes focus. On success the fields dissolve into dots that gather into
+ * Application form (Figma 09). Errors show only after Apply is pressed: every wrong field shakes
+ * and the first one takes focus; from then on fields re-check as you type, so a fixed field
+ * clears immediately. On success the fields dissolve into dots that gather into
  * a dot badge with a check, and a short confirmation appears underneath.
  */
 export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Locale }) {
@@ -47,21 +47,13 @@ export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Local
   const set = (f: ApplyField) => (v: string) => {
     setValues((s) => ({ ...s, [f]: v }));
     setFormError(null);
-    // Once touched, re-check live so a fixed field clears immediately.
-    if (touched[f] || errors[f]) setErrors((e) => ({ ...e, [f]: validateField(f, v) ?? undefined }));
+    // Errors appear only after a submit attempt; from then on a fixed field clears as you type.
+    if (touched[f]) setErrors((e) => ({ ...e, [f]: validateField(f, v) ?? undefined }));
   };
-  const blur = (f: ApplyField) => () => {
-    setTouched((s) => ({ ...s, [f]: true }));
-    setErrors((e) => ({ ...e, [f]: validateField(f, values[f]) ?? undefined }));
-  };
-  // Select fields validate with the freshest value (blur can fire right after a choice).
   const chooseSelect = (f: ApplyField) => (v: string) => {
     setValues((s) => ({ ...s, [f]: v }));
-    setTouched((s) => ({ ...s, [f]: true }));
-    setErrors((e) => ({ ...e, [f]: validateField(f, v) ?? undefined }));
+    if (touched[f]) setErrors((e) => ({ ...e, [f]: validateField(f, v) ?? undefined }));
   };
-
-  const valid = (f: ApplyField) => !!touched[f] && !errors[f] && values[f].trim().length > 0;
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -139,7 +131,6 @@ export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Local
             value={values.applicantType}
             options={types}
             onChange={chooseSelect("applicantType")}
-            onBlurValidate={blur("applicantType")}
             error={message("applicantType")}
             shake={shake.applicantType}
           />
@@ -149,9 +140,7 @@ export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Local
             autoComplete="name"
             value={values.fullName}
             onChange={set("fullName")}
-            onBlurValidate={blur("fullName")}
             error={message("fullName")}
-            valid={valid("fullName")}
             shake={shake.fullName}
           />
           <TextField
@@ -164,8 +153,6 @@ export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Local
             autoComplete="organization"
             value={values.companyName}
             onChange={set("companyName")}
-            onBlurValidate={blur("companyName")}
-            valid={valid("companyName")}
           />
           <TextField
             name="email"
@@ -176,9 +163,7 @@ export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Local
             label={t.fields.email}
             value={values.email}
             onChange={set("email")}
-            onBlurValidate={blur("email")}
             error={message("email")}
-            valid={valid("email")}
             shake={shake.email}
           />
           <TextField
@@ -189,9 +174,7 @@ export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Local
             label={t.fields.phone}
             value={values.phone}
             onChange={set("phone")}
-            onBlurValidate={blur("phone")}
             error={message("phone")}
-            valid={valid("phone")}
             shake={shake.phone}
           />
           <SelectField
@@ -200,7 +183,6 @@ export function ApplyForm({ t, locale }: { t: Dictionary["apply"]; locale: Local
             value={values.country}
             options={countries}
             onChange={chooseSelect("country")}
-            onBlurValidate={blur("country")}
             error={message("country")}
             shake={shake.country}
             searchable
