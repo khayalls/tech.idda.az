@@ -67,14 +67,14 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
       if (bg)
         bg.style.transform = `translate3d(0, ${-p * (bg.offsetHeight - vh)}px, 0)`;
 
-      // Text track: headline 1 scrolls up and away (faster than the background → parallax).
-      // Headline 2 is held in place (it cancels the track), so it never rises through the ground.
+      // Text track: both headlines scroll up (faster than the background → parallax).
+      // Headline 2 starts one screen lower and settles where headline 1 was.
       const tp = clamp01(scrolled / (travel * 0.8));
       const offset = vh * (window.innerWidth >= 768 ? 0.9 : 0.8);
       if (trackRef.current)
         trackRef.current.style.transform = `translate3d(0, ${-offset * tp}px, 0)`;
       if (supportRef.current)
-        supportRef.current.style.transform = `translate3d(0, ${offset * tp}px, 0)`;
+        supportRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
 
       // Headline 1 dissolves line by line while it scrolls away and headline 2 arrives.
       if (titleLines) {
@@ -101,12 +101,13 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
           }
         }
       }
-      // Headline 2 comes in from above once headline 1 has gone: each line settles down a little
-      // into place while it comes into focus.
+      // Headline 2 rises from below with the track, over the dotted ground (the text layer sits
+      // above the art). Lines come into focus as soon as they enter the screen, so they are
+      // fully solid by the time they pass over the dots.
       if (supportLines) {
         supportLines.moves.forEach((m, i) => {
-          const k = ss(0.45 + i * 0.07, 0.85 + i * 0.07, tp);
-          m.style.transform = k < 1 ? `translate3d(0, ${(-(1 - k) * 0.5).toFixed(3)}em, 0)` : "";
+          const k = ss(0.2 + i * 0.04, 0.42 + i * 0.04, tp);
+          m.style.transform = k < 1 ? `translate3d(0, ${((1 - k) * 0.35).toFixed(3)}em, 0)` : "";
           m.style.opacity = String(k);
           m.style.filter = k < 1 ? `blur(${((1 - k) * 12).toFixed(2)}px)` : "";
         });
