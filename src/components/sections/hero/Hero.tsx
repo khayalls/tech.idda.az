@@ -218,9 +218,6 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
                       <ButtonLink href="#apply" variant="light">
                         {t.apply}
                       </ButtonLink>
-                      <ButtonLink href="#benefits" variant="glass">
-                        {t.explore}
-                      </ButtonLink>
                     </div>
                   </div>
                 </div>
