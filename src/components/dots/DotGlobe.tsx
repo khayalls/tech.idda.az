@@ -133,11 +133,15 @@ export function DotGlobe({ controlRef, onDraw, className, pitch: pitchProp }: Pr
         azPaths[i] = new Path2D();
       }
 
-      // Faint sphere silhouette.
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(18,18,18,${(0.025 * (1 - exit)).toFixed(4)})`;
-      ctx.fill();
+      // Faint sphere silhouette — only while the globe fits on screen; once it outgrows the
+      // viewport it would just tint the whole page, so it fades out.
+      const discK = Math.min(1, Math.max(0, 2 - R / (0.5 * Math.max(cssW, cssH))));
+      if (discK > 0) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(18,18,18,${(0.025 * discK).toFixed(4)})`;
+        ctx.fill();
+      }
 
       const x0 = Math.max(0, Math.floor((cx - R) / pitch));
       const x1 = Math.min(Math.ceil(cssW / pitch), Math.ceil((cx + R) / pitch));

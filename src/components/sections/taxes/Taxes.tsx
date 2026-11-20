@@ -7,13 +7,17 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * 03 — 0% for 20 years. The figure stays pinned and follows the pointer; the five taxes scroll
  * past line by line (same motion as the hero). On phones the figure pins as a compact panel
  * under the header and the list slides beneath it.
+ *
+ * It overlaps the end of the Mission pin (no own background, above it): while the map wipes away
+ * upwards, this content is already rising in from below, so no empty sheet sits in between.
+ * The anchor lands after the overlap.
  */
 export function Taxes({ t }: { t: Dictionary["taxes"] }) {
   return (
     <section
       id="benefits"
       data-header="light"
-      className="relative bg-page text-primary"
+      className="relative z-20 -mt-[50svh] -scroll-mt-[50svh] text-primary"
     >
       <div className="container-page section-y grid-page gap-y-16 md:gap-y-24">
         {/* Phones: one tall column so the panel can pin. md+: `contents` → two grid columns. */}

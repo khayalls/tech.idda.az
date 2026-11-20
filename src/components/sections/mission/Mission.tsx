@@ -61,7 +61,12 @@ export function Mission({ t }: { t: Dictionary["mission"] }) {
 
       // Rounded top corners flatten as the sheet lands.
       const radiusPx = Math.round(32 * clamp01(rect.top / (vh * 0.25)));
-      if (stageRef.current) stageRef.current.style.borderRadius = `${radiusPx}px ${radiusPx}px 0 0`;
+      if (stageRef.current) {
+        stageRef.current.style.borderRadius = `${radiusPx}px ${radiusPx}px 0 0`;
+        // The shadow only matters while the sheet slides over the hero; once landed it would leave
+        // a faint line at the stage's bottom edge as the next section takes over.
+        stageRef.current.style.boxShadow = rect.top > 0 ? "" : "none";
+      }
 
       // Headline: drifts up and dissolves line by line (opacity + blur), before the globe arrives.
       title.style.transform = `translate3d(0, ${-ss(0, 0.3, q) * vh * 0.18}px, 0)`;
