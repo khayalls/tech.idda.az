@@ -14,6 +14,8 @@ import { useEffect, useRef } from "react";
  */
 
 const LENS = 130; // px radius of the pointer influence
+/** Bleed around the box so dots pushed past its edge are never clipped (push + ripple + swell). */
+const BLEED = 56;
 const PUSH = 22; // px max displacement
 
 // Brand dot gradient (cyan-400 → blue-700 → blue-950) left → right.
@@ -40,10 +42,12 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
   const PITCH = pitch;
   const TEXT = text;
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const box = boxRef.current;
+    if (!canvas || !box) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -51,6 +55,8 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
     let W = 0, H = 0, cols = 0, rows = 0, ox = 0, oy = 0;
     // Per dot: home, offset, velocity, coverage.
     let hx = new Float32Array(0), hy = hx, dx = hx, dy = hx, vx = hx, vy = hx, cov = hx;
+    // 1 for lattice points inside the box; points in the bleed only show when the pointer lights them.
+    let inBox = new Uint8Array(0);
     let n = 0;
     const B = 12;
     const colors = Array.from({ length: B }, (_, b) => grad((b + 0.5) / B));
@@ -62,18 +68,23 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
     const t0 = performance.now();
 
     const build = () => {
-      const rect = canvas.getBoundingClientRect();
+      const rect = box.getBoundingClientRect();
       W = rect.width;
       H = rect.height;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.round(W * dpr));
-      canvas.height = Math.max(1, Math.round(H * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // The canvas is the box plus a bleed on every side; draw in box coordinates.
+      canvas.width = Math.max(1, Math.round((W + BLEED * 2) * dpr));
+      canvas.height = Math.max(1, Math.round((H + BLEED * 2) * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, BLEED * dpr, BLEED * dpr);
 
-      cols = Math.floor(W / PITCH);
-      rows = Math.floor(H / PITCH);
-      ox = (W - (cols - 1) * PITCH) / 2;
-      oy = (H - (rows - 1) * PITCH) / 2;
+      // The lattice continues into the bleed (EXTRA cells each side) so the lens never shows an edge.
+      const boxCols = Math.floor(W / PITCH);
+      const boxRows = Math.floor(H / PITCH);
+      const EXTRA = Math.ceil(BLEED / PITCH);
+      cols = boxCols + EXTRA * 2;
+      rows = boxRows + EXTRA * 2;
+      ox = (W - (boxCols - 1) * PITCH) / 2 - EXTRA * PITCH;
+      oy = (H - (boxRows - 1) * PITCH) / 2 - EXTRA * PITCH;
       n = cols * rows;
 
       // Rasterise the wordmark to fill the width, centred.
@@ -103,11 +114,13 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
       vx = new Float32Array(n);
       vy = new Float32Array(n);
       cov = new Float32Array(n);
+      inBox = new Uint8Array(n);
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const i = r * cols + c;
           const x = ox + c * PITCH;
           const y = oy + r * PITCH;
+          inBox[r * cols + c] = x > 0 && x < W && y > 0 && y < H ? 1 : 0;
           hx[i] = x;
           hy[i] = y;
           let sum = 0, k = 0;
@@ -130,7 +143,7 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
       pointer.on += (pointer.target - pointer.on) * 0.12;
       for (let k = ripples.length - 1; k >= 0; k--) if (now - ripples[k].t0 > 1800) ripples.splice(k, 1);
 
-      ctx.clearRect(0, 0, W, H);
+      ctx.clearRect(-BLEED, -BLEED, W + BLEED * 2, H + BLEED * 2);
       const offPath = new Path2D();
       const litPath = new Path2D();
       const onPaths = Array.from({ length: B }, () => new Path2D());
@@ -194,7 +207,7 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
           const r = 1.1 + 1.6 * (lens + ring);
           litPath.moveTo(x + r, y);
           litPath.arc(x, y, r, 0, Math.PI * 2);
-        } else {
+        } else if (inBox[i]) {
           offPath.moveTo(x + 1.1, y);
           offPath.arc(x, y, 1.1, 0, Math.PI * 2);
         }
@@ -215,7 +228,7 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
     };
 
     const local = (e: PointerEvent) => {
-      const r = canvas.getBoundingClientRect();
+      const r = box.getBoundingClientRect();
       return { x: e.clientX - r.left, y: e.clientY - r.top };
     };
     const onMove = (e: PointerEvent) => {
@@ -234,21 +247,21 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
       if (ripples.length > 4) ripples.shift();
       kick();
     };
-    canvas.addEventListener("pointermove", onMove);
-    canvas.addEventListener("pointerenter", onMove);
-    canvas.addEventListener("pointerleave", onLeave);
-    canvas.addEventListener("pointerdown", onDown);
+    box.addEventListener("pointermove", onMove);
+    box.addEventListener("pointerenter", onMove);
+    box.addEventListener("pointerleave", onLeave);
+    box.addEventListener("pointerdown", onDown);
 
     const ro = new ResizeObserver(() => {
       build();
       kick();
     });
-    ro.observe(canvas);
+    ro.observe(box);
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
       if (visible) kick();
     });
-    io.observe(canvas);
+    io.observe(box);
     build();
     document.fonts?.ready.then(() => {
       build();
@@ -260,12 +273,21 @@ export function DotWordmark({ text, pitch = 9, align = 0.5, insetVar, className 
       if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
-      canvas.removeEventListener("pointermove", onMove);
-      canvas.removeEventListener("pointerenter", onMove);
-      canvas.removeEventListener("pointerleave", onLeave);
-      canvas.removeEventListener("pointerdown", onDown);
+      box.removeEventListener("pointermove", onMove);
+      box.removeEventListener("pointerenter", onMove);
+      box.removeEventListener("pointerleave", onLeave);
+      box.removeEventListener("pointerdown", onDown);
     };
   }, [PITCH, TEXT, align, insetVar]);
 
-  return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
+  // The box keeps the layout size and takes the pointer; the canvas overflows it by BLEED.
+  return (
+    <div ref={boxRef} className={`relative ${className ?? ""}`} aria-hidden="true">
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute"
+        style={{ inset: -BLEED, width: `calc(100% + ${BLEED * 2}px)`, height: `calc(100% + ${BLEED * 2}px)` }}
+      />
+    </div>
+  );
 }
