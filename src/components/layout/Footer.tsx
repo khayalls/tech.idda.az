@@ -40,7 +40,7 @@ export function Footer({ t }: { t: Dictionary["footer"] }) {
         <DotWordmark
           text="tech.idda.az"
           insetVar="--page-margin"
-          className="block h-[clamp(200px,28vw,400px)] w-full cursor-crosshair touch-pan-y"
+          className="block h-[clamp(110px,28vw,400px)] w-full cursor-crosshair touch-pan-y"
         />
       </FooterReveal>
     </footer>

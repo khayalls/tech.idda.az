@@ -42,7 +42,7 @@ export function Taxes({ t }: { t: Dictionary["taxes"] }) {
             </StickyFade>
           </div>
 
-          <ul className="mt-16 flex flex-col gap-24 md:col-span-4 md:mt-0 md:gap-32 md:py-24 xl:col-span-6 xl:col-start-7 xl:gap-40">
+          <ul className="mt-16 flex flex-col gap-24 pb-[45svh] md:col-span-4 md:pb-0 md:mt-0 md:gap-32 md:py-24 xl:col-span-6 xl:col-start-7 xl:gap-40">
             {t.items.map((item) => (
               <li key={item.title} className="flex flex-col gap-4">
                 <ScrollLines as="h3" className="text-heading-l md:text-heading-xl">
