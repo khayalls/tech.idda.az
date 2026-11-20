@@ -81,6 +81,18 @@ export function Audience({ t }: { t: Dictionary["audience"] }) {
           }
       }
       visualRef.current?.setPosition(pos);
+
+      // Tail room under the last block, so it can scroll up until its centre is level with the
+      // pinned visual's centre before the next sheet takes over.
+      const lastBlock = blocksRef.current[blocksRef.current.length - 1];
+      const visualEl = content?.querySelector("canvas");
+      if (lastBlock && visualEl && content) {
+        const vr = visualEl.getBoundingClientRect();
+        const target = vr.height ? vr.height / 2 + parseFloat(getComputedStyle(visualEl.parentElement!).top || "0") : vh / 2;
+        const tail = Math.max(0, vh - target - lastBlock.offsetHeight / 2 - 96);
+        const want = `${Math.round(tail)}px`;
+        if (content.style.getPropertyValue("--tail") !== want) content.style.setProperty("--tail", want);
+      }
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -137,7 +149,7 @@ export function Audience({ t }: { t: Dictionary["audience"] }) {
               </div>
             </div>
 
-            <div className="col-span-full flex flex-col gap-24 md:col-span-4 md:gap-40 xl:col-span-6 xl:col-start-7">
+            <div className="col-span-full flex flex-col gap-24 md:col-span-4 md:gap-40 md:pb-[var(--tail,0px)] xl:col-span-6 xl:col-start-7">
               {t.items.map((item, i) => (
                 <div
                   key={item.title}
