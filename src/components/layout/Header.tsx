@@ -115,23 +115,32 @@ export function Header({ locale, nav, a11y }: Props) {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <LanguageSwitcher current={locale} label={a11y.language} className="hidden md:block" />
+            {/* The CTA takes no room while hidden (language sits at the right edge); when it appears
+                its column opens and pushes the language switcher left. */}
             <div
-              className={`transition-[opacity,transform] duration-400 ease-out ${
-                showCta && !menuOpen ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-2 opacity-0"
+              className={`grid transition-[grid-template-columns,opacity] duration-500 ease-emphasized ${
+                showCta && !menuOpen ? "grid-cols-[1fr] opacity-100" : "pointer-events-none grid-cols-[0fr] opacity-0"
               }`}
               aria-hidden={!showCta || menuOpen}
             >
-              <ButtonLink
-                href="#apply"
-                size="sm"
-                variant={onDark ? "light" : "primary"}
-                tabIndex={showCta && !menuOpen ? undefined : -1}
-                className="md:ml-2"
-              >
-                {nav.apply}
-              </ButtonLink>
+              <div className="min-w-0 overflow-hidden">
+                <div
+                  className={`pl-4 transition-transform duration-500 ease-emphasized md:pl-8 ${
+                    showCta && !menuOpen ? "translate-x-0" : "translate-x-4"
+                  }`}
+                >
+                  <ButtonLink
+                    href="#apply"
+                    size="bar"
+                    variant={onDark ? "light" : "ink"}
+                    tabIndex={showCta && !menuOpen ? undefined : -1}
+                  >
+                    {nav.apply}
+                  </ButtonLink>
+                </div>
+              </div>
             </div>
             <button
               type="button"

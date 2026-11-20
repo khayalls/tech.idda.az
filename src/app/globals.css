@@ -83,19 +83,26 @@
   .line-inner {
     display: block;
   }
+  /* Intro reveal: no clipping — each line rises a little out of a soft blur, staggered. */
+  [data-reveal] .line-mask {
+    overflow: visible;
+  }
   [data-reveal] .line-inner {
     transition:
-      transform 1000ms var(--ease-emphasized),
-      opacity 700ms var(--ease-out);
-    transition-delay: calc(var(--line, 0) * 90ms + var(--reveal-delay, 0ms));
+      transform 1100ms var(--ease-emphasized),
+      opacity 800ms var(--ease-out),
+      filter 900ms var(--ease-out);
+    transition-delay: calc(var(--line, 0) * 110ms + var(--reveal-delay, 0ms));
   }
   [data-reveal="out"] .line-inner {
-    transform: translate3d(0, 105%, 0);
+    transform: translate3d(0, 0.35em, 0);
     opacity: 0;
+    filter: blur(12px);
   }
   [data-reveal="in"] .line-inner {
     transform: none;
     opacity: 1;
+    filter: blur(0);
   }
 
   /*
@@ -151,10 +158,16 @@
     filter: none;
     transform: none;
     transition:
-      opacity 600ms var(--ease-out),
-      filter 600ms var(--ease-out),
-      transform 800ms var(--ease-emphasized);
-    transition-delay: calc(160ms + var(--i, 0) * 28ms);
+      opacity 450ms var(--ease-out),
+      filter 450ms var(--ease-out),
+      transform 600ms var(--ease-emphasized);
+    transition-delay: calc(60ms + var(--i, 0) * 14ms);
+  }
+  /* Fast scrolling: swap the whole description at once. */
+  [data-fast] .swap-word,
+  [data-fast] .word-swap[data-active="true"] .swap-word {
+    transition-duration: 180ms;
+    transition-delay: 0ms;
   }
 }
 

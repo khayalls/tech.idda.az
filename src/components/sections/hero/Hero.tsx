@@ -101,12 +101,13 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
           }
         }
       }
-      // Headline 2 lines rise out of their masks as they come into view.
+      // Headline 2 lines come into focus as they arrive (soft rise + unblur, no clipping).
       if (supportLines) {
         supportLines.moves.forEach((m, i) => {
           const k = ss(0.3 + i * 0.07, 0.75 + i * 0.07, tp);
-          m.style.transform = `translate3d(0, ${(1 - k) * 100}%, 0)`;
+          m.style.transform = k < 1 ? `translate3d(0, ${((1 - k) * 0.35).toFixed(3)}em, 0)` : "";
           m.style.opacity = String(k);
+          m.style.filter = k < 1 ? `blur(${((1 - k) * 12).toFixed(2)}px)` : "";
         });
       }
 
@@ -140,6 +141,7 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
     });
     const stopSupport = watchLines(support, (s) => {
       supportLines = s;
+      for (const m of s.masks) m.style.overflow = "visible";
       support.style.visibility = "visible";
       update();
     });
@@ -232,7 +234,7 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
 
             <div
               ref={artRef}
-              className="relative mt-auto w-full shrink-0 xl:absolute xl:right-0 xl:bottom-0 xl:w-[79.2%] xl:max-w-[1140px]"
+              className="relative mt-auto w-full shrink-0 xl:absolute xl:right-0 xl:bottom-0 xl:max-w-[1440px]"
             >
               <HeroArt className="w-full" controlRef={dotsRef} />
             </div>

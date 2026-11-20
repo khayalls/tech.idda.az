@@ -6,7 +6,7 @@ import { DotCanvas, type DotCanvasControl } from "@/components/dots/DotCanvas";
 // Regions of the 1440×900 hero design space.
 // Headroom above the towers so the art can drift up without clipping; the ground continues below
 // y = 906 (see hill.json) so nothing opens up underneath.
-const DESKTOP_VIEW: [number, number, number, number] = [300, 220, 1140, 690]; // towers + full hill
+const DESKTOP_VIEW: [number, number, number, number] = [0, 220, 1440, 690]; // towers + hill, ground to the left edge
 const MOBILE_VIEW: [number, number, number, number] = [660, 260, 780, 650]; // towers + right of hill
 
 const SOURCES = [

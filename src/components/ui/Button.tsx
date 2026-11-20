@@ -1,11 +1,12 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
 
-type Variant = "light" | "glass" | "primary" | "outline";
+type Variant = "light" | "glass" | "primary" | "outline" | "ink";
 
 const sizes = {
   md: "px-6 py-4", // 56px tall
   sm: "px-4 py-2", // 40px tall
+  bar: "h-11 px-5 md:h-[55px] md:px-8", // header CTA (Figma 143 × 55 on desktop)
 } as const;
 
 const base =
@@ -18,6 +19,7 @@ const variants: Record<Variant, string> = {
   glass: "bg-btn-glass text-on-dark backdrop-blur-md hover:bg-white/24",
   primary: "bg-btn-primary text-btn-primary-fg hover:bg-blue-900",
   outline: "bg-btn-light text-btn-light-fg ring-1 ring-inset ring-line hover:ring-neutral-300",
+  ink: "bg-neutral-950 text-white hover:bg-neutral-800",
 };
 
 type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "className"> & {

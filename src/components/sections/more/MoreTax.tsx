@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { DotIcon, type IconName } from "@/components/dots/DotIcon";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-const STEP_SVH = 45; // scroll length per benefit
+const STEP_SVH = 65; // scroll length per benefit (long enough to read each description)
 
 /**
  * 05 — More than tax. Pinned: scrolling walks through six benefits. The active row turns ink and
@@ -16,6 +16,11 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  // Fast mode: when steps change in quick succession (fast scrolling), the description swaps as
+  // a whole instead of word by word, so it never lags behind the list or gets skipped half-shown.
+  const [fast, setFast] = useState(false);
+  const lastChange = useRef(0);
+  const activeRef = useRef(0);
   const n = t.items.length;
 
   useEffect(() => {
@@ -27,7 +32,14 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
       const rect = section.getBoundingClientRect();
       const travel = Math.max(1, rect.height - window.innerHeight);
       const q = Math.min(0.9999, Math.max(0, -rect.top / travel));
-      setActive(Math.floor(q * n));
+      const next = Math.floor(q * n);
+      if (next !== activeRef.current) {
+        const now = performance.now();
+        setFast(now - lastChange.current < 700);
+        lastChange.current = now;
+        activeRef.current = next;
+        setActive(next);
+      }
       // Leaving: the sheet slides up off "Who can apply" (pinned behind it); its bottom corners
       // round off and it casts a soft shadow onto the layer it uncovers.
       const stage = stageRef.current;
@@ -107,7 +119,7 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
           </ol>
 
           <div className="col-span-full md:col-span-3 md:col-start-6 xl:col-span-4 xl:col-start-9">
-            <div className="grid" aria-live="polite">
+            <div className="grid" aria-live="polite" data-fast={fast || undefined}>
               {t.items.map((item, i) => (
                 <p
                   key={item.title}

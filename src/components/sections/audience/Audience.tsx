@@ -102,7 +102,7 @@ export function Audience({ t }: { t: Dictionary["audience"] }) {
         >
           <div className="container-page flex flex-col gap-6 md:gap-16">
             <h2 className="text-center text-heading-xl md:text-display-l">{t.title}</h2>
-            <ul className="grid gap-5 md:grid-cols-3 md:gap-6 xl:gap-12">
+            <ul className="grid gap-5 md:grid-cols-3 md:gap-8 xl:gap-16">
               {t.items.map((item, i) => (
                 <li key={item.title} className="flex items-center gap-4 md:flex-col md:items-stretch md:gap-8">
                   <AudienceArt
@@ -110,9 +110,9 @@ export function Audience({ t }: { t: Dictionary["audience"] }) {
                     controlRef={arts[i]}
                     className="aspect-[395/252] w-[34%] shrink-0 md:w-full"
                   />
-                  <div className="flex flex-col gap-1 md:gap-2 md:px-1">
-                    <h3 className="text-heading-s md:text-heading-m">{item.title}</h3>
-                    <p className="text-body-s text-white/70 md:text-body-l">{item.body}</p>
+                  <div className="flex flex-col gap-1 md:gap-2 md:px-3">
+                    <h3 className="text-body-l md:text-heading-s">{item.title}</h3>
+                    <p className="text-body-s text-white/70">{item.body}</p>
                   </div>
                 </li>
               ))}
