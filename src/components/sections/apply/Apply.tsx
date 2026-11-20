@@ -12,28 +12,34 @@ export function Apply({ t, locale }: { t: Dictionary["apply"]; locale: Locale })
   const units = [t.units.days, t.units.hours, t.units.minutes, t.units.seconds];
   return (
     <section id="apply" className="text-primary">
-      <div className="container-page section-y flex flex-col items-center">
-        <div className="w-full max-w-[795px]">
-          <p className="sr-only">{t.countdownLabel}</p>
-          <LedCountdown target={START} className="block aspect-[795/105] w-full" />
-          {/* Unit captions under each pair (Figma widths: 165 per pair, 45 per colon). */}
-          <div aria-hidden="true" className="mt-3 flex text-caption text-tertiary">
-            {units.map((u, i) => (
-              <span key={u} className="contents">
-                {i > 0 && <span style={{ width: `${(45 / 795) * 100}%` }} />}
-                <span className="text-center" style={{ width: `${(165 / 795) * 100}%` }}>
-                  {u}
+      {/* Desktop: countdown and headline on the left, the form on the right, both centred in one
+          screen. Phones: stacked. */}
+      <div className="container-page grid-page items-center gap-y-12 py-24 md:py-32 xl:min-h-svh xl:py-28">
+        <div className="col-span-full flex flex-col items-center xl:col-span-6 xl:items-start">
+          <div className="w-full max-w-[560px]">
+            <p className="sr-only">{t.countdownLabel}</p>
+            <LedCountdown target={START} className="block aspect-[795/105] w-full" />
+            {/* Unit captions under each pair (Figma widths: 165 per pair, 45 per colon). */}
+            <div aria-hidden="true" className="mt-3 flex text-caption text-tertiary">
+              {units.map((u, i) => (
+                <span key={u} className="contents">
+                  {i > 0 && <span style={{ width: `${(45 / 795) * 100}%` }} />}
+                  <span className="text-center" style={{ width: `${(165 / 795) * 100}%` }}>
+                    {u}
+                  </span>
                 </span>
-              </span>
-            ))}
+              ))}
+            </div>
           </div>
+          <ScrollLines
+            as="h2"
+            className="mt-10 max-w-[14ch] text-center text-heading-xl md:mt-12 md:text-display-l xl:text-left"
+          >
+            {t.title}
+          </ScrollLines>
         </div>
 
-        <ScrollLines as="h2" className="mt-12 max-w-[18ch] text-center text-heading-xl md:mt-14 md:text-display-l">
-          {t.title}
-        </ScrollLines>
-
-        <div className="mt-10 flex w-full justify-center md:mt-14">
+        <div className="col-span-full flex justify-center xl:col-span-5 xl:col-start-8 xl:justify-end">
           <ApplyForm t={t} locale={locale} />
         </div>
       </div>

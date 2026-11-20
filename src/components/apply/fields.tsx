@@ -77,7 +77,6 @@ export function FieldError({ id, message }: { id: string; message?: string }) {
             message ? "translate-y-0" : "-translate-y-1"
           }`}
         >
-          <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
           {message ?? last}
         </span>
       </p>
