@@ -97,17 +97,36 @@
       {
         "art": "tech",
         "title": "Texnologiya şirkətləri",
-        "body": "Ən azı 2 İT mütəxəssisi və innovativ layihəsi və ya biznes planı olan hüquqi şəxslər və fərdi sahibkarlar üçün."
+        "body": "Ən azı 2 İT mütəxəssisi və innovativ layihəsi və ya biznes planı olan hüquqi şəxslər və fərdi sahibkarlar üçün.",
+        "points": [
+          "VÖEN-inizi hüquqi şəxs və ya fərdi sahibkar kimi qeydiyyatdan keçirin.",
+          "Müvafiq təhsili və ya ən azı 1 il iş təcrübəsi olan ən azı 2 İT mütəxəssisi işə götürün.",
+          "İnnovativ layihə və/və ya biznes plan təqdim edərək fəaliyyət istiqamətinizi seçin.",
+          "Rezidentlik şəhadətnaməsini 7 iş günü ərzində alın.",
+          "Vergi güzəştləri ilə fəaliyyətə başlayın."
+        ]
       },
       {
         "art": "freelance",
         "title": "Frilanserlər",
-        "body": "Yerli və xarici müştərilərlə təkbaşına işləyin. Şirkət və işçi tələb olunmur, yalnız VÖEN və fəaliyyət planı."
+        "body": "Yerli və xarici müştərilərlə təkbaşına işləyin. Şirkət və işçi tələb olunmur, yalnız VÖEN və fəaliyyət planı.",
+        "points": [
+          "Şirkət yaratmağa ehtiyac yoxdur. Sadəcə fiziki şəxs kimi işləyin.",
+          "İşlədiyiniz müştərilərin sayına məhdudiyyət yoxdur.",
+          "Həm yerli, həm də xarici müştərilərlə işləmək olar.",
+          "Fəaliyyət çərçivəsində muzdlu işçi cəlb etmək olmaz."
+        ]
       },
       {
         "art": "nomad",
         "title": "Rəqəmsal nomadlar",
-        "body": "Azərbaycanda yaşayın, xaricdən qazanın. Aylıq ən azı 5 200 AZN xarici gəliri olan əcnəbilər üçün."
+        "body": "Azərbaycanda yaşayın, xaricdən qazanın. Aylıq ən azı 5 200 AZN xarici gəliri olan əcnəbilər üçün.",
+        "points": [
+          "Şirkət yaratmağa ehtiyac yoxdur. Sadəcə fiziki şəxs kimi işləyin.",
+          "Bütün gəlir Azərbaycandan kənarda yerləşən müştəri və ya şirkətlərdən gəlməlidir.",
+          "Xaricdən qazanılan ən azı 5 200 AZN (~3 060 $) sabit aylıq gəlir tələb olunur.",
+          "Bu status yalnız əcnəbilər üçündür. Azərbaycan vətəndaşları Frilanser kimi müraciət etməlidir."
+        ]
       }
     ]
   },

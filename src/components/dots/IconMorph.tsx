@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
-import type { IconName } from "./DotIcon";
 
 /**
- * The "More than tax" visual: each benefit's icon drawn as a vector shape and halftoned on a fine
+ * Halftone dot visuals that transform with the scroll ("More than tax" icons, "Who can apply"
+ * scenes): each one drawn as a vector shape and halftoned on a fine
  * dot lattice (same language as the footer wordmark), on an unlit LED grid.
  *  · Scroll: the icon transforms into the next one; every dot eases to its new size on its own
  *    clock, from the centre outwards.
@@ -29,9 +29,66 @@ const grad = (t: number) => {
   const [a, b, k] = t < 0.5 ? [C0, C1, t * 2] : [C1, C2, (t - 0.5) * 2];
   return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(",")})`;
 };
+// On dark backgrounds: pale → bright blue (Figma "Who can apply" dots).
+const D0 = [204, 223, 255];
+const D1 = [66, 135, 245];
+const gradDark = (t: number) => `rgb(${D0.map((v, i) => Math.round(v + (D1[i] - v) * t)).join(",")})`;
 
-/** Icon artwork in a 100 × 100 space, stroked (and, for the cloud, cut out of a filled union). */
-const DRAW: Record<IconName, (c: CanvasRenderingContext2D) => void> = {
+const line = (c: CanvasRenderingContext2D, pts: number[]) => {
+  c.moveTo(pts[0], pts[1]);
+  for (let i = 2; i < pts.length; i += 2) c.lineTo(pts[i], pts[i + 1]);
+};
+
+/** Artwork in a 100 × 100 space, stroked (and, for the cloud, cut out of a filled union). */
+const DRAW: Record<string, (c: CanvasRenderingContext2D) => void> = {
+  // ——— Who can apply ———
+  tech: (c) => {
+    c.beginPath();
+    c.rect(12, 42, 22, 44);
+    c.rect(39, 16, 22, 70);
+    c.rect(66, 52, 22, 34);
+    line(c, [50, 16, 50, 5]);
+    line(c, [4, 92, 96, 92]);
+    c.stroke();
+    // Windows.
+    for (const [x0, y0, cols, rows] of [
+      [17, 49, 2, 3],
+      [44, 23, 2, 5],
+      [71, 59, 2, 2],
+    ])
+      for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) c.fillRect(x0 + i * 8, y0 + j * 11, 4.5, 5);
+  },
+  freelance: (c) => {
+    c.beginPath();
+    c.roundRect(16, 18, 68, 48, 5);
+    line(c, [6, 76, 94, 76]);
+    line(c, [24, 84, 76, 84]);
+    // Code lines and a cursor.
+    line(c, [26, 30, 44, 30]);
+    line(c, [32, 40, 60, 40]);
+    line(c, [32, 50, 50, 50]);
+    c.stroke();
+    c.fillRect(54, 46, 4, 8);
+  },
+  nomad: (c) => {
+    c.beginPath();
+    c.arc(46, 56, 28, 0, Math.PI * 2);
+    line(c, [18, 56, 74, 56]);
+    c.moveTo(59, 56);
+    c.ellipse(46, 56, 13, 28, 0, 0, Math.PI * 2);
+    c.stroke();
+    // Orbit with a plane at its end.
+    c.beginPath();
+    c.ellipse(50, 52, 46, 17, (-22 * Math.PI) / 180, Math.PI * 0.95, Math.PI * 2.05);
+    c.stroke();
+    c.beginPath();
+    c.moveTo(94, 30);
+    c.lineTo(82, 30);
+    c.lineTo(89, 39);
+    c.closePath();
+    c.fill();
+  },
+  // ——— More than tax ———
   globe: (c) => {
     c.beginPath();
     c.arc(50, 50, 40, 0, Math.PI * 2);
@@ -120,12 +177,14 @@ const DRAW: Record<IconName, (c: CanvasRenderingContext2D) => void> = {
 };
 
 type Props = {
-  names: IconName[];
+  names: string[];
+  /** light: brand gradient on the page grey · dark: pale → bright blue on night blue. */
+  tone?: "light" | "dark";
   controlRef: RefObject<IconMorphControl | null>;
   className?: string;
 };
 
-export function IconMorph({ names, controlRef, className }: Props) {
+export function IconMorph({ names, tone = "light", controlRef, className }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const key = names.join(",");
 
@@ -135,7 +194,7 @@ export function IconMorph({ names, controlRef, className }: Props) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const list = key.split(",") as IconName[];
+    const list = key.split(",");
     const n = CELLS * CELLS;
 
     // Coverage (0–1) of each icon per lattice cell, independent of the canvas size.
@@ -168,7 +227,8 @@ export function IconMorph({ names, controlRef, className }: Props) {
     for (let j = 0; j < CELLS; j++)
       for (let i = 0; i < CELLS; i++) delay[j * CELLS + i] = Math.hypot(i - half, j - half) / Math.hypot(half, half);
     const B = 10;
-    const colors = Array.from({ length: B }, (_, b) => grad((b + 0.5) / B));
+    const colors = Array.from({ length: B }, (_, b) => (tone === "dark" ? gradDark : grad)((b + 0.5) / B));
+    const offColor = tone === "dark" ? "rgba(255,255,255,0.12)" : "rgba(18,18,18,0.08)";
 
     // Lens springs.
     const sx = new Float32Array(n), sy = new Float32Array(n), vx = new Float32Array(n), vy = new Float32Array(n);
@@ -249,7 +309,7 @@ export function IconMorph({ names, controlRef, className }: Props) {
           onPaths[bucket].arc(x, y, r, 0, Math.PI * 2);
         }
       }
-      ctx.fillStyle = "rgba(18,18,18,0.08)";
+      ctx.fillStyle = offColor;
       ctx.fill(offPath);
       for (let q = 0; q < B; q++) {
         ctx.fillStyle = colors[q];
@@ -311,7 +371,7 @@ export function IconMorph({ names, controlRef, className }: Props) {
       canvas.removeEventListener("pointerleave", onLeave);
       controlRef.current = null;
     };
-  }, [key, controlRef]);
+  }, [key, tone, controlRef]);
 
   return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }

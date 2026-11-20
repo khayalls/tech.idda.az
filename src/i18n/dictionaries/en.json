@@ -97,17 +97,36 @@
       {
         "art": "tech",
         "title": "Tech companies",
-        "body": "For legal entities and sole proprietors with at least 2 IT specialists and an innovation project or business plan."
+        "body": "For legal entities and sole proprietors with at least 2 IT specialists and an innovation project or business plan.",
+        "points": [
+          "Register your Taxpayer ID as a legal entity or individual entrepreneur.",
+          "Hire at least 2 IT specialists with relevant education or at least 1 year of work experience.",
+          "Choose your activity area by submitting an innovation project and/or business plan.",
+          "Receive your residency certificate within 7 working days.",
+          "Start operating with tax benefits."
+        ]
       },
       {
         "art": "freelance",
         "title": "Freelancers",
-        "body": "Work solo with local and foreign clients. No company and no employees, just a VÖEN and an activity plan."
+        "body": "Work solo with local and foreign clients. No company and no employees, just a VÖEN and an activity plan.",
+        "points": [
+          "No need to set up a company. Work simply as an individual.",
+          "No limit on the number of clients you can work with.",
+          "Both local and international clients are allowed.",
+          "Cannot engage hired employees within the scope of the activity."
+        ]
       },
       {
         "art": "nomad",
         "title": "Digital nomads",
-        "body": "Live in Azerbaijan and earn from abroad. For foreigners with at least 5,200 AZN in monthly foreign income."
+        "body": "Live in Azerbaijan and earn from abroad. For foreigners with at least 5,200 AZN in monthly foreign income.",
+        "points": [
+          "No need to set up a company. Work simply as an individual.",
+          "All income must come from clients or companies located outside Azerbaijan.",
+          "A stable monthly income of 5,200 AZN (~$3,060) or more, earned from abroad, is required.",
+          "This status is for foreigners only. Azerbaijani citizens should apply as a Freelancer instead."
+        ]
       }
     ]
   },
