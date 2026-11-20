@@ -52,11 +52,13 @@ export function Audience({ t }: { t: Dictionary["audience"] }) {
         // The content's own place is one screen down (after the pinned background); while the
         // sheet above uncovers it, it is lifted to the top so it seems to wait underneath. Once
         // uncovered no transform remains, so the pinned visual inside behaves normally.
-        const lift = (Math.min(1, Math.max(0, s)) - 1) * vh;
-        const scale = 1 - 0.08 * (1 - reveal);
-        content.style.transform =
-          reveal < 1 ? `translate3d(0, ${lift.toFixed(1)}px, 0) scale(${scale.toFixed(4)})` : "";
-        content.style.filter = !reduce && reveal < 1 ? `blur(${((1 - reveal) * 8).toFixed(2)}px)` : "";
+        const lift = reveal < 1 ? (Math.min(1, Math.max(0, s)) - 1) * vh : 0;
+        // At the end the content sticks with its bottom on the screen's bottom edge (negative
+        // sticky top), so the next sheet slides over it instead of both scrolling away together.
+        content.style.top = `${Math.min(0, vh - content.offsetHeight)}px`;
+        const scale = 1 - 0.08 * depth;
+        content.style.transform = depth > 0.001 ? `translate3d(0, ${lift.toFixed(1)}px, 0) scale(${scale.toFixed(4)})` : "";
+        content.style.filter = !reduce && depth > 0.001 ? `blur(${(depth * 8).toFixed(2)}px)` : "";
       }
       if (dimRef.current) dimRef.current.style.opacity = String(depth * 0.55);
 
@@ -117,8 +119,8 @@ export function Audience({ t }: { t: Dictionary["audience"] }) {
 
       <div
         ref={contentRef}
-        className="relative"
-        style={{ transformOrigin: "50% 45svh" }}
+        className="sticky"
+        style={{ transformOrigin: "50% 50%" }}
       >
         <div className="container-page pt-28 pb-24 md:pt-32">
           <h2 className="text-center text-heading-xl md:text-display-l">{t.title}</h2>
@@ -159,9 +161,9 @@ export function Audience({ t }: { t: Dictionary["audience"] }) {
             </div>
           </div>
         </div>
-        {/* Room for the next sheet to slide over. */}
-        <div aria-hidden="true" className="h-svh" />
       </div>
+      {/* Room for the next sheet to slide over the pinned content. */}
+      <div aria-hidden="true" className="h-svh" />
 
       <div
         ref={dimRef}
