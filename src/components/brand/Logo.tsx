@@ -9,18 +9,20 @@ type LogoProps = {
   className?: string;
   /** Show only the emblem (compact headers). */
   emblemOnly?: boolean;
+  /** Show only the two-line wordmark (stacked layouts, emblem drawn separately). */
+  wordmarkOnly?: boolean;
 };
 
-export function Logo({ className, emblemOnly = false }: LogoProps) {
+export function Logo({ className, emblemOnly = false, wordmarkOnly = false }: LogoProps) {
   return (
     <svg
-      viewBox={emblemOnly ? "0 0 50 57" : "0 0 209 57"}
+      viewBox={emblemOnly ? "0 0 50 57" : wordmarkOnly ? "62 12 148 32" : "0 0 209 57"}
       fill="currentColor"
       aria-hidden="true"
       focusable="false"
       className={className}
     >
-      <path d={EMBLEM} />
+      {!wordmarkOnly && <path d={EMBLEM} />}
       {!emblemOnly && <path d={WORDMARK} />}
     </svg>
   );
