@@ -51,6 +51,12 @@ const MASK_SRC = "/globe/mask.png";
 // Colours from tokens (canvas can't read CSS vars cheaply per frame).
 const INK = [18, 18, 18]; // neutral-950
 const BLUE = [36, 87, 176]; // blue-700
+/** Key light direction in camera space (x right, y up, z towards the viewer), normalised. */
+const LIGHT = (() => {
+  const v = [-0.45, 0.5, 0.74];
+  const l = Math.hypot(v[0], v[1], v[2]);
+  return v.map((c) => c / l);
+})();
 
 /** Stable 0–1 noise per grid cell (breaks up the exit wipe's edge). */
 const hash = (x: number, y: number) => {
@@ -133,14 +139,32 @@ export function DotGlobe({ controlRef, onDraw, className, pitch: pitchProp }: Pr
         azPaths[i] = new Path2D();
       }
 
-      // Faint sphere silhouette — only while the globe fits on screen; once it outgrows the
-      // viewport it would just tint the whole page, so it fades out.
+      // Shaded sphere body — only while the globe fits on screen; once it outgrows the viewport
+      // it would just tint the whole page, so it fades out.
       const discK = Math.min(1, Math.max(0, 2 - R / (0.5 * Math.max(cssW, cssH))));
       if (discK > 0) {
+        const a = (v: number) => (v * discK).toFixed(4);
+        ctx.save();
         ctx.beginPath();
         ctx.arc(cx, cy, R, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(18,18,18,${(0.025 * discK).toFixed(4)})`;
+        // Key light from the top left: bright highlight easing into a shadowed lower-right side.
+        const lx = cx + LIGHT[0] * R * 0.62, ly = cy - LIGHT[1] * R * 0.62;
+        const body = ctx.createRadialGradient(lx, ly, 0, lx, ly, R * 1.7);
+        body.addColorStop(0, `rgba(255,255,255,${a(0.8)})`);
+        body.addColorStop(0.3, `rgba(255,255,255,${a(0.15)})`);
+        body.addColorStop(0.45, `rgba(18,18,18,${a(0.02)})`);
+        body.addColorStop(0.75, `rgba(18,18,18,${a(0.08)})`);
+        body.addColorStop(1, `rgba(18,18,18,${a(0.14)})`);
+        ctx.fillStyle = body;
         ctx.fill();
+        // Limb darkening: the edge turns away from the viewer.
+        const limb = ctx.createRadialGradient(cx, cy, R * 0.7, cx, cy, R);
+        limb.addColorStop(0, "rgba(18,18,18,0)");
+        limb.addColorStop(0.75, `rgba(18,18,18,${a(0.025)})`);
+        limb.addColorStop(1, `rgba(18,18,18,${a(0.07)})`);
+        ctx.fillStyle = limb;
+        ctx.fill();
+        ctx.restore();
       }
 
       const x0 = Math.max(0, Math.floor((cx - R) / pitch));
@@ -175,6 +199,7 @@ export function DotGlobe({ controlRef, onDraw, className, pitch: pitchProp }: Pr
           const lat = Math.asin(y1w);
           const lon = Math.atan2(xw, zw);
           const [land, az] = sample(lon, lat);
+          // Dots recede towards the limb; light and shade come from the sphere body underneath.
           const depth = 0.35 + 0.65 * z;
           if (land < 0.04) {
             // Ocean: tiny dots give the sphere its form.
