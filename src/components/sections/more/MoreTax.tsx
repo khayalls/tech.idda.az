@@ -91,10 +91,10 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
       style={{ height: `${100 + n * STEP_SVH}svh` }}
     >
       <div ref={stageRef} className="sticky top-0 flex h-svh items-center bg-page">
-        <div className="container-page grid-page items-start gap-y-10 pt-16 md:gap-y-12 md:pt-0">
+        <div className="container-page grid-page items-center gap-y-8 pt-16 md:gap-y-12 md:pt-0">
           <h2 className="sr-only">{t.title}</h2>
 
-          <ol className="col-span-full flex flex-col gap-2 md:col-span-5 md:gap-4 xl:col-span-7">
+          <ol className="col-span-full flex flex-col gap-2 md:col-span-4 md:gap-4 xl:col-span-6">
             {t.items.map((item, i) => {
               const on = i === active;
               return (
@@ -114,11 +114,11 @@ export function MoreTax({ t }: { t: Dictionary["moreTax"] }) {
             })}
           </ol>
 
-          <div className="col-span-full flex items-start gap-6 md:col-span-3 md:col-start-6 md:flex-col md:gap-10 xl:col-span-4 xl:col-start-9">
+          <div className="col-span-full flex items-start gap-6 md:col-span-4 md:col-start-5 md:flex-col md:gap-8 xl:col-span-5 xl:col-start-8">
             <IconMorph
               names={t.items.map((item) => item.icon as IconName)}
               controlRef={iconRef}
-              className="block size-24 shrink-0 md:size-[clamp(160px,16vw,240px)]"
+              className="block aspect-square w-28 shrink-0 touch-pan-y md:w-full md:max-w-[min(440px,48svh)]"
             />
             <div className="grid flex-1" aria-live="polite" data-fast={fast || undefined}>
               {t.items.map((item, i) => (

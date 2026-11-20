@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
-import { ICONS, type IconName } from "./DotIcon";
+import type { IconName } from "./DotIcon";
 
 /**
- * A large LED dot icon that transforms between the "More than tax" icons as you scroll.
- * Same 11 × 11 bitmaps as DotIcon, drawn big on an unlit grid. Between two icons every dot eases
- * to its new state on its own clock (staggered from the centre outwards); dots that switch on
- * overshoot a little, so the board visibly re-forms rather than cross-fading.
+ * The "More than tax" visual: each benefit's icon drawn as a vector shape and halftoned on a fine
+ * dot lattice (same language as the footer wordmark), on an unlit LED grid.
+ *  · Scroll: the icon transforms into the next one; every dot eases to its new size on its own
+ *    clock, from the centre outwards.
+ *  · Pointer: a lens pushes dots aside on springs and lets them swell.
  */
 
 export type IconMorphControl = {
@@ -15,7 +16,8 @@ export type IconMorphControl = {
   setPosition: (pos: number) => void;
 };
 
-const N = 11;
+const CELLS = 52; // lattice cells across
+const LINE = 5; // stroke width in the 100-unit icon space
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
@@ -28,11 +30,93 @@ const grad = (t: number) => {
   return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(",")})`;
 };
 
-const bitmap = (name: IconName) => {
-  const rows = ICONS[name];
-  const out = new Float32Array(N * N);
-  rows.forEach((row, j) => [...row].forEach((ch, i) => (out[j * N + i] = ch === "#" ? 1 : 0)));
-  return out;
+/** Icon artwork in a 100 × 100 space, stroked (and, for the cloud, cut out of a filled union). */
+const DRAW: Record<IconName, (c: CanvasRenderingContext2D) => void> = {
+  globe: (c) => {
+    c.beginPath();
+    c.arc(50, 50, 40, 0, Math.PI * 2);
+    c.moveTo(10, 50);
+    c.lineTo(90, 50);
+    c.moveTo(69, 50);
+    c.ellipse(50, 50, 19, 40, 0, 0, Math.PI * 2);
+    c.stroke();
+  },
+  shield: (c) => {
+    c.beginPath();
+    c.moveTo(50, 8);
+    c.lineTo(84, 20);
+    c.lineTo(84, 47);
+    c.bezierCurveTo(84, 69, 69, 84, 50, 92);
+    c.bezierCurveTo(31, 84, 16, 69, 16, 47);
+    c.lineTo(16, 20);
+    c.closePath();
+    c.moveTo(34, 50);
+    c.lineTo(46, 62);
+    c.lineTo(67, 38);
+    c.stroke();
+  },
+  building: (c) => {
+    c.beginPath();
+    c.moveTo(10, 32);
+    c.lineTo(50, 10);
+    c.lineTo(90, 32);
+    c.closePath();
+    c.moveTo(16, 40);
+    c.lineTo(84, 40);
+    for (const x of [24, 41, 59, 76]) {
+      c.moveTo(x, 48);
+      c.lineTo(x, 78);
+    }
+    c.moveTo(12, 86);
+    c.lineTo(88, 86);
+    c.stroke();
+  },
+  cloud: (c) => {
+    const parts = (g: number) => {
+      c.beginPath();
+      c.arc(30, 62, 17 - g, 0, Math.PI * 2);
+      c.arc(52, 46, 24 - g, 0, Math.PI * 2);
+      c.arc(73, 60, 16 - g, 0, Math.PI * 2);
+      c.rect(30, 50 + g, 43, 26 - g * 2);
+      c.fill();
+    };
+    // Outline of the union: fill it, then cut the same union shrunk by the line width.
+    parts(0);
+    c.save();
+    c.globalCompositeOperation = "destination-out";
+    parts(LINE);
+    c.restore();
+  },
+  export: (c) => {
+    c.beginPath();
+    c.moveTo(58, 20);
+    c.lineTo(20, 20);
+    c.lineTo(20, 80);
+    c.lineTo(80, 80);
+    c.lineTo(80, 42);
+    c.moveTo(44, 56);
+    c.lineTo(84, 16);
+    c.moveTo(62, 16);
+    c.lineTo(84, 16);
+    c.lineTo(84, 38);
+    c.stroke();
+  },
+  sandbox: (c) => {
+    c.beginPath();
+    c.moveTo(50, 10);
+    c.lineTo(85, 30);
+    c.lineTo(85, 70);
+    c.lineTo(50, 90);
+    c.lineTo(15, 70);
+    c.lineTo(15, 30);
+    c.closePath();
+    c.moveTo(15, 30);
+    c.lineTo(50, 50);
+    c.lineTo(85, 30);
+    c.moveTo(50, 50);
+    c.lineTo(50, 90);
+    c.stroke();
+  },
 };
 
 type Props = {
@@ -50,15 +134,50 @@ export function IconMorph({ names, controlRef, className }: Props) {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const maps = key.split(",").map((n) => bitmap(n as IconName));
-    // Stagger: centre first, edges last.
-    const delay = new Float32Array(N * N);
-    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) delay[j * N + i] = Math.hypot(i - 5, j - 5) / Math.hypot(5, 5);
-    const colors = Array.from({ length: 2 * N - 1 }, (_, k) => grad(k / (2 * N - 2)));
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const list = key.split(",") as IconName[];
+    const n = CELLS * CELLS;
+
+    // Coverage (0–1) of each icon per lattice cell, independent of the canvas size.
+    const covers = list.map((name) => {
+      const R = 4; // raster samples per cell
+      const off = document.createElement("canvas");
+      off.width = off.height = CELLS * R;
+      const o = off.getContext("2d", { willReadFrequently: true })!;
+      const k = (CELLS * R) / 100;
+      o.setTransform(k * 0.9, 0, 0, k * 0.9, CELLS * R * 0.05, CELLS * R * 0.05);
+      o.strokeStyle = o.fillStyle = "#000";
+      o.lineWidth = LINE;
+      o.lineCap = "round";
+      o.lineJoin = "round";
+      DRAW[name](o);
+      const px = o.getImageData(0, 0, off.width, off.height).data;
+      const cov = new Float32Array(n);
+      for (let j = 0; j < CELLS; j++) {
+        for (let i = 0; i < CELLS; i++) {
+          let sum = 0;
+          for (let y = 0; y < R; y++) for (let x = 0; x < R; x++) sum += px[((j * R + y) * off.width + i * R + x) * 4 + 3];
+          cov[j * CELLS + i] = Math.min(1, (sum / (R * R) / 255) * 1.15);
+        }
+      }
+      return cov;
+    });
+
+    const delay = new Float32Array(n);
+    const half = (CELLS - 1) / 2;
+    for (let j = 0; j < CELLS; j++)
+      for (let i = 0; i < CELLS; i++) delay[j * CELLS + i] = Math.hypot(i - half, j - half) / Math.hypot(half, half);
+    const B = 10;
+    const colors = Array.from({ length: B }, (_, b) => grad((b + 0.5) / B));
+
+    // Lens springs.
+    const sx = new Float32Array(n), sy = new Float32Array(n), vx = new Float32Array(n), vy = new Float32Array(n);
+    const pointer = { x: -1e4, y: -1e4, on: 0, target: 0 };
 
     let size = 0;
     let pos = 0;
     let raf = 0;
+    let visible = false;
 
     const resize = () => {
       const r = canvas.getBoundingClientRect();
@@ -72,41 +191,71 @@ export function IconMorph({ names, controlRef, className }: Props) {
     const draw = () => {
       raf = 0;
       ctx.clearRect(0, 0, size, size);
-      const P = size / N;
-      const rOn = P * 0.36;
-      const rOff = P * 0.09;
-      const last = maps.length - 1;
+      const P = size / CELLS;
+      const rOn = P * 0.44;
+      const rOff = P * 0.11;
+      const lensR = size * 0.24;
+      const push = size * 0.045;
+      const last = covers.length - 1;
       const p = Math.min(last, Math.max(0, pos));
-      const k = Math.min(last - 1, Math.floor(p));
+      const k = Math.max(0, Math.min(last - 1, Math.floor(p)));
       const t = last === 0 ? 0 : p - k;
-      const a = maps[k], b = maps[Math.min(last, k + 1)];
+      const a = covers[k], b = covers[Math.min(last, k + 1)];
+      pointer.on += (pointer.target - pointer.on) * 0.12;
 
-      ctx.fillStyle = "rgba(18,18,18,0.07)";
-      ctx.beginPath();
-      for (let j = 0; j < N; j++) {
-        for (let i = 0; i < N; i++) {
-          const x = (i + 0.5) * P, y = (j + 0.5) * P;
-          ctx.moveTo(x + rOff, y);
-          ctx.arc(x, y, rOff, 0, Math.PI * 2);
-        }
-      }
-      ctx.fill();
+      const offPath = new Path2D();
+      const onPaths = Array.from({ length: B }, () => new Path2D());
+      let moving = Math.abs(pointer.target - pointer.on) > 0.01;
 
-      for (let j = 0; j < N; j++) {
-        for (let i = 0; i < N; i++) {
-          const c = j * N + i;
+      for (let j = 0; j < CELLS; j++) {
+        for (let i = 0; i < CELLS; i++) {
+          const c = j * CELLS + i;
+          const x0 = (i + 0.5) * P, y0 = (j + 0.5) * P;
+          // Lens.
+          let f = 0, tx = 0, ty = 0;
+          if (pointer.on > 0.01) {
+            const ex = x0 - pointer.x, ey = y0 - pointer.y;
+            const d = Math.hypot(ex, ey);
+            if (d < lensR) {
+              f = (1 - d / lensR) ** 2 * pointer.on;
+              if (d > 0.001) {
+                tx = (ex / d) * push * f;
+                ty = (ey / d) * push * f;
+              }
+            }
+          }
+          if (!reduce && (tx || ty || sx[c] || sy[c] || vx[c] || vy[c])) {
+            vx[c] = (vx[c] + (tx - sx[c]) * 0.15) * 0.74;
+            vy[c] = (vy[c] + (ty - sy[c]) * 0.15) * 0.74;
+            sx[c] += vx[c];
+            sy[c] += vy[c];
+            if (Math.abs(sx[c]) + Math.abs(sy[c]) + Math.abs(vx[c]) + Math.abs(vy[c]) < 0.02) sx[c] = sy[c] = vx[c] = vy[c] = 0;
+            else moving = true;
+          }
+          // Transform between icons.
           const e = easeInOut(clamp01((t - delay[c] * 0.45) / 0.55));
           let v = a[c] + (b[c] - a[c]) * e;
-          // Dots switching on overshoot slightly; dots switching off dip before they go.
-          if (a[c] !== b[c]) v *= 1 + 0.3 * Math.sin(Math.PI * e) * (b[c] > a[c] ? 1 : -0.4);
-          if (v < 0.04) continue;
+          const x = x0 + sx[c], y = y0 + sy[c];
+          if (v < 0.06) {
+            const r = rOff * (1 + 1.4 * f);
+            offPath.moveTo(x + r, y);
+            offPath.arc(x, y, r, 0, Math.PI * 2);
+            continue;
+          }
+          v *= 1 + 0.7 * f;
           const r = Math.max(rOff, rOn * Math.sqrt(v));
-          ctx.fillStyle = colors[i + j];
-          ctx.beginPath();
-          ctx.arc((i + 0.5) * P, (j + 0.5) * P, r, 0, Math.PI * 2);
-          ctx.fill();
+          const bucket = Math.min(B - 1, Math.floor(((i + j) / (2 * CELLS - 2)) * B));
+          onPaths[bucket].moveTo(x + r, y);
+          onPaths[bucket].arc(x, y, r, 0, Math.PI * 2);
         }
       }
+      ctx.fillStyle = "rgba(18,18,18,0.08)";
+      ctx.fill(offPath);
+      for (let q = 0; q < B; q++) {
+        ctx.fillStyle = colors[q];
+        ctx.fill(onPaths[q]);
+      }
+      if (visible && moving) raf = requestAnimationFrame(draw);
     };
     const kick = () => {
       if (!raf) raf = requestAnimationFrame(draw);
@@ -119,16 +268,47 @@ export function IconMorph({ names, controlRef, className }: Props) {
         kick();
       },
     };
+
+    const local = (e: PointerEvent) => {
+      const r = canvas.getBoundingClientRect();
+      return { x: e.clientX - r.left, y: e.clientY - r.top };
+    };
+    const onMove = (e: PointerEvent) => {
+      const p = local(e);
+      pointer.x = p.x;
+      pointer.y = p.y;
+      pointer.target = 1;
+      kick();
+    };
+    const onLeave = () => {
+      pointer.target = 0;
+      kick();
+    };
+    if (!reduce) {
+      canvas.addEventListener("pointermove", onMove);
+      canvas.addEventListener("pointerenter", onMove);
+      canvas.addEventListener("pointerleave", onLeave);
+    }
+
     const ro = new ResizeObserver(() => {
       resize();
       kick();
     });
     ro.observe(canvas);
+    const io = new IntersectionObserver(([en]) => {
+      visible = en.isIntersecting;
+      if (visible) kick();
+    });
+    io.observe(canvas);
     resize();
     kick();
     return () => {
       if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
+      io.disconnect();
+      canvas.removeEventListener("pointermove", onMove);
+      canvas.removeEventListener("pointerenter", onMove);
+      canvas.removeEventListener("pointerleave", onLeave);
       controlRef.current = null;
     };
   }, [key, controlRef]);
