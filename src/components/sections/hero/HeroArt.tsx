@@ -43,7 +43,11 @@ export function HeroArt({ className = "", controlRef }: Props) {
           fit="contain"
           align={[1, 1]}
           interactive
-          pointerRadius={80}
+          bubbles
+          tilt
+          // Ground opens towards the viewer; the towers stand on one plane behind its front edge.
+          depth={["ground", -40]}
+          pointerRadius={90}
           controlRef={controlRef}
           reveal={{ from: "bottom", sweep: 1600, duration: 900, jitter: 500, delay: 200 }}
           className="block size-full"

@@ -1,4 +1,5 @@
 import { DotWordmark } from "@/components/dots/DotWordmark";
+import { YearsTrack } from "./YearsTrack";
 import { ScrollLines } from "@/components/motion/ScrollLines";
 import { StickyFade } from "@/components/motion/StickyFade";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -31,9 +32,10 @@ export function Taxes({ t }: { t: Dictionary["taxes"] }) {
                 align={0}
                 className="block aspect-[5/3] w-[64%] max-w-[560px] cursor-crosshair touch-pan-y md:w-full"
               />
-              <p aria-hidden="true" className="mt-4 text-heading-m text-secondary md:mt-6 md:text-heading-l">
-                {t.sub}
-              </p>
+              <p className="sr-only">{t.sub}</p>
+              <div className="mt-6 w-[64%] max-w-[560px] md:mt-8 md:w-full">
+                <YearsTrack label={t.sub} sectionId="benefits" />
+              </div>
               {/* Soft edge so the list dissolves under the pinned panel on phones. */}
               <div
                 aria-hidden="true"
